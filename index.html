@@ -3,8 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
   <title>设计作品集</title>
   <style>
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -18,11 +26,18 @@
       overflow: hidden;
     }
 
+    body {
+      color: #fff;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+    }
+
     .hero {
       position: fixed;
       inset: 0;
       width: 100vw;
+      height: 100vh;
       height: 100svh;
+      height: 100dvh;
       background: #000;
       overflow: hidden;
     }
@@ -47,22 +62,303 @@
       background: #000;
     }
 
-    @media (pointer: coarse) {
-      .cursor-fx {
+    .video-status {
+      position: fixed;
+      left: 50%;
+      bottom: max(24px, calc(var(--safe-bottom) + 18px));
+      z-index: 3;
+      max-width: min(78vw, 420px);
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      line-height: 1.4;
+      text-align: center;
+      transform: translateX(-50%);
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+      pointer-events: none;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero.is-ready .video-status {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero.has-error .video-status {
+      opacity: 1;
+      visibility: visible;
+      color: #fff;
+      background: rgba(20, 20, 20, 0.82);
+    }
+
+    .mobile-play {
+      display: none;
+    }
+
+    .mobile-progress {
+      display: none;
+    }
+
+    .mobile-info {
+      display: none;
+    }
+
+    @media (max-width: 760px), (orientation: portrait) {
+      .hero {
+        padding:
+          var(--safe-top)
+          var(--safe-right)
+          var(--safe-bottom)
+          var(--safe-left);
+      }
+
+      .hero-video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .video-status {
+        bottom: max(16px, calc(var(--safe-bottom) + 14px));
+        width: min(82vw, 340px);
+        padding: 9px 12px;
+        font-size: 12px;
+      }
+
+      .mobile-play {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        display: grid;
+        width: 86px;
+        height: 86px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.14) 34%, transparent 56%),
+          linear-gradient(135deg, rgba(71, 217, 255, 0.9), rgba(255, 64, 191, 0.88), rgba(255, 222, 64, 0.88));
+        box-shadow:
+          0 0 32px rgba(68, 220, 255, 0.45),
+          0 0 58px rgba(255, 64, 191, 0.28);
+        transform: translate(-50%, -50%) scale(1);
+        transition: opacity 0.32s ease, visibility 0.32s ease, transform 0.32s ease;
+        animation: playPulse 2.3s ease-in-out infinite;
+      }
+
+      .mobile-play::before {
+        width: 0;
+        height: 0;
+        margin-left: 6px;
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        border-left: 23px solid #fff;
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85));
+        content: "";
+      }
+
+      .hero.is-playing .mobile-play {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -50%) scale(1.35);
+      }
+
+      .mobile-progress {
+        position: fixed;
+        left: max(22px, calc(var(--safe-left) + 18px));
+        bottom: max(58px, calc(var(--safe-bottom) + 54px));
+        z-index: 4;
+        display: block;
+        width: calc(100vw - max(44px, calc(var(--safe-left) + var(--safe-right) + 44px)));
+        height: 24px;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        opacity: 0;
+        transition: opacity 0.28s ease;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .hero.is-ready .mobile-progress {
+        opacity: 0.95;
+      }
+
+      .hero.has-error .mobile-progress {
         display: none;
+      }
+
+      .mobile-progress::-webkit-slider-runnable-track {
+        height: 5px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, #42e8ff, #ff56c7, #ffdf51) 0 / var(--progress, 0%) 100% no-repeat,
+          rgba(255, 255, 255, 0.24);
+        box-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+      }
+
+      .mobile-progress::-webkit-slider-thumb {
+        width: 19px;
+        height: 19px;
+        margin-top: -7px;
+        border: 2px solid rgba(0, 0, 0, 0.62);
+        border-radius: 50%;
+        background: #fff;
+        box-shadow:
+          0 0 0 7px rgba(255, 255, 255, 0.14),
+          0 0 22px rgba(255, 86, 199, 0.72);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .mobile-progress::-moz-range-track {
+        height: 5px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, #42e8ff, #ff56c7, #ffdf51) 0 / var(--progress, 0%) 100% no-repeat,
+          rgba(255, 255, 255, 0.24);
+        box-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+      }
+
+      .mobile-progress::-moz-range-thumb {
+        width: 17px;
+        height: 17px;
+        border: 2px solid rgba(0, 0, 0, 0.62);
+        border-radius: 50%;
+        background: #fff;
+        box-shadow:
+          0 0 0 7px rgba(255, 255, 255, 0.14),
+          0 0 22px rgba(255, 86, 199, 0.72);
+      }
+
+      .mobile-info {
+        position: fixed;
+        left: max(18px, calc(var(--safe-left) + 16px));
+        top: max(18px, calc(var(--safe-top) + 14px));
+        z-index: 4;
+        display: block;
+        width: min(76vw, 310px);
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 22px;
+        background: rgba(0, 0, 0, 0.46);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-14px) scale(0.98);
+        transition: opacity 0.32s ease, visibility 0.32s ease, transform 0.32s ease;
+        pointer-events: none;
+        backdrop-filter: blur(18px);
+      }
+
+      .hero.show-info .mobile-info {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      .mobile-info__eyebrow {
+        margin-bottom: 8px;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .mobile-info__title {
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .mobile-info__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 13px;
+      }
+
+      .mobile-info__meta span {
+        padding: 6px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 11px;
+      }
+
+      @keyframes playPulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 32px rgba(68, 220, 255, 0.45),
+            0 0 58px rgba(255, 64, 191, 0.28);
+        }
+
+        50% {
+          box-shadow:
+            0 0 48px rgba(68, 220, 255, 0.62),
+            0 0 84px rgba(255, 64, 191, 0.42);
+        }
+      }
+    }
+
+    @media (max-width: 760px) and (orientation: landscape) {
+      .hero-video {
+        object-fit: cover;
+      }
+
+      .mobile-play {
+        width: 72px;
+        height: 72px;
+      }
+
+      .mobile-progress {
+        bottom: max(38px, calc(var(--safe-bottom) + 30px));
       }
     }
   </style>
 </head>
 <body>
   <main class="hero" aria-label="设计作品集首屏视频">
-    <video class="hero-video" src="https://github.com/12331cc/-/releases/download/v1/hero-video.mp4" controls loop playsinline preload="metadata"></video>
+    <video
+      class="hero-video"
+      data-local-src="hero-video.mp4"
+      data-remote-src="https://github.com/12331cc/-/releases/download/v1/hero-video.mp4"
+      controls
+      loop
+      playsinline
+      preload="metadata"
+    ></video>
+    <div class="video-status">视频加载中...</div>
+    <button class="mobile-play" type="button" aria-label="播放视频"></button>
+    <input class="mobile-progress" type="range" min="0" max="1000" value="0" aria-label="视频进度">
+    <section class="mobile-info" aria-hidden="true">
+      <div class="mobile-info__eyebrow">Design Portfolio</div>
+      <div class="mobile-info__title">2025-2026</div>
+      <div class="mobile-info__meta">
+        <span>UI/UX</span>
+        <span>AIGC</span>
+        <span>3D ART</span>
+      </div>
+    </section>
     <canvas class="cursor-fx" aria-hidden="true"></canvas>
   </main>
   <script>
+    const hero = document.querySelector(".hero");
+    const video = document.querySelector(".hero-video");
+    const videoStatus = document.querySelector(".video-status");
+    const mobilePlay = document.querySelector(".mobile-play");
+    const mobileProgress = document.querySelector(".mobile-progress");
     const canvas = document.querySelector(".cursor-fx");
     const ctx = canvas.getContext("2d");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const pointer = {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
@@ -72,6 +368,33 @@
       hue: 190
     };
     const particles = [];
+    const ripples = [];
+    const touch = {
+      active: false,
+      startX: 0,
+      startY: 0,
+      lastX: 0,
+      lastY: 0,
+      lastBurst: 0,
+      infoTimer: 0
+    };
+
+    function setVideoSource() {
+      const isLocalPreview = window.location.protocol === "file:";
+      video.src = isLocalPreview ? video.dataset.localSrc : video.dataset.remoteSrc;
+    }
+
+    function markVideoReady() {
+      hero.classList.add("is-ready");
+      hero.classList.remove("has-error");
+      updateProgress();
+    }
+
+    function markVideoError() {
+      hero.classList.add("has-error");
+      hero.classList.remove("is-ready");
+      videoStatus.textContent = "视频没有加载出来，请检查视频链接";
+    }
 
     function resizeCanvas() {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -103,6 +426,29 @@
       }
     }
 
+    function addRipple(x, y) {
+      ripples.push({
+        x,
+        y,
+        life: 48,
+        maxLife: 48,
+        hue: pointer.hue,
+        rotate: Math.random() * Math.PI
+      });
+
+      if (ripples.length > 18) {
+        ripples.splice(0, ripples.length - 18);
+      }
+    }
+
+    function addTouchBurst(x, y, strong = false) {
+      addRipple(x, y);
+      const amount = strong ? 42 : 20;
+      for (let i = 0; i < amount; i += 1) {
+        addParticle(x, y, true);
+      }
+    }
+
     function drawSpark(x, y, radius, rotation) {
       ctx.save();
       ctx.translate(x, y);
@@ -119,7 +465,7 @@
     }
 
     function drawCursorBadge(time) {
-      if (!pointer.active) return;
+      if (!pointer.active || isCoarsePointer) return;
 
       const pulse = 1 + Math.sin(time * 0.008) * 0.12;
       ctx.save();
@@ -138,6 +484,70 @@
       ctx.restore();
     }
 
+    function drawRipples(time) {
+      for (let i = ripples.length - 1; i >= 0; i -= 1) {
+        const ripple = ripples[i];
+        ripple.life -= 1;
+
+        const progress = 1 - ripple.life / ripple.maxLife;
+        const alpha = Math.max(1 - progress, 0);
+        const radius = 18 + progress * 78;
+
+        ctx.save();
+        ctx.translate(ripple.x, ripple.y);
+        ctx.rotate(ripple.rotate + time * 0.002);
+        ctx.strokeStyle = `hsla(${ripple.hue}, 98%, 68%, ${alpha * 0.62})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, radius, radius * (0.72 + progress * 0.16), 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = `hsla(${ripple.hue + 54}, 98%, 68%, ${alpha * 0.7})`;
+        for (let dot = 0; dot < 5; dot += 1) {
+          const angle = ripple.rotate + dot * 1.256 + time * 0.003;
+          ctx.beginPath();
+          ctx.arc(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.74, 2.2 * alpha, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        if (ripple.life <= 0) {
+          ripples.splice(i, 1);
+        }
+      }
+    }
+
+    function updateProgress() {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      const progress = Math.min(video.currentTime / video.duration, 1);
+      mobileProgress.value = Math.round(progress * 1000);
+      mobileProgress.style.setProperty("--progress", `${progress * 100}%`);
+    }
+
+    function showMobileInfo() {
+      if (!isCoarsePointer) return;
+      hero.classList.add("show-info");
+      window.clearTimeout(touch.infoTimer);
+      touch.infoTimer = window.setTimeout(() => {
+        hero.classList.remove("show-info");
+      }, 3600);
+    }
+
+    function hideMobileInfo() {
+      hero.classList.remove("show-info");
+      window.clearTimeout(touch.infoTimer);
+    }
+
+    async function playVideoFromGesture(x, y) {
+      addTouchBurst(x || window.innerWidth / 2, y || window.innerHeight / 2, true);
+      try {
+        await video.play();
+      } catch (error) {
+        videoStatus.textContent = "点一下视频或播放按钮开始播放";
+        hero.classList.remove("is-ready");
+      }
+    }
+
     function render(time) {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
@@ -150,6 +560,7 @@
       }
 
       ctx.globalCompositeOperation = "lighter";
+      drawRipples(time);
       for (let i = particles.length - 1; i >= 0; i -= 1) {
         const p = particles[i];
         p.life -= 1;
@@ -185,12 +596,41 @@
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("pointermove", (event) => {
       const controlSafeZone = window.innerHeight - 86;
+      if (event.pointerType === "touch" || isCoarsePointer) {
+        if (!touch.active || reduceMotion) return;
+        const distance = Math.hypot(event.clientX - touch.lastX, event.clientY - touch.lastY);
+        if (distance > 18) {
+          touch.lastX = event.clientX;
+          touch.lastY = event.clientY;
+          if (event.clientY < controlSafeZone) {
+            addParticle(event.clientX, event.clientY, false);
+          }
+        }
+        return;
+      }
+
       pointer.active = event.clientY < controlSafeZone;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
     });
     window.addEventListener("pointerdown", (event) => {
       if (event.clientY > window.innerHeight - 86) return;
+      const target = event.target instanceof Element ? event.target : null;
+      if (target && target.closest(".mobile-progress, .mobile-play")) return;
+
+      if (event.pointerType === "touch" || isCoarsePointer) {
+        touch.active = true;
+        touch.startX = event.clientX;
+        touch.startY = event.clientY;
+        touch.lastX = event.clientX;
+        touch.lastY = event.clientY;
+        pointer.active = false;
+        if (!reduceMotion) {
+          addTouchBurst(event.clientX, event.clientY, true);
+        }
+        return;
+      }
+
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       pointer.active = true;
@@ -198,10 +638,51 @@
         addParticle(event.clientX, event.clientY, true);
       }
     });
+    window.addEventListener("pointerup", (event) => {
+      if (!touch.active) return;
+      touch.active = false;
+      const deltaY = event.clientY - touch.startY;
+      const deltaX = Math.abs(event.clientX - touch.startX);
+      if (deltaY < -48 && deltaX < 90) {
+        showMobileInfo();
+      } else if (deltaY > 48) {
+        hideMobileInfo();
+      }
+    });
+    window.addEventListener("pointercancel", () => {
+      touch.active = false;
+    });
     window.addEventListener("pointerleave", () => {
       pointer.active = false;
     });
+    mobilePlay.addEventListener("click", (event) => {
+      playVideoFromGesture(event.clientX, event.clientY);
+    });
+    mobileProgress.addEventListener("input", () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      video.currentTime = (Number(mobileProgress.value) / 1000) * video.duration;
+      updateProgress();
+    });
+    video.addEventListener("loadeddata", markVideoReady);
+    video.addEventListener("canplay", markVideoReady);
+    video.addEventListener("error", markVideoError);
+    video.addEventListener("play", () => {
+      hero.classList.add("is-playing");
+      hero.classList.add("is-ready");
+    });
+    video.addEventListener("pause", () => {
+      hero.classList.remove("is-playing");
+    });
+    video.addEventListener("ended", () => {
+      hero.classList.remove("is-playing");
+    });
+    video.addEventListener("timeupdate", updateProgress);
+    video.addEventListener("durationchange", updateProgress);
 
+    setVideoSource();
+    if (video.readyState >= 2) {
+      markVideoReady();
+    }
     resizeCanvas();
     requestAnimationFrame(render);
   </script>
