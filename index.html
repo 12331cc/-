@@ -2629,8 +2629,8 @@
     }
 
     .progress-sprite {
-      width: 44px !important;
-      height: 44px !important;
+      width: 38px !important;
+      height: 38px !important;
       z-index: 12 !important;
       pointer-events: none !important;
     }
@@ -2759,8 +2759,8 @@
 
     @media (max-width: 640px) {
       .progress-sprite {
-        width: 38px !important;
-        height: 38px !important;
+        width: 32px !important;
+        height: 32px !important;
       }
 
       .progress-controls {
@@ -2794,6 +2794,80 @@
       .more-panel {
         right: -2px;
         width: 150px;
+      }
+    }
+    /* Responsive, single-face jelly intro. */
+    .hello-extrude-deep,
+    .hello-extrude-mid,
+    .hello-extrude-lit,
+    .hello-depth,
+    .hello-jelly-back {
+      display: none;
+    }
+
+    .intro-hello-wrap {
+      width: min(72vw, 880px);
+      filter:
+        drop-shadow(0 18px 18px rgba(101, 65, 202, 0.34))
+        drop-shadow(0 0 24px rgba(205, 235, 255, 0.28))
+        drop-shadow(0 0 46px rgba(255, 151, 226, 0.2));
+    }
+
+    .hello-script,
+    .hello-fill {
+      opacity: 0.96;
+    }
+
+    .intro-screen {
+      contain: strict;
+    }
+
+    @media (max-width: 760px) {
+      .intro-stage {
+        width: 100vw;
+        height: min(62vw, 280px);
+      }
+
+      .intro-hello-wrap {
+        width: min(88vw, 390px);
+        max-width: calc(100vw - 28px);
+        filter:
+          drop-shadow(0 10px 12px rgba(101, 65, 202, 0.28))
+          drop-shadow(0 0 16px rgba(205, 235, 255, 0.24))
+          drop-shadow(0 0 28px rgba(255, 151, 226, 0.16));
+        animation-duration: 1.7s;
+      }
+
+      .hello-script,
+      .hello-fill,
+      .hello-glow-base,
+      .hello-bottom-glow,
+      .hello-inner-light,
+      .hello-gloss {
+        animation-duration: 1.55s;
+      }
+
+      .hello-underline {
+        stroke-width: 8;
+        animation-duration: 0.62s;
+        animation-delay: 0.72s;
+      }
+
+      .intro-screen {
+        background:
+          radial-gradient(circle at 50% 45%, rgba(198, 184, 255, 0.1), transparent 0 24%, transparent 48%),
+          radial-gradient(circle at 50% 58%, rgba(255, 162, 231, 0.08), transparent 0 18%, transparent 42%),
+          #000;
+      }
+    }
+
+    @media (max-width: 760px) and (orientation: landscape) {
+      .intro-stage {
+        height: min(48vw, 230px);
+      }
+
+      .intro-hello-wrap {
+        width: min(70vw, 470px);
       }
     }
   </style>
@@ -2927,49 +3001,7 @@
       playsinline
       preload="metadata"
     ></video>
-    <div class="loader-screen" aria-live="polite">
-      <div class="loader-inner">
-        <div class="loader-visual" aria-hidden="true">
-          <div class="loader-rays">
-            <span style="--i: 0"></span>
-            <span style="--i: 1"></span>
-            <span style="--i: 2"></span>
-            <span style="--i: 3"></span>
-            <span style="--i: 4"></span>
-            <span style="--i: 5"></span>
-            <span style="--i: 6"></span>
-            <span style="--i: 7"></span>
-          </div>
-          <div class="loader-orbit">
-            <span style="--i: 0; --s: 1.8"></span>
-            <span style="--i: 1; --s: 1.45"></span>
-            <span style="--i: 2; --s: 1.2"></span>
-            <span style="--i: 3; --s: 1"></span>
-            <span style="--i: 4; --s: 0.88"></span>
-            <span style="--i: 5; --s: 0.76"></span>
-            <span style="--i: 6; --s: 0.64"></span>
-            <span style="--i: 7; --s: 0.54"></span>
-            <span style="--i: 8; --s: 0.46"></span>
-          </div>
-        </div>
-        <div class="loader-meter" aria-hidden="true">
-          <span style="--i: 0"></span>
-          <span style="--i: 1"></span>
-          <span style="--i: 2"></span>
-          <span style="--i: 3"></span>
-          <span style="--i: 4"></span>
-          <span style="--i: 5"></span>
-          <span style="--i: 6"></span>
-          <span style="--i: 7"></span>
-          <span style="--i: 8"></span>
-          <span style="--i: 9"></span>
-          <span style="--i: 10"></span>
-          <span style="--i: 11"></span>
-        </div>
-        <div class="loader-word">Loading...</div>
-        <div class="video-status">视频加载中...</div>
-      </div>
-    </div>
+    <div class="video-status" hidden></div>
     <button class="mobile-play bunny-mark" type="button" aria-label="播放视频">
       <img class="sprite-img sprite-open" src="sprite-base.png" alt="">
       <span class="sprite-eye-cover" aria-hidden="true"></span>
@@ -3069,6 +3101,7 @@
     const ctx = canvas.getContext("2d");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const mobileLayoutQuery = window.matchMedia("(max-width: 760px)");
     const pointer = {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
@@ -3086,6 +3119,8 @@
       [255, 184, 232]
     ];
     let introLastTime = 0;
+    let introCanvasCleared = false;
+    let lastRenderTime = 0;
     const touch = {
       active: false,
       startX: 0,
@@ -3118,10 +3153,25 @@
       }
     }
 
+    async function autoStartMobileVideo() {
+      if (!mobileLayoutQuery.matches && !isCoarsePointer) return;
+      try {
+        await video.play();
+      } catch (error) {
+        try {
+          video.muted = true;
+          await video.play();
+        } catch (fallbackError) {
+          hero.classList.add("is-ready");
+        }
+      }
+    }
+
     window.setTimeout(() => {
       hero.classList.add("intro-done");
       hideControls();
-    }, reduceMotion ? 850 : 2850);
+      autoStartMobileVideo();
+    }, reduceMotion ? 700 : (mobileLayoutQuery.matches ? 1800 : 2450));
 
     window.setInterval(() => {
       if (document.hidden || mobilePlay.classList.contains("is-smiling")) return;
@@ -3225,7 +3275,7 @@
     }
 
     function syncIntroStars() {
-      const target = reduceMotion ? 70 : 260;
+      const target = reduceMotion ? 32 : (mobileLayoutQuery.matches ? 56 : 150);
       while (introStars.length < target) {
         const star = makeIntroStar();
         resetIntroStar(star, true);
@@ -3237,7 +3287,7 @@
     }
 
     function resizeIntroGlitter() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = mobileLayoutQuery.matches ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       introCanvas.width = Math.floor(window.innerWidth * ratio);
       introCanvas.height = Math.floor(window.innerHeight * ratio);
       introCanvas.style.width = `${window.innerWidth}px`;
@@ -3249,9 +3299,14 @@
 
     function drawIntroGlitter(time) {
       if (hero.classList.contains("intro-done")) {
-        introCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        if (!introCanvasCleared) {
+          introCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+          introCanvasCleared = true;
+        }
         return;
       }
+
+      introCanvasCleared = false;
 
       syncIntroStars();
       const w = window.innerWidth;
@@ -3339,7 +3394,7 @@
     }
 
     function resizeCanvas() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = mobileLayoutQuery.matches ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(window.innerWidth * ratio);
       canvas.height = Math.floor(window.innerHeight * ratio);
       canvas.style.width = `${window.innerWidth}px`;
@@ -3724,6 +3779,11 @@
     }
 
     function render(time) {
+      if (mobileLayoutQuery.matches && time - lastRenderTime < 32) {
+        requestAnimationFrame(render);
+        return;
+      }
+      lastRenderTime = time;
       drawIntroGlitter(time);
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
