@@ -11,6 +11,7 @@
       --safe-right: env(safe-area-inset-right, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-left: env(safe-area-inset-left, 0px);
+      --bunny-thumb: url("sprite-open.png");
     }
 
     * {
@@ -94,6 +95,205 @@
       background: rgba(20, 20, 20, 0.82);
     }
 
+    .loader-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      padding:
+        max(28px, var(--safe-top))
+        max(22px, var(--safe-right))
+        max(28px, var(--safe-bottom))
+        max(22px, var(--safe-left));
+      background:
+        radial-gradient(circle at 52% 44%, rgba(255, 85, 176, 0.14), transparent 0 18%, transparent 42%),
+        radial-gradient(circle at 46% 58%, rgba(255, 221, 172, 0.12), transparent 0 16%, transparent 38%),
+        #000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.48s ease, visibility 0.48s ease;
+      pointer-events: none;
+    }
+
+    .hero.is-ready .loader-screen {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero.has-error .loader-screen {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loader-inner {
+      display: grid;
+      justify-items: center;
+      width: min(760px, 92vw);
+    }
+
+    .loader-visual {
+      position: relative;
+      width: min(560px, 86vw);
+      height: clamp(220px, 28vw, 330px);
+    }
+
+    .loader-rays,
+    .loader-orbit {
+      position: absolute;
+      top: 48%;
+      width: 188px;
+      height: 188px;
+      transform: translate(-50%, -50%);
+    }
+
+    .loader-rays {
+      left: 31%;
+      animation: loaderSpin 2.8s steps(8) infinite;
+    }
+
+    .loader-rays span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 22px;
+      height: 76px;
+      margin: -38px 0 0 -11px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 235, 205, 0.98), rgba(255, 68, 145, 0.74));
+      box-shadow: 0 0 26px rgba(255, 98, 166, 0.42);
+      opacity: calc(0.28 + var(--i) * 0.08);
+      transform: rotate(calc(var(--i) * 45deg)) translateY(-70px);
+      transform-origin: center 108px;
+    }
+
+    .loader-orbit {
+      left: 70%;
+      animation: loaderFloat 3.4s ease-in-out infinite;
+    }
+
+    .loader-orbit span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(16px + var(--s) * 10px);
+      height: calc(16px + var(--s) * 10px);
+      border-radius: 999px;
+      background: linear-gradient(160deg, rgba(255, 225, 202, 0.96), rgba(255, 74, 154, 0.72));
+      box-shadow: 0 0 28px rgba(255, 110, 170, 0.36);
+      opacity: calc(0.32 + var(--s) * 0.11);
+      transform:
+        rotate(calc(var(--i) * 32deg))
+        translateX(calc(62px + var(--s) * 8px))
+        rotate(calc(var(--i) * -32deg));
+      animation: loaderDotPulse 1.9s ease-in-out infinite;
+      animation-delay: calc(var(--i) * -0.08s);
+    }
+
+    .loader-meter {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 5px;
+      width: min(350px, 62vw);
+      margin-top: -6px;
+    }
+
+    .loader-meter span {
+      height: 30px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 230, 198, 0.98), rgba(255, 63, 143, 0.8));
+      box-shadow: 0 0 18px rgba(255, 93, 162, 0.26);
+      opacity: 0.32;
+      animation: loaderMeter 1.2s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.075s);
+    }
+
+    .loader-word {
+      margin-top: 30px;
+      background: linear-gradient(90deg, #ffe1b0, #ff7a9f 48%, #d84791);
+      color: transparent;
+      font-size: clamp(54px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .loader-screen .video-status {
+      position: static;
+      left: auto;
+      bottom: auto;
+      max-width: min(72vw, 420px);
+      margin-top: 18px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: rgba(255, 235, 226, 0.72);
+      font-size: 14px;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      backdrop-filter: none;
+    }
+
+    .hero.has-error .loader-screen .video-status {
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 0 18px rgba(255, 83, 150, 0.62);
+    }
+
+    @keyframes loaderSpin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes loaderFloat {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) rotate(-5deg) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -54%) rotate(8deg) scale(1.04);
+      }
+    }
+
+    @keyframes loaderDotPulse {
+      0%,
+      100% {
+        filter: saturate(0.96);
+        transform:
+          rotate(calc(var(--i) * 32deg))
+          translateX(calc(62px + var(--s) * 8px))
+          rotate(calc(var(--i) * -32deg))
+          scale(0.86);
+      }
+
+      50% {
+        filter: saturate(1.3);
+        transform:
+          rotate(calc(var(--i) * 32deg))
+          translateX(calc(62px + var(--s) * 8px))
+          rotate(calc(var(--i) * -32deg))
+          scale(1.08);
+      }
+    }
+
+    @keyframes loaderMeter {
+      0%,
+      100% {
+        opacity: 0.32;
+        transform: translateY(0) scaleY(0.9);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(-4px) scaleY(1.08);
+      }
+    }
+
     .mobile-play {
       display: none;
     }
@@ -104,6 +304,386 @@
 
     .mobile-info {
       display: none;
+    }
+
+    .hero.is-playing .mobile-play.is-smiling {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1.04);
+    }
+
+    @media (min-width: 761px) and (orientation: landscape) {
+      .mobile-play {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        display: grid;
+        width: 108px;
+        height: 96px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.46);
+        border-radius: 48% 52% 56% 44% / 50% 49% 51% 50%;
+        background:
+          radial-gradient(ellipse at 35% 18%, rgba(255, 255, 255, 0.98) 0 12%, rgba(255, 255, 255, 0.42) 22%, transparent 43%),
+          radial-gradient(ellipse at 52% 88%, rgba(255, 255, 255, 0.94) 0 18%, rgba(118, 242, 255, 0.22) 38%, transparent 60%),
+          radial-gradient(circle at 76% 34%, rgba(255, 93, 202, 0.86), transparent 42%),
+          radial-gradient(circle at 28% 64%, rgba(97, 236, 255, 0.78), transparent 46%),
+          linear-gradient(170deg, rgba(255, 247, 255, 0.96) 0%, rgba(255, 99, 190, 0.9) 42%, rgba(255, 213, 101, 0.92) 100%);
+        box-shadow:
+          inset 0 12px 20px rgba(255, 255, 255, 0.42),
+          inset 0 -18px 28px rgba(255, 121, 202, 0.22),
+          0 18px 42px rgba(255, 74, 181, 0.3),
+          0 0 42px rgba(80, 228, 255, 0.26),
+          0 0 86px rgba(255, 224, 97, 0.16);
+        transform: translate(-50%, -50%) scale(1);
+        transition: opacity 0.32s ease, visibility 0.32s ease, transform 0.32s ease;
+        animation: playBlob 3.2s ease-in-out infinite, playPulse 2.4s ease-in-out infinite;
+        appearance: none;
+      }
+
+      .mobile-play::before {
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        width: 34px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.96);
+        clip-path: polygon(18% 6%, 18% 94%, 92% 50%);
+        filter:
+          drop-shadow(0 0 10px rgba(255, 255, 255, 0.96))
+          drop-shadow(0 0 22px rgba(120, 235, 255, 0.55));
+        transform: translate(-38%, -50%);
+        content: "";
+      }
+
+      .mobile-play::after {
+        position: absolute;
+        left: 58%;
+        top: -8px;
+        width: 30px;
+        height: 26px;
+        border-radius: 64% 36% 61% 39% / 58% 38% 62% 42%;
+        background:
+          radial-gradient(circle at 40% 26%, rgba(255, 255, 255, 0.9), transparent 36%),
+          linear-gradient(180deg, rgba(160, 255, 232, 0.95), rgba(117, 183, 255, 0.82), rgba(255, 115, 211, 0.42));
+        box-shadow:
+          inset 0 5px 10px rgba(255, 255, 255, 0.62),
+          0 0 18px rgba(116, 226, 255, 0.42);
+        transform: translateX(-50%) rotate(7deg);
+        content: "";
+      }
+
+      .mobile-play:active {
+        transform: translate(-50%, -50%) scale(0.94);
+      }
+
+      .mobile-play > span {
+        pointer-events: none;
+      }
+
+      .mobile-play__eyes {
+        position: absolute;
+        left: 27px;
+        top: 40px;
+        display: block;
+        width: 11px;
+        height: 20px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow:
+          20px 0 0 rgba(255, 255, 255, 0.92),
+          0 0 12px rgba(255, 255, 255, 0.8),
+          20px 0 12px rgba(255, 255, 255, 0.72);
+        opacity: 0.92;
+      }
+
+      .mobile-play__spark {
+        position: absolute;
+        inset: -24px;
+        border-radius: 50%;
+        background:
+          conic-gradient(from 28deg, transparent 0 10%, rgba(106, 238, 255, 0.38) 12%, transparent 18% 37%, rgba(255, 90, 199, 0.34) 40%, transparent 47% 66%, rgba(255, 222, 91, 0.32) 70%, transparent 78% 100%);
+        filter: blur(6px);
+        opacity: 0.42;
+        animation: playHalo 5.2s linear infinite;
+      }
+
+      .mobile-play__shadow {
+        position: absolute;
+        left: 50%;
+        bottom: -24px;
+        width: 82px;
+        height: 19px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255, 169, 221, 0.43), rgba(91, 231, 255, 0.2) 38%, transparent 70%);
+        filter: blur(5px);
+        transform: translateX(-50%);
+      }
+
+      .hero.is-playing .mobile-play {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -50%) scale(1.22) rotate(8deg);
+      }
+
+      .mobile-progress {
+        position: fixed;
+        left: 50%;
+        bottom: max(42px, calc(var(--safe-bottom) + 34px));
+        z-index: 4;
+        display: block;
+        width: min(720px, 58vw);
+        height: 34px;
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at calc(var(--progress, 0%) + 3px) 50%, rgba(255, 255, 255, 0.66), transparent 0 24px, transparent 25px),
+          linear-gradient(90deg, rgba(107, 235, 255, 0.9), rgba(255, 81, 197, 0.9), rgba(255, 226, 88, 0.88)) 0 50% / var(--progress, 0%) 10px no-repeat,
+          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0 11px, rgba(255, 255, 255, 0.07) 11px 22px) 12px 50% / max(var(--progress, 0%), 32px) 10px no-repeat,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: opacity 0.28s ease;
+        cursor: pointer;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.34),
+          inset 0 -8px 18px rgba(0, 0, 0, 0.2),
+          0 0 24px rgba(81, 232, 255, 0.18),
+          0 0 46px rgba(255, 85, 199, 0.14);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .hero.is-ready .mobile-progress {
+        opacity: 0.88;
+      }
+
+      .hero.has-error .mobile-progress {
+        display: none;
+      }
+
+      .mobile-progress::-webkit-slider-runnable-track {
+        height: 10px;
+        border-radius: 999px;
+        background: transparent;
+      }
+
+      .mobile-progress::-webkit-slider-thumb {
+        width: 36px;
+        height: 36px;
+        margin-top: -13px;
+        border: 2px solid rgba(255, 255, 255, 0.68);
+        border-radius: 54% 46% 53% 47% / 50% 45% 55% 50%;
+        background:
+          radial-gradient(circle at 33% 24%, rgba(255, 255, 255, 0.95) 0 13%, rgba(255, 255, 255, 0.38) 24%, transparent 42%),
+          radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.86), transparent 46%),
+          linear-gradient(165deg, rgba(255, 248, 255, 0.98), rgba(255, 92, 195, 0.88) 44%, rgba(255, 224, 99, 0.94));
+        box-shadow:
+          inset 0 8px 12px rgba(255, 255, 255, 0.48),
+          inset 0 -7px 12px rgba(255, 96, 194, 0.26),
+          0 0 0 8px rgba(255, 255, 255, 0.08),
+          0 0 22px rgba(255, 89, 198, 0.64),
+          0 0 34px rgba(91, 231, 255, 0.3);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .mobile-progress::-moz-range-track {
+        height: 10px;
+        border-radius: 999px;
+        background: transparent;
+      }
+
+      .mobile-progress::-moz-range-thumb {
+        width: 34px;
+        height: 34px;
+        border: 2px solid rgba(255, 255, 255, 0.68);
+        border-radius: 54% 46% 53% 47% / 50% 45% 55% 50%;
+        background:
+          radial-gradient(circle at 33% 24%, rgba(255, 255, 255, 0.95) 0 13%, rgba(255, 255, 255, 0.38) 24%, transparent 42%),
+          radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.86), transparent 46%),
+          linear-gradient(165deg, rgba(255, 248, 255, 0.98), rgba(255, 92, 195, 0.88) 44%, rgba(255, 224, 99, 0.94));
+        box-shadow:
+          inset 0 8px 12px rgba(255, 255, 255, 0.48),
+          inset 0 -7px 12px rgba(255, 96, 194, 0.26),
+          0 0 0 8px rgba(255, 255, 255, 0.08),
+          0 0 22px rgba(255, 89, 198, 0.64),
+          0 0 34px rgba(91, 231, 255, 0.3);
+      }
+
+      .mobile-play {
+        --eye-x: 0px;
+        --eye-y: 0px;
+        width: 126px;
+        height: 110px;
+        border: 0;
+        border-radius: 47% 53% 45% 55% / 55% 55% 43% 45%;
+        background:
+          radial-gradient(ellipse at 34% 17%, rgba(255, 255, 255, 0.92) 0 13%, rgba(255, 255, 255, 0.34) 24%, transparent 48%),
+          radial-gradient(ellipse at 55% 92%, rgba(255, 255, 255, 0.88) 0 20%, rgba(255, 255, 255, 0.2) 38%, transparent 60%),
+          radial-gradient(circle at 22% 42%, rgba(219, 247, 255, 0.54), transparent 44%),
+          radial-gradient(circle at 74% 52%, rgba(194, 132, 255, 0.68), transparent 48%),
+          radial-gradient(circle at 45% 78%, rgba(255, 157, 239, 0.62), transparent 44%),
+          linear-gradient(160deg, rgba(252, 250, 255, 0.96), rgba(202, 180, 255, 0.88) 48%, rgba(255, 173, 236, 0.88) 100%);
+        box-shadow:
+          inset 0 10px 18px rgba(255, 255, 255, 0.64),
+          inset 0 -16px 28px rgba(184, 119, 255, 0.18),
+          inset 0 0 0 3px rgba(206, 176, 255, 0.3),
+          0 18px 44px rgba(205, 157, 255, 0.42),
+          0 0 64px rgba(255, 134, 232, 0.24);
+        animation: bunnyFloat 3.6s ease-in-out infinite, playPulse 2.8s ease-in-out infinite;
+      }
+
+      .mobile-play::before,
+      .mobile-play::after {
+        position: absolute;
+        top: -50px;
+        width: 48px;
+        height: 96px;
+        border-radius: 62% 62% 45% 45% / 76% 76% 30% 30%;
+        background:
+          radial-gradient(ellipse at 38% 18%, rgba(255, 255, 255, 0.78) 0 14%, transparent 38%),
+          radial-gradient(ellipse at 50% 80%, rgba(255, 255, 255, 0.36), transparent 54%),
+          linear-gradient(165deg, rgba(250, 249, 255, 0.88), rgba(204, 180, 255, 0.68) 58%, rgba(244, 177, 255, 0.58));
+        box-shadow:
+          inset 0 5px 12px rgba(255, 255, 255, 0.58),
+          inset 0 -8px 14px rgba(192, 131, 255, 0.18),
+          0 0 20px rgba(203, 168, 255, 0.34);
+        content: "";
+      }
+
+      .mobile-play::before {
+        left: 25px;
+        transform: rotate(-24deg);
+      }
+
+      .mobile-play::after {
+        right: 24px;
+        left: auto;
+        transform: rotate(24deg);
+      }
+
+      .mobile-play__eyes {
+        left: 42px;
+        top: 51px;
+        width: 14px;
+        height: 29px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow:
+          29px 0 0 rgba(255, 255, 255, 0.96),
+          0 0 12px rgba(255, 255, 255, 0.78),
+          29px 0 12px rgba(255, 255, 255, 0.74);
+        transform: translate(var(--eye-x), var(--eye-y));
+        transition: transform 0.12s ease, height 0.18s ease, border-radius 0.18s ease;
+      }
+
+      .mobile-play__eyes::after {
+        position: absolute;
+        left: 6px;
+        top: 33px;
+        width: 34px;
+        height: 16px;
+        border-bottom: 4px solid rgba(255, 255, 255, 0.88);
+        border-radius: 0 0 999px 999px;
+        opacity: 0;
+        transform: translateY(-5px) scaleX(0.72);
+        transition: opacity 0.22s ease, transform 0.22s ease;
+        content: "";
+      }
+
+      .mobile-play.is-smiling .mobile-play__eyes {
+        height: 16px;
+        border-radius: 999px 999px 55% 55%;
+      }
+
+      .mobile-play.is-smiling .mobile-play__eyes::after {
+        opacity: 1;
+        transform: translateY(0) scaleX(1);
+      }
+
+      .mobile-play__spark {
+        inset: -38px;
+        opacity: 0.36;
+        filter: blur(7px);
+        background:
+          conic-gradient(from 20deg, transparent 0 13%, rgba(218, 189, 255, 0.36) 16%, transparent 23% 45%, rgba(255, 157, 237, 0.32) 49%, transparent 58% 78%, rgba(255, 255, 255, 0.28) 82%, transparent 92% 100%);
+      }
+
+      .mobile-play__shadow {
+        bottom: -30px;
+        width: 102px;
+        height: 24px;
+        background: radial-gradient(ellipse, rgba(216, 181, 255, 0.42), rgba(255, 160, 238, 0.22) 42%, transparent 72%);
+      }
+
+      .mobile-progress,
+      .hero.is-ready .mobile-progress {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @keyframes bunnyFloat {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        45% {
+          transform: translate(-50%, -53%) scale(1.025);
+        }
+
+        72% {
+          transform: translate(-50%, -49%) scale(0.99);
+        }
+      }
+
+      @keyframes playPulse {
+        0%,
+        100% {
+          box-shadow:
+            inset 0 12px 20px rgba(255, 255, 255, 0.42),
+            inset 0 -18px 28px rgba(255, 121, 202, 0.22),
+            0 18px 42px rgba(255, 74, 181, 0.3),
+            0 0 42px rgba(80, 228, 255, 0.26),
+            0 0 86px rgba(255, 224, 97, 0.16);
+        }
+
+        50% {
+          box-shadow:
+            inset 0 14px 24px rgba(255, 255, 255, 0.5),
+            inset 0 -20px 30px rgba(255, 121, 202, 0.26),
+            0 20px 48px rgba(255, 74, 181, 0.38),
+            0 0 58px rgba(80, 228, 255, 0.38),
+            0 0 104px rgba(255, 224, 97, 0.22);
+        }
+      }
+
+      @keyframes playBlob {
+        0%,
+        100% {
+          border-radius: 48% 52% 56% 44% / 50% 49% 51% 50%;
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        36% {
+          border-radius: 55% 45% 48% 52% / 45% 55% 45% 55%;
+          transform: translate(-50%, -51%) scale(1.025) rotate(-1deg);
+        }
+
+        68% {
+          border-radius: 45% 55% 54% 46% / 54% 46% 54% 46%;
+          transform: translate(-50%, -49%) scale(0.99) rotate(1deg);
+        }
+      }
+
+      @keyframes playHalo {
+        to {
+          transform: rotate(360deg);
+        }
+      }
     }
 
     @media (max-width: 760px), (orientation: portrait) {
@@ -128,59 +708,204 @@
         font-size: 12px;
       }
 
+      .loader-inner {
+        width: min(390px, 92vw);
+      }
+
+      .loader-visual {
+        width: min(350px, 88vw);
+        height: 250px;
+      }
+
+      .loader-rays,
+      .loader-orbit {
+        width: 150px;
+        height: 150px;
+      }
+
+      .loader-rays {
+        left: 39%;
+        top: 44%;
+      }
+
+      .loader-rays span {
+        width: 18px;
+        height: 62px;
+        margin: -31px 0 0 -9px;
+        transform: rotate(calc(var(--i) * 45deg)) translateY(-56px);
+        transform-origin: center 87px;
+      }
+
+      .loader-orbit {
+        left: 66%;
+        top: 51%;
+      }
+
+      .loader-orbit span {
+        transform:
+          rotate(calc(var(--i) * 32deg))
+          translateX(calc(48px + var(--s) * 6px))
+          rotate(calc(var(--i) * -32deg));
+      }
+
+      .loader-meter {
+        width: min(250px, 62vw);
+        gap: 4px;
+      }
+
+      .loader-meter span {
+        height: 24px;
+      }
+
+      .loader-word {
+        margin-top: 24px;
+        font-size: clamp(48px, 16vw, 70px);
+      }
+
+      .loader-screen .video-status {
+        margin-top: 14px;
+        padding: 0;
+        font-size: 12px;
+      }
+
       .mobile-play {
         position: fixed;
         left: 50%;
         top: 50%;
         z-index: 4;
         display: grid;
-        width: 86px;
-        height: 86px;
+        width: 116px;
+        height: 104px;
         place-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.48);
+        border-radius: 48% 52% 56% 44% / 50% 49% 51% 50%;
         background:
-          radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.14) 34%, transparent 56%),
-          linear-gradient(135deg, rgba(71, 217, 255, 0.9), rgba(255, 64, 191, 0.88), rgba(255, 222, 64, 0.88));
+          radial-gradient(ellipse at 35% 18%, rgba(255, 255, 255, 0.98) 0 12%, rgba(255, 255, 255, 0.42) 22%, transparent 43%),
+          radial-gradient(ellipse at 52% 88%, rgba(255, 255, 255, 0.96) 0 18%, rgba(118, 242, 255, 0.24) 38%, transparent 60%),
+          radial-gradient(circle at 76% 34%, rgba(255, 93, 202, 0.9), transparent 42%),
+          radial-gradient(circle at 28% 64%, rgba(97, 236, 255, 0.8), transparent 46%),
+          linear-gradient(170deg, rgba(255, 247, 255, 0.96) 0%, rgba(255, 99, 190, 0.92) 42%, rgba(255, 213, 101, 0.94) 100%);
         box-shadow:
-          0 0 32px rgba(68, 220, 255, 0.45),
-          0 0 58px rgba(255, 64, 191, 0.28);
+          inset 0 12px 20px rgba(255, 255, 255, 0.42),
+          inset 0 -18px 28px rgba(255, 121, 202, 0.24),
+          0 18px 42px rgba(255, 74, 181, 0.32),
+          0 0 42px rgba(80, 228, 255, 0.28),
+          0 0 86px rgba(255, 224, 97, 0.18);
         transform: translate(-50%, -50%) scale(1);
         transition: opacity 0.32s ease, visibility 0.32s ease, transform 0.32s ease;
-        animation: playPulse 2.3s ease-in-out infinite;
+        animation: playBlob 3.2s ease-in-out infinite, playPulse 2.4s ease-in-out infinite;
+        appearance: none;
       }
 
       .mobile-play::before {
-        width: 0;
-        height: 0;
-        margin-left: 6px;
-        border-top: 16px solid transparent;
-        border-bottom: 16px solid transparent;
-        border-left: 23px solid #fff;
-        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85));
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        width: 38px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.96);
+        clip-path: polygon(18% 6%, 18% 94%, 92% 50%);
+        filter:
+          drop-shadow(0 0 10px rgba(255, 255, 255, 0.96))
+          drop-shadow(0 0 22px rgba(120, 235, 255, 0.58));
+        transform: translate(-38%, -50%);
         content: "";
+      }
+
+      .mobile-play:active {
+        transform: translate(-50%, -50%) scale(0.94);
+      }
+
+      .mobile-play > span {
+        pointer-events: none;
+      }
+
+      .mobile-play::after {
+        position: absolute;
+        left: 58%;
+        top: -8px;
+        width: 32px;
+        height: 28px;
+        border-radius: 64% 36% 61% 39% / 58% 38% 62% 42%;
+        background:
+          radial-gradient(circle at 40% 26%, rgba(255, 255, 255, 0.9), transparent 36%),
+          linear-gradient(180deg, rgba(160, 255, 232, 0.95), rgba(117, 183, 255, 0.82), rgba(255, 115, 211, 0.42));
+        box-shadow:
+          inset 0 5px 10px rgba(255, 255, 255, 0.62),
+          0 0 18px rgba(116, 226, 255, 0.42);
+        transform: translateX(-50%) rotate(7deg);
+        content: "";
+      }
+
+      .mobile-play__eyes {
+        position: absolute;
+        left: 29px;
+        top: 43px;
+        display: block;
+        width: 12px;
+        height: 22px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow:
+          21px 0 0 rgba(255, 255, 255, 0.92),
+          0 0 12px rgba(255, 255, 255, 0.8),
+          21px 0 12px rgba(255, 255, 255, 0.72);
+        opacity: 0.92;
+      }
+
+      .mobile-play__spark {
+        position: absolute;
+        inset: -24px;
+        border-radius: 50%;
+        background:
+          conic-gradient(from 28deg, transparent 0 10%, rgba(106, 238, 255, 0.42) 12%, transparent 18% 37%, rgba(255, 90, 199, 0.38) 40%, transparent 47% 66%, rgba(255, 222, 91, 0.35) 70%, transparent 78% 100%);
+        filter: blur(6px);
+        opacity: 0.48;
+        animation: playHalo 5.2s linear infinite;
+      }
+
+      .mobile-play__shadow {
+        position: absolute;
+        left: 50%;
+        bottom: -24px;
+        width: 84px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255, 169, 221, 0.45), rgba(91, 231, 255, 0.22) 38%, transparent 70%);
+        filter: blur(5px);
+        transform: translateX(-50%);
       }
 
       .hero.is-playing .mobile-play {
         opacity: 0;
         visibility: hidden;
-        transform: translate(-50%, -50%) scale(1.35);
+        transform: translate(-50%, -50%) scale(1.22) rotate(8deg);
       }
 
       .mobile-progress {
         position: fixed;
-        left: max(22px, calc(var(--safe-left) + 18px));
-        bottom: max(58px, calc(var(--safe-bottom) + 54px));
+        left: max(24px, calc(var(--safe-left) + 20px));
+        bottom: max(56px, calc(var(--safe-bottom) + 52px));
         z-index: 4;
         display: block;
-        width: calc(100vw - max(44px, calc(var(--safe-left) + var(--safe-right) + 44px)));
-        height: 24px;
+        width: calc(100vw - max(48px, calc(var(--safe-left) + var(--safe-right) + 48px)));
+        height: 40px;
         margin: 0;
-        border: 0;
-        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at calc(var(--progress, 0%) + 3px) 50%, rgba(255, 255, 255, 0.7), transparent 0 28px, transparent 29px),
+          linear-gradient(90deg, rgba(107, 235, 255, 0.92), rgba(255, 81, 197, 0.92), rgba(255, 226, 88, 0.9)) 0 50% / var(--progress, 0%) 12px no-repeat,
+          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.36) 0 12px, rgba(255, 255, 255, 0.08) 12px 24px) 12px 50% / max(var(--progress, 0%), 32px) 12px no-repeat,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07));
         opacity: 0;
         transition: opacity 0.28s ease;
         cursor: pointer;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.38),
+          inset 0 -8px 18px rgba(0, 0, 0, 0.22),
+          0 0 24px rgba(81, 232, 255, 0.2),
+          0 0 46px rgba(255, 85, 199, 0.16);
         -webkit-appearance: none;
         appearance: none;
       }
@@ -194,46 +919,225 @@
       }
 
       .mobile-progress::-webkit-slider-runnable-track {
-        height: 5px;
+        height: 12px;
         border-radius: 999px;
-        background:
-          linear-gradient(90deg, #42e8ff, #ff56c7, #ffdf51) 0 / var(--progress, 0%) 100% no-repeat,
-          rgba(255, 255, 255, 0.24);
-        box-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+        background: transparent;
       }
 
       .mobile-progress::-webkit-slider-thumb {
-        width: 19px;
-        height: 19px;
-        margin-top: -7px;
-        border: 2px solid rgba(0, 0, 0, 0.62);
-        border-radius: 50%;
-        background: #fff;
+        width: 42px;
+        height: 42px;
+        margin-top: -15px;
+        border: 2px solid rgba(255, 255, 255, 0.68);
+        border-radius: 54% 46% 53% 47% / 50% 45% 55% 50%;
+        background:
+          radial-gradient(circle at 33% 24%, rgba(255, 255, 255, 0.95) 0 13%, rgba(255, 255, 255, 0.38) 24%, transparent 42%),
+          radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.88), transparent 46%),
+          linear-gradient(165deg, rgba(255, 248, 255, 0.98), rgba(255, 92, 195, 0.9) 44%, rgba(255, 224, 99, 0.96));
         box-shadow:
-          0 0 0 7px rgba(255, 255, 255, 0.14),
-          0 0 22px rgba(255, 86, 199, 0.72);
+          inset 0 8px 12px rgba(255, 255, 255, 0.48),
+          inset 0 -7px 12px rgba(255, 96, 194, 0.28),
+          0 0 0 9px rgba(255, 255, 255, 0.09),
+          0 0 24px rgba(255, 89, 198, 0.72),
+          0 0 36px rgba(91, 231, 255, 0.36);
         -webkit-appearance: none;
         appearance: none;
       }
 
       .mobile-progress::-moz-range-track {
-        height: 5px;
+        height: 12px;
         border-radius: 999px;
-        background:
-          linear-gradient(90deg, #42e8ff, #ff56c7, #ffdf51) 0 / var(--progress, 0%) 100% no-repeat,
-          rgba(255, 255, 255, 0.24);
-        box-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+        background: transparent;
       }
 
       .mobile-progress::-moz-range-thumb {
-        width: 17px;
-        height: 17px;
-        border: 2px solid rgba(0, 0, 0, 0.62);
-        border-radius: 50%;
-        background: #fff;
+        width: 38px;
+        height: 38px;
+        border: 2px solid rgba(255, 255, 255, 0.68);
+        border-radius: 54% 46% 53% 47% / 50% 45% 55% 50%;
+        background:
+          radial-gradient(circle at 33% 24%, rgba(255, 255, 255, 0.95) 0 13%, rgba(255, 255, 255, 0.38) 24%, transparent 42%),
+          radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.88), transparent 46%),
+          linear-gradient(165deg, rgba(255, 248, 255, 0.98), rgba(255, 92, 195, 0.9) 44%, rgba(255, 224, 99, 0.96));
         box-shadow:
-          0 0 0 7px rgba(255, 255, 255, 0.14),
-          0 0 22px rgba(255, 86, 199, 0.72);
+          inset 0 8px 12px rgba(255, 255, 255, 0.48),
+          inset 0 -7px 12px rgba(255, 96, 194, 0.28),
+          0 0 0 9px rgba(255, 255, 255, 0.09),
+          0 0 24px rgba(255, 89, 198, 0.72),
+          0 0 36px rgba(91, 231, 255, 0.36);
+      }
+
+      .mobile-play {
+        --eye-x: 0px;
+        --eye-y: 0px;
+        width: 122px;
+        height: 108px;
+        border: 0;
+        border-radius: 47% 53% 45% 55% / 55% 55% 43% 45%;
+        background:
+          radial-gradient(ellipse at 34% 17%, rgba(255, 255, 255, 0.94) 0 13%, rgba(255, 255, 255, 0.34) 24%, transparent 48%),
+          radial-gradient(ellipse at 55% 92%, rgba(255, 255, 255, 0.9) 0 20%, rgba(255, 255, 255, 0.2) 38%, transparent 60%),
+          radial-gradient(circle at 22% 42%, rgba(219, 247, 255, 0.56), transparent 44%),
+          radial-gradient(circle at 74% 52%, rgba(194, 132, 255, 0.7), transparent 48%),
+          radial-gradient(circle at 45% 78%, rgba(255, 157, 239, 0.64), transparent 44%),
+          linear-gradient(160deg, rgba(252, 250, 255, 0.96), rgba(202, 180, 255, 0.88) 48%, rgba(255, 173, 236, 0.9) 100%);
+        box-shadow:
+          inset 0 10px 18px rgba(255, 255, 255, 0.64),
+          inset 0 -16px 28px rgba(184, 119, 255, 0.18),
+          inset 0 0 0 3px rgba(206, 176, 255, 0.3),
+          0 18px 44px rgba(205, 157, 255, 0.44),
+          0 0 64px rgba(255, 134, 232, 0.26);
+        animation: bunnyFloat 3.6s ease-in-out infinite, playPulse 2.8s ease-in-out infinite;
+      }
+
+      .mobile-play::before,
+      .mobile-play::after {
+        position: absolute;
+        top: -48px;
+        width: 46px;
+        height: 92px;
+        border-radius: 62% 62% 45% 45% / 76% 76% 30% 30%;
+        background:
+          radial-gradient(ellipse at 38% 18%, rgba(255, 255, 255, 0.78) 0 14%, transparent 38%),
+          radial-gradient(ellipse at 50% 80%, rgba(255, 255, 255, 0.36), transparent 54%),
+          linear-gradient(165deg, rgba(250, 249, 255, 0.88), rgba(204, 180, 255, 0.68) 58%, rgba(244, 177, 255, 0.58));
+        box-shadow:
+          inset 0 5px 12px rgba(255, 255, 255, 0.58),
+          inset 0 -8px 14px rgba(192, 131, 255, 0.18),
+          0 0 20px rgba(203, 168, 255, 0.34);
+        content: "";
+      }
+
+      .mobile-play::before {
+        left: 24px;
+        transform: rotate(-24deg);
+      }
+
+      .mobile-play::after {
+        right: 23px;
+        left: auto;
+        transform: rotate(24deg);
+      }
+
+      .mobile-play__eyes {
+        left: 40px;
+        top: 50px;
+        width: 14px;
+        height: 28px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow:
+          28px 0 0 rgba(255, 255, 255, 0.96),
+          0 0 12px rgba(255, 255, 255, 0.78),
+          28px 0 12px rgba(255, 255, 255, 0.74);
+        transform: translate(var(--eye-x), var(--eye-y));
+        transition: transform 0.12s ease, height 0.18s ease, border-radius 0.18s ease;
+      }
+
+      .mobile-play__eyes::after {
+        position: absolute;
+        left: 6px;
+        top: 32px;
+        width: 32px;
+        height: 16px;
+        border-bottom: 4px solid rgba(255, 255, 255, 0.88);
+        border-radius: 0 0 999px 999px;
+        opacity: 0;
+        transform: translateY(-5px) scaleX(0.72);
+        transition: opacity 0.22s ease, transform 0.22s ease;
+        content: "";
+      }
+
+      .mobile-play.is-smiling .mobile-play__eyes {
+        height: 16px;
+        border-radius: 999px 999px 55% 55%;
+      }
+
+      .mobile-play.is-smiling .mobile-play__eyes::after {
+        opacity: 1;
+        transform: translateY(0) scaleX(1);
+      }
+
+      .mobile-play__spark {
+        inset: -36px;
+        opacity: 0.38;
+        filter: blur(7px);
+        background:
+          conic-gradient(from 20deg, transparent 0 13%, rgba(218, 189, 255, 0.38) 16%, transparent 23% 45%, rgba(255, 157, 237, 0.34) 49%, transparent 58% 78%, rgba(255, 255, 255, 0.3) 82%, transparent 92% 100%);
+      }
+
+      .mobile-play__shadow {
+        bottom: -29px;
+        width: 100px;
+        height: 23px;
+        background: radial-gradient(ellipse, rgba(216, 181, 255, 0.44), rgba(255, 160, 238, 0.24) 42%, transparent 72%);
+      }
+
+      .mobile-progress::-webkit-slider-thumb {
+        width: 58px;
+        height: 58px;
+        margin-top: -23px;
+        border: 0;
+        border-radius: 0;
+        background:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='22%25' r='82%25'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.98'/%3E%3Cstop offset='.38' stop-color='%23d9ccff' stop-opacity='.94'/%3E%3Cstop offset='.7' stop-color='%23dda6ff' stop-opacity='.9'/%3E%3Cstop offset='1' stop-color='%23ffb5ef' stop-opacity='.92'/%3E%3C/radialGradient%3E%3Cfilter id='s' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeDropShadow dx='0' dy='7' stdDeviation='7' flood-color='%23d8b5ff' flood-opacity='.65'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23s)'%3E%3Cellipse cx='36' cy='21' rx='14' ry='26' fill='url(%23g)' transform='rotate(-22 36 21)'/%3E%3Cellipse cx='60' cy='21' rx='14' ry='26' fill='url(%23g)' transform='rotate(22 60 21)'/%3E%3Crect x='18' y='32' width='60' height='48' rx='27' fill='url(%23g)'/%3E%3Cellipse cx='38' cy='55' rx='5' ry='12' fill='white'/%3E%3Cellipse cx='58' cy='55' rx='5' ry='12' fill='white'/%3E%3Cpath d='M27 40 C35 31 58 28 70 39' fill='none' stroke='white' stroke-opacity='.62' stroke-width='5' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E")
+          center / contain no-repeat;
+        box-shadow: none;
+        filter:
+          saturate(1)
+          drop-shadow(0 0 11px rgba(216, 181, 255, 0.78))
+          drop-shadow(0 0 20px rgba(255, 146, 235, 0.36));
+        animation: thumbBunny 1.8s ease-in-out infinite;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .mobile-progress::-moz-range-thumb {
+        width: 54px;
+        height: 54px;
+        border: 0;
+        border-radius: 0;
+        background:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='22%25' r='82%25'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.98'/%3E%3Cstop offset='.38' stop-color='%23d9ccff' stop-opacity='.94'/%3E%3Cstop offset='.7' stop-color='%23dda6ff' stop-opacity='.9'/%3E%3Cstop offset='1' stop-color='%23ffb5ef' stop-opacity='.92'/%3E%3C/radialGradient%3E%3Cfilter id='s' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeDropShadow dx='0' dy='7' stdDeviation='7' flood-color='%23d8b5ff' flood-opacity='.65'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23s)'%3E%3Cellipse cx='36' cy='21' rx='14' ry='26' fill='url(%23g)' transform='rotate(-22 36 21)'/%3E%3Cellipse cx='60' cy='21' rx='14' ry='26' fill='url(%23g)' transform='rotate(22 60 21)'/%3E%3Crect x='18' y='32' width='60' height='48' rx='27' fill='url(%23g)'/%3E%3Cellipse cx='38' cy='55' rx='5' ry='12' fill='white'/%3E%3Cellipse cx='58' cy='55' rx='5' ry='12' fill='white'/%3E%3Cpath d='M27 40 C35 31 58 28 70 39' fill='none' stroke='white' stroke-opacity='.62' stroke-width='5' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E")
+          center / contain no-repeat;
+        box-shadow: none;
+        filter:
+          saturate(1)
+          drop-shadow(0 0 11px rgba(216, 181, 255, 0.78))
+          drop-shadow(0 0 20px rgba(255, 146, 235, 0.36));
+      }
+
+      @keyframes thumbBunny {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+          filter:
+            saturate(1)
+            drop-shadow(0 0 11px rgba(216, 181, 255, 0.78))
+            drop-shadow(0 0 20px rgba(255, 146, 235, 0.36));
+        }
+
+        50% {
+          transform: translateY(-2px) scale(1.05);
+          filter:
+            saturate(1.18)
+            drop-shadow(0 0 15px rgba(216, 181, 255, 0.92))
+            drop-shadow(0 0 28px rgba(255, 146, 235, 0.48));
+        }
+      }
+
+      @keyframes bunnyFloat {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        45% {
+          transform: translate(-50%, -53%) scale(1.025);
+        }
+
+        72% {
+          transform: translate(-50%, -49%) scale(0.99);
+        }
       }
 
       .mobile-info {
@@ -296,14 +1200,44 @@
         0%,
         100% {
           box-shadow:
-            0 0 32px rgba(68, 220, 255, 0.45),
-            0 0 58px rgba(255, 64, 191, 0.28);
+            inset 0 12px 20px rgba(255, 255, 255, 0.42),
+            inset 0 -18px 28px rgba(255, 121, 202, 0.24),
+            0 18px 42px rgba(255, 74, 181, 0.32),
+            0 0 42px rgba(80, 228, 255, 0.28),
+            0 0 86px rgba(255, 224, 97, 0.18);
         }
 
         50% {
           box-shadow:
-            0 0 48px rgba(68, 220, 255, 0.62),
-            0 0 84px rgba(255, 64, 191, 0.42);
+            inset 0 14px 24px rgba(255, 255, 255, 0.52),
+            inset 0 -20px 30px rgba(255, 121, 202, 0.28),
+            0 20px 48px rgba(255, 74, 181, 0.42),
+            0 0 58px rgba(80, 228, 255, 0.42),
+            0 0 104px rgba(255, 224, 97, 0.24);
+        }
+      }
+
+      @keyframes playBlob {
+        0%,
+        100% {
+          border-radius: 48% 52% 56% 44% / 50% 49% 51% 50%;
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        36% {
+          border-radius: 55% 45% 48% 52% / 45% 55% 45% 55%;
+          transform: translate(-50%, -51%) scale(1.025) rotate(-1deg);
+        }
+
+        68% {
+          border-radius: 45% 55% 54% 46% / 54% 46% 54% 46%;
+          transform: translate(-50%, -49%) scale(0.99) rotate(1deg);
+        }
+      }
+
+      @keyframes playHalo {
+        to {
+          transform: rotate(360deg);
         }
       }
     }
@@ -314,30 +1248,1791 @@
       }
 
       .mobile-play {
-        width: 72px;
-        height: 72px;
+        width: 92px;
+        height: 82px;
       }
 
       .mobile-progress {
         bottom: max(38px, calc(var(--safe-bottom) + 30px));
       }
     }
+
+    .intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(196, 176, 255, 0.18), transparent 0 17%, transparent 42%),
+        radial-gradient(circle at 50% 58%, rgba(255, 168, 240, 0.14), transparent 0 13%, transparent 34%),
+        #000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.72s ease, visibility 0.72s ease;
+      pointer-events: none;
+    }
+
+    .hero.intro-done .intro-screen {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .intro-stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(440px, 78vw);
+      height: min(440px, 78vw);
+    }
+
+    .intro-stage::before,
+    .intro-stage::after {
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px solid rgba(232, 220, 255, 0.18);
+      box-shadow:
+        0 0 38px rgba(199, 175, 255, 0.18),
+        inset 0 0 40px rgba(255, 170, 242, 0.08);
+      transform: scale(0.72);
+      animation: introRing 2.35s ease-out both;
+      content: "";
+    }
+
+    .intro-stage::after {
+      inset: 22%;
+      border-style: dashed;
+      animation-delay: 0.22s;
+      animation-duration: 2.1s;
+    }
+
+    .intro-bunny {
+      position: relative;
+      width: 168px;
+      height: 136px;
+      transform: translateY(14px) scale(0.38);
+      opacity: 0;
+      animation: introBunny 2.35s cubic-bezier(0.18, 1.12, 0.28, 1) both;
+    }
+
+    .intro-shine {
+      position: absolute;
+      left: 50%;
+      bottom: 17%;
+      width: min(260px, 48vw);
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(230, 205, 255, 0.5), rgba(255, 159, 240, 0.18) 42%, transparent 72%);
+      filter: blur(7px);
+      transform: translateX(-50%) scaleX(0.2);
+      opacity: 0;
+      animation: introShadow 2.35s ease-out both;
+    }
+
+    .bunny-mark {
+      --eye-x: 0px;
+      --eye-y: 0px;
+      --bunny-tilt: 0deg;
+      position: relative;
+      overflow: visible;
+      z-index: 0;
+      border: 0;
+      border-radius: 48% 52% 44% 56% / 54% 54% 44% 46%;
+      background:
+        radial-gradient(ellipse at 34% 18%, rgba(255, 255, 255, 0.96) 0 11%, rgba(255, 255, 255, 0.42) 22%, transparent 48%),
+        radial-gradient(ellipse at 52% 93%, rgba(255, 255, 255, 0.9) 0 18%, rgba(255, 255, 255, 0.24) 38%, transparent 62%),
+        radial-gradient(circle at 20% 45%, rgba(219, 247, 255, 0.58), transparent 42%),
+        radial-gradient(circle at 74% 50%, rgba(198, 145, 255, 0.68), transparent 48%),
+        radial-gradient(circle at 46% 78%, rgba(255, 163, 239, 0.68), transparent 44%),
+        linear-gradient(158deg, rgba(252, 250, 255, 0.96), rgba(210, 192, 255, 0.88) 48%, rgba(255, 185, 241, 0.88) 100%);
+      box-shadow:
+        inset 0 13px 22px rgba(255, 255, 255, 0.64),
+        inset 0 -18px 30px rgba(185, 119, 255, 0.16),
+        inset 0 0 0 3px rgba(214, 190, 255, 0.3),
+        0 18px 44px rgba(205, 157, 255, 0.42),
+        0 0 70px rgba(255, 139, 236, 0.22);
+    }
+
+    .bunny-mark::before,
+    .bunny-mark::after {
+      position: absolute;
+      top: -54px;
+      z-index: -1;
+      width: 58px;
+      height: 104px;
+      border-radius: 68% 68% 48% 48% / 78% 78% 28% 28%;
+      background:
+        radial-gradient(ellipse at 40% 18%, rgba(255, 255, 255, 0.86) 0 13%, rgba(255, 255, 255, 0.36) 27%, transparent 52%),
+        radial-gradient(ellipse at 54% 78%, rgba(255, 255, 255, 0.32), transparent 58%),
+        linear-gradient(162deg, rgba(254, 252, 255, 0.9), rgba(211, 190, 255, 0.68) 58%, rgba(245, 179, 255, 0.6));
+      box-shadow:
+        inset 0 6px 14px rgba(255, 255, 255, 0.62),
+        inset 0 -9px 16px rgba(192, 131, 255, 0.16),
+        0 0 22px rgba(207, 174, 255, 0.34);
+      clip-path: none;
+      content: "";
+    }
+
+    .bunny-mark::before {
+      left: 18px;
+      transform: rotate(-26deg);
+      transform-origin: 70% 92%;
+    }
+
+    .bunny-mark::after {
+      right: 18px;
+      transform: rotate(26deg);
+      transform-origin: 30% 92%;
+    }
+
+    .bunny-mark .mobile-play__eyes {
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      display: block;
+      width: 15px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow:
+        31px 0 0 rgba(255, 255, 255, 0.97),
+        0 0 13px rgba(255, 255, 255, 0.78),
+        31px 0 13px rgba(255, 255, 255, 0.74);
+      opacity: 0.96;
+      transform: translate(calc(-50% - 15px + var(--eye-x)), calc(-50% + var(--eye-y)));
+      transition: height 0.18s ease, border-radius 0.18s ease, transform 0.12s ease;
+    }
+
+    .bunny-mark .mobile-play__eyes::after {
+      position: absolute;
+      left: -6px;
+      top: 35px;
+      width: 58px;
+      height: 24px;
+      border-bottom: 8px solid rgba(255, 255, 255, 0.92);
+      border-radius: 0 0 999px 999px;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 255, 255, 0.55))
+        drop-shadow(0 0 16px rgba(226, 201, 255, 0.34));
+      opacity: 0;
+      transform: translateY(-8px) scaleX(0.58);
+      transform-origin: center top;
+      transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.18, 1.18, 0.2, 1);
+      content: "";
+    }
+
+    .bunny-mark.is-smiling .mobile-play__eyes::after {
+      opacity: 1;
+      transform: translateY(0) scaleX(1);
+    }
+
+    .bunny-mark.is-smiling .mobile-play__eyes {
+      height: 25px;
+      border-radius: 999px;
+    }
+
+    .bunny-mark.is-blinking .mobile-play__eyes {
+      height: 8px;
+      border-radius: 999px;
+      transform: translate(calc(-50% - 15px + var(--eye-x)), calc(-50% + 8px + var(--eye-y)));
+    }
+
+    .bunny-mark .mobile-play__spark {
+      position: absolute;
+      inset: -44px;
+      border-radius: 50%;
+      background:
+        conic-gradient(from 20deg, transparent 0 13%, rgba(218, 189, 255, 0.36) 16%, transparent 24% 45%, rgba(255, 157, 237, 0.34) 49%, transparent 59% 78%, rgba(255, 255, 255, 0.3) 82%, transparent 92% 100%);
+      filter: blur(7px);
+      opacity: 0.34;
+      animation: playHalo 5.2s linear infinite;
+      pointer-events: none;
+    }
+
+    .bunny-mark .mobile-play__shadow {
+      position: absolute;
+      left: 50%;
+      bottom: -31px;
+      width: 106px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(216, 181, 255, 0.44), rgba(255, 160, 238, 0.22) 42%, transparent 72%);
+      filter: blur(5px);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    @media (min-width: 761px) and (orientation: landscape) {
+      .mobile-play.bunny-mark {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        display: grid;
+        width: 132px;
+        height: 114px;
+        cursor: pointer;
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1);
+        animation: bunnyFloat 3.5s ease-in-out infinite;
+        appearance: none;
+      }
+
+      .mobile-play.bunny-mark::before,
+      .mobile-play.bunny-mark::after {
+        top: -58px;
+      }
+
+      .hero.is-playing .mobile-play.bunny-mark {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1.16);
+      }
+
+      .hero.is-playing .mobile-play.bunny-mark.is-smiling {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1.03);
+      }
+
+      .mobile-progress {
+        position: fixed;
+        left: 50%;
+        bottom: max(42px, calc(var(--safe-bottom) + 34px));
+        z-index: 4;
+        display: block;
+        width: min(720px, 58vw);
+        height: 36px;
+        margin: 0;
+        border: 1px solid rgba(230, 217, 255, 0.28);
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, rgba(218, 203, 255, 0.94), rgba(255, 156, 235, 0.9), rgba(255, 239, 255, 0.86)) 0 50% / var(--progress, 0%) 10px no-repeat,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.24), rgba(226, 209, 255, 0.12));
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: opacity 0.28s ease;
+        cursor: pointer;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.34),
+          inset 0 -8px 18px rgba(0, 0, 0, 0.22),
+          0 0 28px rgba(214, 190, 255, 0.24),
+          0 0 54px rgba(255, 139, 236, 0.18);
+        pointer-events: auto;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .hero.is-ready .mobile-progress {
+        display: block;
+        opacity: 0.9;
+      }
+
+      .mobile-progress::-webkit-slider-runnable-track {
+        height: 10px;
+        border-radius: 999px;
+        background: transparent;
+      }
+
+      .mobile-progress::-webkit-slider-thumb {
+        width: 50px;
+        height: 50px;
+        margin-top: -20px;
+        border: 0;
+        border-radius: 0;
+        background: var(--bunny-thumb) center / contain no-repeat;
+        box-shadow: none;
+        filter:
+          saturate(1)
+          drop-shadow(0 0 11px rgba(216, 181, 255, 0.78))
+          drop-shadow(0 0 20px rgba(255, 146, 235, 0.36));
+        animation: thumbBunny 1.8s ease-in-out infinite;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .mobile-progress::-moz-range-track {
+        height: 10px;
+        border-radius: 999px;
+        background: transparent;
+      }
+
+      .mobile-progress::-moz-range-thumb {
+        width: 48px;
+        height: 48px;
+        border: 0;
+        border-radius: 0;
+        background: var(--bunny-thumb) center / contain no-repeat;
+        box-shadow: none;
+        filter:
+          saturate(1)
+          drop-shadow(0 0 11px rgba(216, 181, 255, 0.78))
+          drop-shadow(0 0 20px rgba(255, 146, 235, 0.36));
+      }
+    }
+
+    @media (max-width: 760px), (orientation: portrait) {
+      .mobile-play.bunny-mark {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        width: 128px;
+        height: 112px;
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1);
+        animation: bunnyFloat 3.5s ease-in-out infinite;
+      }
+
+      .hero.is-playing .mobile-play.bunny-mark.is-smiling {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1.03);
+      }
+
+      .mobile-progress {
+        background:
+          linear-gradient(90deg, rgba(218, 203, 255, 0.94), rgba(255, 156, 235, 0.9), rgba(255, 239, 255, 0.86)) 0 50% / var(--progress, 0%) 12px no-repeat,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+      }
+
+      .mobile-progress::-webkit-slider-thumb {
+        background: var(--bunny-thumb) center / contain no-repeat;
+      }
+
+      .mobile-progress::-moz-range-thumb {
+        background: var(--bunny-thumb) center / contain no-repeat;
+      }
+    }
+
+    @keyframes introBunny {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.22) rotate(-8deg);
+        filter: blur(6px) saturate(0.6);
+      }
+
+      34% {
+        opacity: 1;
+        transform: translateY(0) scale(1.08) rotate(4deg);
+        filter: blur(0) saturate(1.25);
+      }
+
+      58% {
+        transform: translateY(-8px) scale(0.98) rotate(-2deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes introRing {
+      0% {
+        opacity: 0;
+        transform: scale(0.34) rotate(0deg);
+      }
+
+      35% {
+        opacity: 0.9;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.18) rotate(180deg);
+      }
+    }
+
+    @keyframes introShadow {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) scaleX(0.12);
+      }
+
+      34% {
+        opacity: 0.9;
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      100% {
+        opacity: 0.55;
+        transform: translateX(-50%) scaleX(0.72);
+      }
+    }
+
+    @keyframes bunnyFloat {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) rotate(var(--bunny-tilt)) scale(1);
+      }
+
+      45% {
+        transform: translate(-50%, -53%) rotate(var(--bunny-tilt)) scale(1.025);
+      }
+
+      72% {
+        transform: translate(-50%, -49%) rotate(var(--bunny-tilt)) scale(0.99);
+      }
+    }
+
+    .hero:not(.intro-done) .hero-video,
+    .hero:not(.intro-done) .mobile-play,
+    .hero:not(.intro-done) .mobile-progress,
+    .hero:not(.intro-done) .progress-hit,
+    .hero:not(.intro-done) .progress-sprite,
+    .hero:not(.intro-done) .cursor-fx,
+    .hero:not(.intro-done) .loader-screen {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero-video {
+      opacity: 1;
+      transition: opacity 0.72s ease;
+    }
+
+    .intro-screen {
+      background:
+        radial-gradient(circle at 50% 46%, rgba(210, 196, 255, 0.2), transparent 0 20%, transparent 44%),
+        radial-gradient(circle at 50% 58%, rgba(255, 176, 241, 0.18), transparent 0 13%, transparent 36%),
+        #000;
+    }
+
+    .intro-bunny.bunny-mark {
+      width: min(280px, 58vw);
+      height: min(280px, 58vw);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      animation: introSpriteHello 2.35s cubic-bezier(0.18, 1.12, 0.28, 1) both;
+    }
+
+    .hello-bubble {
+      position: absolute;
+      left: 50%;
+      top: -30px;
+      z-index: 3;
+      padding: 8px 18px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow: 0 0 18px rgba(219, 195, 255, 0.78);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        0 0 28px rgba(212, 186, 255, 0.32);
+      transform: translate(-50%, 12px) scale(0.86);
+      opacity: 0;
+      animation: helloPop 1.65s 0.34s cubic-bezier(0.18, 1.22, 0.2, 1) both;
+      backdrop-filter: blur(10px);
+    }
+
+    .bunny-mark {
+      overflow: visible;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .bunny-mark::before,
+    .bunny-mark::after {
+      display: none;
+    }
+
+    .sprite-img {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 16px 26px rgba(205, 174, 255, 0.38))
+        drop-shadow(0 0 30px rgba(255, 163, 241, 0.22));
+      transform: translate(-50%, -50%);
+      transition: opacity 0.22s ease, transform 0.24s ease, filter 0.24s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .sprite-smile {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.98);
+    }
+
+    .bunny-mark.is-smiling .sprite-open {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    .bunny-mark.is-smiling .sprite-smile {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    .bunny-mark .mobile-play__eyes {
+      left: 50%;
+      top: 55%;
+      z-index: 2;
+      width: 15px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow:
+        31px 0 0 rgba(255, 255, 255, 0.98),
+        0 0 10px rgba(255, 255, 255, 0.62),
+        31px 0 10px rgba(255, 255, 255, 0.62);
+      transform: translate(calc(-50% - 15px + var(--eye-x)), calc(-50% + var(--eye-y)));
+      transition: height 0.18s ease, opacity 0.16s ease, transform 0.12s ease;
+    }
+
+    .bunny-mark .mobile-play__eyes::after {
+      display: none;
+    }
+
+    .bunny-mark.is-smiling .mobile-play__eyes {
+      opacity: 0;
+    }
+
+    .bunny-mark.is-blinking .mobile-play__eyes {
+      height: 7px;
+      transform: translate(calc(-50% - 15px + var(--eye-x)), calc(-50% + 8px + var(--eye-y)));
+    }
+
+    .bunny-mark .mobile-play__spark {
+      position: absolute;
+      inset: -24px;
+      z-index: -1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(226, 210, 255, 0.42), transparent 58%),
+        conic-gradient(from 20deg, transparent 0 14%, rgba(218, 189, 255, 0.32) 18%, transparent 25% 48%, rgba(255, 157, 237, 0.28) 52%, transparent 62% 80%, rgba(255, 255, 255, 0.26) 84%, transparent 94% 100%);
+      filter: blur(9px);
+      opacity: 0.42;
+      animation: playHalo 5.2s linear infinite;
+    }
+
+    .bunny-mark .mobile-play__shadow {
+      position: absolute;
+      left: 50%;
+      bottom: -22px;
+      z-index: -1;
+      width: 78%;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(216, 181, 255, 0.44), rgba(255, 160, 238, 0.22) 42%, transparent 72%);
+      filter: blur(5px);
+      transform: translateX(-50%);
+    }
+
+    .mobile-play.bunny-mark {
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    .progress-sprite {
+      position: fixed;
+      left: var(--progress-x, 50%);
+      top: var(--progress-y, calc(100vh - 58px));
+      z-index: 5;
+      width: 62px;
+      height: 62px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+    }
+
+    .progress-hit {
+      position: fixed;
+      left: var(--progress-hit-left, 0px);
+      top: var(--progress-hit-top, 0px);
+      z-index: 6;
+      display: none;
+      width: var(--progress-hit-width, 0px);
+      height: var(--progress-hit-height, 0px);
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    .hero.is-ready .progress-hit {
+      display: block;
+    }
+
+    .hero.is-ready .progress-sprite {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero.has-progress .progress-sprite,
+    .hero.is-scrubbing .progress-sprite {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .progress-sprite img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 12px rgba(216, 181, 255, 0.86))
+        drop-shadow(0 0 24px rgba(255, 146, 235, 0.42));
+      animation: progressSpriteBob 1.8s ease-in-out infinite;
+    }
+
+    .progress-sweat {
+      position: absolute;
+      top: 10%;
+      right: 8%;
+      width: 7px;
+      height: 12px;
+      border-radius: 999px 999px 999px 30%;
+      background: linear-gradient(180deg, rgba(235, 252, 255, 0.95), rgba(118, 222, 255, 0.72));
+      box-shadow: 0 0 10px rgba(132, 229, 255, 0.7);
+      transform: rotate(25deg);
+      opacity: 0;
+      animation: sweatDrop 1.45s ease-in-out infinite;
+    }
+
+    .progress-sweat:nth-child(3) {
+      top: 23%;
+      right: -3%;
+      width: 5px;
+      height: 9px;
+      animation-delay: 0.32s;
+    }
+
+    .hero.is-scrubbing .progress-sprite img {
+      animation-duration: 0.62s;
+      filter:
+        drop-shadow(0 0 16px rgba(216, 181, 255, 0.98))
+        drop-shadow(0 0 34px rgba(255, 146, 235, 0.62));
+    }
+
+    .hero.is-scrubbing .progress-sweat {
+      opacity: 1;
+      animation-duration: 0.68s;
+    }
+
+    .mobile-progress::-webkit-slider-thumb {
+      width: 58px;
+      height: 58px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .mobile-progress::-moz-range-thumb {
+      width: 58px;
+      height: 58px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .mobile-progress {
+      touch-action: none;
+    }
+
+    @media (min-width: 761px) and (orientation: landscape) {
+      .mobile-play.bunny-mark {
+        width: 132px;
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 760px), (orientation: portrait) {
+      .mobile-play.bunny-mark {
+        width: 142px;
+        height: 130px;
+      }
+
+      .progress-sprite {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    @keyframes introSpriteHello {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.28) rotate(-8deg);
+        filter: blur(8px) saturate(0.6);
+      }
+
+      38% {
+        opacity: 1;
+        transform: translateY(0) scale(1.08) rotate(3deg);
+        filter: blur(0) saturate(1.18);
+      }
+
+      66% {
+        transform: translateY(-10px) scale(0.98) rotate(-2deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes helloPop {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 14px) scale(0.76);
+      }
+
+      45% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1.08);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    @keyframes progressSpriteBob {
+      0%,
+      100% {
+        transform: translateY(0) rotate(-2deg) scale(1);
+      }
+
+      50% {
+        transform: translateY(-3px) rotate(2deg) scale(1.04);
+      }
+    }
+
+    @keyframes sweatDrop {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(25deg) scale(0.7);
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(7px, 14px) rotate(25deg) scale(1);
+      }
+    }
+
+    .intro-screen {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(70, 164, 255, 0.08), transparent 0 16%, transparent 36%),
+        radial-gradient(circle at 68% 40%, rgba(255, 112, 220, 0.07), transparent 0 15%, transparent 34%),
+        radial-gradient(circle at 50% 56%, rgba(214, 193, 255, 0.1), transparent 0 20%, transparent 46%),
+        radial-gradient(circle at 50% 68%, rgba(255, 176, 239, 0.07), transparent 0 18%, transparent 40%),
+        #000;
+    }
+
+    .intro-glitter {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .intro-stage {
+      width: min(980px, 96vw);
+      height: min(420px, 54vw);
+      isolation: isolate;
+    }
+
+    .intro-stage::before,
+    .intro-stage::after,
+    .intro-shine,
+    .intro-bunny {
+      display: none;
+    }
+
+    .intro-hello-wrap {
+      position: relative;
+      z-index: 2;
+      width: clamp(520px, 72vw, 1080px);
+      filter:
+        drop-shadow(0 34px 42px rgba(122, 86, 220, 0.36))
+        drop-shadow(0 0 30px rgba(221, 211, 255, 0.34))
+        drop-shadow(0 0 94px rgba(255, 178, 242, 0.2));
+      animation: helloFloat 2.65s ease both;
+    }
+
+    .intro-hello {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .hello-script {
+      fill: url("#helloStroke");
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      filter: url("#helloJellyFilter");
+      opacity: 0.9;
+      animation: helloJelly 2.5s 0.22s ease-in-out both;
+    }
+
+    .hello-extrude-deep,
+    .hello-extrude-mid,
+    .hello-extrude-lit {
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: helloJelly 2.5s 0.06s ease-in-out both;
+    }
+
+    .hello-extrude-deep {
+      fill: url("#helloExtrudeDeep");
+      opacity: 0.92;
+      filter: blur(1px);
+      transform: translate(34px, 44px) skewX(-5deg) scale(1.048);
+    }
+
+    .hello-extrude-mid {
+      fill: url("#helloExtrudeMid");
+      opacity: 0.86;
+      filter: blur(0.55px);
+      transform: translate(22px, 30px) skewX(-4deg) scale(1.034);
+    }
+
+    .hello-extrude-lit {
+      fill: url("#helloExtrudeLit");
+      opacity: 0.78;
+      filter: blur(0.25px);
+      transform: translate(11px, 17px) skewX(-2.5deg) scale(1.018);
+    }
+
+    .hello-jelly-back {
+      fill: url("#helloCushion");
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.82;
+      filter: blur(5.6px);
+      transform: translate(4px, 30px) scale(1.04);
+      animation: helloJelly 2.5s 0.08s ease-in-out both;
+    }
+
+    .hello-fill {
+      fill: url("#helloFill");
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      opacity: 0.88;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      filter: url("#helloJellyFilter");
+      animation: helloJelly 2.5s 0.14s ease-in-out both;
+    }
+
+    .hello-glow-base {
+      fill: url("#helloFill");
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      opacity: 0.42;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      filter: url("#helloGlow");
+    }
+
+    .hello-depth {
+      fill: rgba(124, 82, 238, 0.54);
+      stroke: none;
+      stroke-width: 0;
+      paint-order: fill;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      filter: blur(8px);
+      transform: translate(7px, 38px) scale(1.05);
+    }
+
+    .hello-bottom-glow {
+      fill: url("#helloBottomGlow");
+      stroke: none;
+      stroke-width: 0;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.78;
+      filter: blur(2px);
+      transform: translate(2px, 12px) scale(1.01);
+      mix-blend-mode: screen;
+      animation: helloJelly 2.5s 0.18s ease-in-out both;
+    }
+
+    .hello-inner-light {
+      fill: url("#helloInnerLight");
+      stroke: none;
+      stroke-width: 0;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.56;
+      filter: blur(0.8px);
+      transform: translate(-12px, -22px) scale(0.955);
+      mix-blend-mode: screen;
+      animation: helloJelly 2.5s 0.3s ease-in-out both;
+    }
+
+    .hello-gloss {
+      fill: rgba(255, 255, 255, 0.5);
+      stroke: none;
+      stroke-width: 0;
+      font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 136px;
+      font-weight: 900;
+      letter-spacing: 0;
+      opacity: 0.52;
+      filter: blur(1.4px);
+      transform: translate(-14px, -24px) scale(0.95);
+      mix-blend-mode: screen;
+      animation: helloJelly 2.5s 0.28s ease-in-out both;
+    }
+
+    .hello-underline {
+      fill: none;
+      stroke: url("#helloStroke");
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      opacity: 0.92;
+      filter: drop-shadow(0 8px 14px rgba(202, 164, 255, 0.18));
+      animation: helloWrite 0.86s 1.15s ease forwards;
+    }
+
+    .hello-orb {
+      transform-origin: center;
+      opacity: 0;
+      animation: helloOrb 1.5s ease forwards;
+      mix-blend-mode: normal;
+    }
+
+    .hello-orb:nth-child(1) {
+      animation-delay: 0.42s;
+    }
+
+    .hello-orb:nth-child(2) {
+      animation-delay: 0.78s;
+    }
+
+    .hello-orb:nth-child(3) {
+      animation-delay: 1.05s;
+    }
+
+    .mobile-play__eyes {
+      display: none !important;
+    }
+
+    .sprite-eye-cover {
+      position: absolute;
+      left: 50%;
+      top: 56%;
+      z-index: 2;
+      width: 76px;
+      height: 46px;
+      border-radius: 999px;
+      background:
+        radial-gradient(ellipse at 24% 18%, rgba(244, 251, 255, 0.72), transparent 0 34%, transparent 56%),
+        radial-gradient(ellipse at 50% 82%, rgba(255, 178, 239, 0.62), transparent 0 44%, transparent 68%),
+        linear-gradient(160deg, rgba(222, 213, 255, 0.92), rgba(219, 188, 255, 0.9) 52%, rgba(255, 184, 241, 0.78));
+      filter: blur(5px);
+      transform: translate(-50%, -50%) rotate(calc(var(--bunny-tilt) * 0.24));
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .sprite-live-eyes {
+      position: absolute;
+      left: 50%;
+      top: 56%;
+      z-index: 3;
+      width: 14px;
+      height: 33px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow:
+        31px 0 0 rgba(255, 255, 255, 0.98),
+        0 0 12px rgba(255, 255, 255, 0.8),
+        31px 0 12px rgba(255, 255, 255, 0.78);
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.58));
+      transform: translate(calc(-50% - 15.5px + var(--eye-x)), calc(-50% + var(--eye-y))) rotate(calc(var(--bunny-tilt) * 0.18));
+      transition: width 0.12s ease, height 0.12s ease, transform 0.08s linear;
+      pointer-events: none;
+    }
+
+    .mobile-play.is-blinking .sprite-live-eyes {
+      height: 8px;
+      transform: translate(calc(-50% - 15.5px + var(--eye-x)), calc(-50% + 8px + var(--eye-y))) rotate(calc(var(--bunny-tilt) * 0.18));
+    }
+
+    .mobile-play.is-pressed .sprite-img,
+    .mobile-play.is-pressed .sprite-eye-cover,
+    .mobile-play.is-pressed .sprite-live-eyes {
+      animation: spriteBoop 0.42s cubic-bezier(0.18, 1.25, 0.24, 1) both;
+    }
+
+    .mobile-play.bunny-mark .sprite-img {
+      transform: translate(-50%, -50%) rotate(calc(var(--bunny-tilt) * 0.38)) scale(1);
+    }
+
+    .mobile-play.bunny-mark.is-smiling .sprite-open {
+      transform: translate(-50%, -50%) rotate(calc(var(--bunny-tilt) * 0.26)) scale(1.02);
+    }
+
+    .mobile-play.bunny-mark.is-smiling .sprite-smile {
+      transform: translate(-50%, -50%) rotate(calc(var(--bunny-tilt) * 0.26)) scale(1.03);
+    }
+
+    @keyframes helloWrite {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes helloFill {
+      to {
+        opacity: 0.95;
+      }
+    }
+
+    @keyframes helloJelly {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+      }
+
+      34% {
+        opacity: 1;
+        transform: translateY(0) scale(1.025);
+      }
+
+      68% {
+        opacity: 0.96;
+        transform: translateY(-2px) scale(0.995);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes helloOrb {
+      0% {
+        opacity: 0;
+        transform: scale(0.4);
+      }
+
+      42% {
+        opacity: 0.9;
+        transform: scale(1.18);
+      }
+
+      100% {
+        opacity: 0.52;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes helloFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(22px) scale(0.94);
+      }
+
+      22%,
+      82% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-8px) scale(1.02);
+      }
+    }
+
+    @keyframes spriteBoop {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) rotate(calc(var(--bunny-tilt) * 0.28)) scale(1);
+      }
+
+      45% {
+        transform: translate(-50%, -52%) rotate(calc(var(--bunny-tilt) * 0.34)) scale(1.08);
+      }
+    }
+
+    .hero.intro-done .mobile-progress {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .hero.intro-done .progress-hit {
+      display: none !important;
+      pointer-events: none !important;
+    }
+
+    .hero.intro-done .progress-sprite {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .hero.intro-done.controls-visible .mobile-progress,
+    .hero.intro-done.is-scrubbing .mobile-progress {
+      opacity: 0.9 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    .hero.intro-done.controls-visible .progress-hit,
+    .hero.intro-done.is-scrubbing .progress-hit {
+      display: block !important;
+      pointer-events: auto !important;
+    }
+
+    .hero.intro-done.controls-visible.has-progress .progress-sprite,
+    .hero.intro-done.is-scrubbing .progress-sprite {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .progress-controls {
+      position: fixed;
+      left: max(20px, calc(var(--safe-left) + 20px));
+      right: max(20px, calc(var(--safe-right) + 20px));
+      bottom: max(62px, calc(var(--safe-bottom) + 62px));
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      color: rgba(255, 255, 255, 0.94);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.28s ease, visibility 0.28s ease, transform 0.28s ease;
+    }
+
+    .hero.intro-done.controls-visible .progress-controls,
+    .hero.intro-done.is-scrubbing .progress-controls {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .progress-control-btn {
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.94);
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .progress-control-btn:hover,
+    .progress-control-btn:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.06);
+      outline: none;
+    }
+
+    .progress-control-btn svg {
+      display: block;
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .fullscreen-btn {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .pause-icon,
+    .volume-off,
+    .hero.is-playing .compact-play .play-icon,
+    .volume-btn.is-muted .volume-on {
+      display: none;
+    }
+
+    .hero.is-playing .compact-play .pause-icon,
+    .volume-btn.is-muted .volume-off {
+      display: block;
+    }
+
+    .time-readout {
+      display: inline-flex;
+      align-items: center;
+      min-width: 90px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.92);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.72);
+    }
+
+    .time-separator {
+      padding: 0 4px;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .control-spacer {
+      flex: 1 1 auto;
+      min-width: 12px;
+    }
+
+    .progress-tooltip {
+      position: fixed;
+      left: var(--progress-x, 50%);
+      top: calc(var(--progress-y, calc(100vh - 58px)) - 42px);
+      z-index: 8;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(12, 12, 18, 0.78);
+      color: rgba(255, 255, 255, 0.94);
+      font: 800 12px/1 Inter, "Segoe UI", Arial, sans-serif;
+      font-variant-numeric: tabular-nums;
+      box-shadow: 0 0 24px rgba(216, 190, 255, 0.26);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, 6px);
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    }
+
+    .hero.intro-done.is-scrubbing .progress-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    .hero.intro-done .mobile-progress {
+      bottom: max(34px, calc(var(--safe-bottom) + 34px)) !important;
+      width: calc(100vw - max(40px, calc(var(--safe-left) + var(--safe-right) + 40px))) !important;
+      z-index: 8 !important;
+    }
+
+    @media (max-width: 640px) {
+      .progress-controls {
+        left: max(12px, calc(var(--safe-left) + 12px));
+        right: max(12px, calc(var(--safe-right) + 12px));
+        bottom: max(58px, calc(var(--safe-bottom) + 58px));
+        gap: 6px;
+      }
+
+      .progress-control-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .time-readout {
+        min-width: 76px;
+        font-size: 12px;
+      }
+    }
+
+    /* Keep one slim progress rail; the jelly sprite is its only visible thumb. */
+    .hero.intro-done .mobile-progress {
+      height: 20px !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(215, 201, 255, 0.95)) 0 50% / var(--progress, 0%) 3px no-repeat,
+        linear-gradient(90deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.22)) 0 50% / 100% 3px no-repeat !important;
+      box-shadow: none !important;
+    }
+
+    .mobile-progress::-webkit-slider-runnable-track {
+      height: 3px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .mobile-progress::-webkit-slider-thumb {
+      width: 1px !important;
+      height: 1px !important;
+      margin-top: 1px !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 0 !important;
+    }
+
+    .mobile-progress::-moz-range-track {
+      height: 3px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .mobile-progress::-moz-range-thumb {
+      width: 1px !important;
+      height: 1px !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 0 !important;
+    }
+
+    .progress-sprite {
+      width: 44px !important;
+      height: 44px !important;
+      z-index: 12 !important;
+      pointer-events: none !important;
+    }
+
+    .hello-gloss {
+      opacity: 0.92 !important;
+      transform: translate(-2px, -4px) !important;
+    }
+
+    .compact-play .play-icon {
+      display: block !important;
+    }
+
+    .compact-play .pause-icon {
+      display: none !important;
+    }
+
+    .hero.is-playing .compact-play .play-icon {
+      display: none !important;
+    }
+
+    .hero.is-playing .compact-play .pause-icon {
+      display: block !important;
+    }
+
+    .volume-control,
+    .more-menu {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .volume-popover,
+    .more-panel {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 10px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(10, 10, 14, 0.88);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(16px);
+    }
+
+    .volume-popover {
+      display: grid;
+      place-items: center;
+      width: 132px;
+      height: 42px;
+      padding: 0 12px;
+      border-radius: 999px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    }
+
+    .volume-control.is-open .volume-popover,
+    .volume-control:focus-within .volume-popover,
+    .volume-control:hover .volume-popover {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .volume-slider {
+      width: 108px;
+      height: 4px;
+      margin: 0;
+      accent-color: #d9c8ff;
+      cursor: pointer;
+    }
+
+    .more-menu summary {
+      list-style: none;
+    }
+
+    .more-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .more-panel {
+      display: grid;
+      gap: 3px;
+      width: 164px;
+      padding: 8px;
+      border-radius: 12px;
+    }
+
+    .more-caption {
+      padding: 7px 9px 4px;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .speed-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+    }
+
+    .speed-option,
+    .pip-btn {
+      min-height: 34px;
+      padding: 7px 9px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      font: 700 12px/1 Inter, "Segoe UI", Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .speed-option:hover,
+    .speed-option.is-active,
+    .pip-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .pip-btn {
+      width: 100%;
+      margin-top: 4px;
+      text-align: left;
+    }
+
+    @media (max-width: 640px) {
+      .progress-sprite {
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      .progress-controls {
+        gap: 4px;
+      }
+
+      .progress-control-btn {
+        width: 30px;
+        height: 30px;
+      }
+
+      .progress-control-btn svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      .time-readout {
+        min-width: 70px;
+        font-size: 11px;
+      }
+
+      .volume-popover {
+        right: -36px;
+        width: 118px;
+      }
+
+      .volume-slider {
+        width: 94px;
+      }
+
+      .more-panel {
+        right: -2px;
+        width: 150px;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="hero" aria-label="设计作品集首屏视频">
+    <div class="intro-screen" aria-hidden="true">
+      <canvas class="intro-glitter"></canvas>
+      <div class="intro-stage">
+        <div class="intro-hello-wrap">
+          <svg class="intro-hello" viewBox="0 0 620 220" role="img" aria-label="hello">
+            <defs>
+              <linearGradient id="helloStroke" x1="66" y1="36" x2="540" y2="178" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f7fbff" stop-opacity="0.94" />
+                <stop offset="0.24" stop-color="#c8f0ff" stop-opacity="0.9" />
+                <stop offset="0.52" stop-color="#baa4ff" stop-opacity="0.96" />
+                <stop offset="0.78" stop-color="#ff9ce5" stop-opacity="0.9" />
+                <stop offset="1" stop-color="#ffe9ad" stop-opacity="0.84" />
+              </linearGradient>
+              <linearGradient id="helloFill" x1="92" y1="42" x2="500" y2="178" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.66" />
+                <stop offset="0.28" stop-color="#d6f5ff" stop-opacity="0.54" />
+                <stop offset="0.6" stop-color="#c2a9ff" stop-opacity="0.66" />
+                <stop offset="1" stop-color="#ffb4eb" stop-opacity="0.58" />
+              </linearGradient>
+              <linearGradient id="helloExtrudeDeep" x1="90" y1="58" x2="520" y2="206" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#3d20a5" stop-opacity="0.42" />
+                <stop offset="0.42" stop-color="#7f52ff" stop-opacity="0.7" />
+                <stop offset="0.72" stop-color="#e65de0" stop-opacity="0.86" />
+                <stop offset="1" stop-color="#ffc37f" stop-opacity="0.72" />
+              </linearGradient>
+              <linearGradient id="helloExtrudeMid" x1="88" y1="52" x2="516" y2="196" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#9feaff" stop-opacity="0.28" />
+                <stop offset="0.42" stop-color="#a58bff" stop-opacity="0.66" />
+                <stop offset="0.76" stop-color="#ff85e7" stop-opacity="0.82" />
+                <stop offset="1" stop-color="#ffe0aa" stop-opacity="0.6" />
+              </linearGradient>
+              <linearGradient id="helloExtrudeLit" x1="82" y1="42" x2="510" y2="186" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.22" />
+                <stop offset="0.3" stop-color="#c9f4ff" stop-opacity="0.32" />
+                <stop offset="0.66" stop-color="#d6c8ff" stop-opacity="0.42" />
+                <stop offset="1" stop-color="#ffc5f1" stop-opacity="0.36" />
+              </linearGradient>
+              <linearGradient id="helloCushion" x1="92" y1="48" x2="500" y2="194" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f7fbff" stop-opacity="0.12" />
+                <stop offset="0.44" stop-color="#a88cff" stop-opacity="0.34" />
+                <stop offset="0.78" stop-color="#ff8ee0" stop-opacity="0.58" />
+                <stop offset="1" stop-color="#fff5cf" stop-opacity="0.42" />
+              </linearGradient>
+              <linearGradient id="helloBottomGlow" x1="96" y1="60" x2="506" y2="188" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#bdf5ff" stop-opacity="0" />
+                <stop offset="0.52" stop-color="#cdbbff" stop-opacity="0.22" />
+                <stop offset="0.82" stop-color="#ff9ee8" stop-opacity="0.68" />
+                <stop offset="1" stop-color="#fff1c1" stop-opacity="0.58" />
+              </linearGradient>
+              <radialGradient id="helloInnerLight" cx="38%" cy="18%" r="72%">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.72" />
+                <stop offset="0.26" stop-color="#e9fbff" stop-opacity="0.44" />
+                <stop offset="0.62" stop-color="#c7b8ff" stop-opacity="0.16" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </radialGradient>
+              <clipPath id="helloReveal">
+                <rect x="0" y="0" width="0" height="220">
+                  <animate attributeName="width" from="0" to="620" dur="1.76s" begin="0.18s" fill="freeze" calcMode="spline" keySplines="0.65 0 0.2 1" />
+                </rect>
+              </clipPath>
+              <filter id="helloGlow" x="-28%" y="-44%" width="156%" height="188%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.78  0 1 0 0 0.68  0 0 1 0 0.96  0 0 0 0.34 0" result="glow" />
+                <feMerge>
+                  <feMergeNode in="glow" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="helloSoftGlow" x="-26%" y="-44%" width="152%" height="188%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="soft" />
+                <feColorMatrix in="soft" type="matrix" values="1 0 0 0 0.9  0 1 0 0 0.82  0 0 1 0 1  0 0 0 0.45 0" result="halo" />
+                <feMerge>
+                  <feMergeNode in="halo" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="helloJellyFilter" x="-32%" y="-52%" width="164%" height="204%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="softAlpha" />
+                <feOffset in="softAlpha" dx="0" dy="16" result="shadow" />
+                <feColorMatrix in="shadow" type="matrix" values="0 0 0 0 0.6  0 0 0 0 0.46  0 0 0 0 1  0 0 0 0.4 0" result="jellyShadow" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2.35" result="bodySoft" />
+                <feMerge>
+                  <feMergeNode in="jellyShadow" />
+                  <feMergeNode in="bodySoft" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <radialGradient id="helloOrbBlue" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.64" />
+                <stop offset="0.45" stop-color="#cfefff" stop-opacity="0.38" />
+                <stop offset="1" stop-color="#9ccfff" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="helloOrbPink" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.52" />
+                <stop offset="0.48" stop-color="#ffc8f0" stop-opacity="0.34" />
+                <stop offset="1" stop-color="#ff9be3" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle class="hello-orb" cx="186" cy="132" r="70" fill="url(#helloOrbBlue)" />
+            <circle class="hello-orb" cx="356" cy="118" r="76" fill="url(#helloOrbPink)" />
+            <circle class="hello-orb" cx="488" cy="124" r="62" fill="url(#helloOrbBlue)" />
+            <g clip-path="url(#helloReveal)">
+              <text class="hello-extrude-deep" x="54" y="142">hello</text>
+              <text class="hello-extrude-mid" x="54" y="142">hello</text>
+              <text class="hello-extrude-lit" x="54" y="142">hello</text>
+              <text class="hello-depth" x="54" y="142">hello</text>
+              <text class="hello-jelly-back" x="54" y="142">hello</text>
+              <text class="hello-glow-base" x="54" y="142">hello</text>
+              <text class="hello-bottom-glow" x="54" y="142">hello</text>
+              <text class="hello-fill" x="54" y="142">hello</text>
+              <text class="hello-script" x="54" y="142">hello</text>
+              <text class="hello-inner-light" x="54" y="142">hello</text>
+              <text class="hello-gloss" x="54" y="142">hello</text>
+              <path class="hello-underline" d="M94 170 C176 194 322 194 505 166" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
     <video
       class="hero-video"
       data-local-src="hero-video.mp4"
       data-remote-src="https://github.com/12331cc/-/releases/download/v1/hero-video.mp4"
-      controls
       loop
       playsinline
       preload="metadata"
     ></video>
-    <div class="video-status">视频加载中...</div>
-    <button class="mobile-play" type="button" aria-label="播放视频"></button>
+    <div class="loader-screen" aria-live="polite">
+      <div class="loader-inner">
+        <div class="loader-visual" aria-hidden="true">
+          <div class="loader-rays">
+            <span style="--i: 0"></span>
+            <span style="--i: 1"></span>
+            <span style="--i: 2"></span>
+            <span style="--i: 3"></span>
+            <span style="--i: 4"></span>
+            <span style="--i: 5"></span>
+            <span style="--i: 6"></span>
+            <span style="--i: 7"></span>
+          </div>
+          <div class="loader-orbit">
+            <span style="--i: 0; --s: 1.8"></span>
+            <span style="--i: 1; --s: 1.45"></span>
+            <span style="--i: 2; --s: 1.2"></span>
+            <span style="--i: 3; --s: 1"></span>
+            <span style="--i: 4; --s: 0.88"></span>
+            <span style="--i: 5; --s: 0.76"></span>
+            <span style="--i: 6; --s: 0.64"></span>
+            <span style="--i: 7; --s: 0.54"></span>
+            <span style="--i: 8; --s: 0.46"></span>
+          </div>
+        </div>
+        <div class="loader-meter" aria-hidden="true">
+          <span style="--i: 0"></span>
+          <span style="--i: 1"></span>
+          <span style="--i: 2"></span>
+          <span style="--i: 3"></span>
+          <span style="--i: 4"></span>
+          <span style="--i: 5"></span>
+          <span style="--i: 6"></span>
+          <span style="--i: 7"></span>
+          <span style="--i: 8"></span>
+          <span style="--i: 9"></span>
+          <span style="--i: 10"></span>
+          <span style="--i: 11"></span>
+        </div>
+        <div class="loader-word">Loading...</div>
+        <div class="video-status">视频加载中...</div>
+      </div>
+    </div>
+    <button class="mobile-play bunny-mark" type="button" aria-label="播放视频">
+      <img class="sprite-img sprite-open" src="sprite-base.png" alt="">
+      <span class="sprite-eye-cover" aria-hidden="true"></span>
+      <span class="sprite-live-eyes" aria-hidden="true"></span>
+      <span class="mobile-play__spark" aria-hidden="true"></span>
+      <span class="mobile-play__shadow" aria-hidden="true"></span>
+    </button>
     <input class="mobile-progress" type="range" min="0" max="1000" value="0" aria-label="视频进度">
+    <div class="progress-hit" aria-hidden="true"></div>
+    <div class="progress-sprite" aria-hidden="true">
+      <img src="sprite-open.png" alt="">
+      <span class="progress-sweat"></span>
+      <span class="progress-sweat"></span>
+    </div>
+    <div class="progress-tooltip" aria-hidden="true">0:00</div>
+    <div class="progress-controls" aria-label="视频控制栏">
+      <button class="progress-control-btn compact-play" type="button" aria-label="播放或暂停">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 5h4v14H7zM13 5h4v14h-4z"></path>
+        </svg>
+      </button>
+      <div class="time-readout" aria-live="off">
+        <span class="time-current">0:00</span>
+        <span class="time-separator">/</span>
+        <span class="time-total">0:00</span>
+      </div>
+      <div class="control-spacer" aria-hidden="true"></div>
+      <div class="volume-control">
+        <button class="progress-control-btn volume-btn" type="button" aria-label="调节音量" aria-expanded="false">
+          <svg class="volume-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4zm12.2-.9-1.4 1.4A3.4 3.4 0 0 1 16 12c0 .96-.4 1.84-1.2 2.5l1.4 1.4A5.3 5.3 0 0 0 18 12c0-1.54-.68-2.92-1.8-3.9zm2.5-2.5-1.4 1.4A7.2 7.2 0 0 1 20 12a7.2 7.2 0 0 1-2.7 5l1.4 1.4A9.1 9.1 0 0 0 22 12a9.1 9.1 0 0 0-3.3-6.4z"></path>
+          </svg>
+        </button>
+        <div class="volume-popover">
+          <input class="volume-slider" type="range" min="0" max="100" value="100" aria-label="音量">
+        </div>
+      </div>
+      <button class="progress-control-btn fullscreen-btn" type="button" aria-label="全屏">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 5h6v2H7v4H5V5zm8 0h6v6h-2V7h-4V5zM5 13h2v4h4v2H5v-6zm12 4v-4h2v6h-6v-2h4z"></path>
+        </svg>
+      </button>
+      <details class="more-menu">
+        <summary class="progress-control-btn" aria-label="更多设置">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path>
+          </svg>
+        </summary>
+        <div class="more-panel">
+          <div class="more-caption">播放速度</div>
+          <div class="speed-options">
+            <button class="speed-option" type="button" data-speed="0.75">0.75x</button>
+            <button class="speed-option is-active" type="button" data-speed="1">1x</button>
+            <button class="speed-option" type="button" data-speed="1.25">1.25x</button>
+            <button class="speed-option" type="button" data-speed="1.5">1.5x</button>
+          </div>
+          <button class="pip-btn" type="button">画中画</button>
+        </div>
+      </details>
+    </div>
     <section class="mobile-info" aria-hidden="true">
       <div class="mobile-info__eyebrow">Design Portfolio</div>
       <div class="mobile-info__title">2025-2026</div>
@@ -351,10 +3046,25 @@
   </main>
   <script>
     const hero = document.querySelector(".hero");
+    const introCanvas = document.querySelector(".intro-glitter");
+    const introCtx = introCanvas.getContext("2d");
     const video = document.querySelector(".hero-video");
     const videoStatus = document.querySelector(".video-status");
     const mobilePlay = document.querySelector(".mobile-play");
     const mobileProgress = document.querySelector(".mobile-progress");
+    const progressHit = document.querySelector(".progress-hit");
+    const progressSprite = document.querySelector(".progress-sprite");
+    const progressTooltip = document.querySelector(".progress-tooltip");
+    const compactPlay = document.querySelector(".compact-play");
+    const timeCurrent = document.querySelector(".time-current");
+    const timeTotal = document.querySelector(".time-total");
+    const volumeControl = document.querySelector(".volume-control");
+    const volumeButton = document.querySelector(".volume-btn");
+    const volumeSlider = document.querySelector(".volume-slider");
+    const fullscreenButton = document.querySelector(".fullscreen-btn");
+    const moreMenu = document.querySelector(".more-menu");
+    const speedButtons = document.querySelectorAll(".speed-option");
+    const pipButton = document.querySelector(".pip-btn");
     const canvas = document.querySelector(".cursor-fx");
     const ctx = canvas.getContext("2d");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -369,6 +3079,13 @@
     };
     const particles = [];
     const ripples = [];
+    const introStars = [];
+    const introPalette = [
+      [235, 240, 255],
+      [198, 190, 255],
+      [255, 184, 232]
+    ];
+    let introLastTime = 0;
     const touch = {
       active: false,
       startX: 0,
@@ -378,16 +3095,241 @@
       lastBurst: 0,
       infoTimer: 0
     };
+    let isScrubbing = false;
+    let controlsTimer = 0;
+
+    function revealControls(delay = 1500) {
+      hero.classList.add("controls-visible");
+      window.clearTimeout(controlsTimer);
+      if (delay > 0) {
+        controlsTimer = window.setTimeout(() => {
+          if (!isScrubbing) {
+            hero.classList.remove("controls-visible");
+          }
+        }, delay);
+      }
+      updateProgressSprite();
+    }
+
+    function hideControls() {
+      window.clearTimeout(controlsTimer);
+      if (!isScrubbing) {
+        hero.classList.remove("controls-visible");
+      }
+    }
+
+    window.setTimeout(() => {
+      hero.classList.add("intro-done");
+      hideControls();
+    }, reduceMotion ? 850 : 2850);
+
+    window.setInterval(() => {
+      if (document.hidden || mobilePlay.classList.contains("is-smiling")) return;
+      mobilePlay.classList.add("is-blinking");
+      window.setTimeout(() => {
+        mobilePlay.classList.remove("is-blinking");
+      }, 130);
+    }, 3600);
 
     function setVideoSource() {
-      const isLocalPreview = window.location.protocol === "file:";
+      const isLocalPreview = window.location.protocol === "file:" ||
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
       video.src = isLocalPreview ? video.dataset.localSrc : video.dataset.remoteSrc;
+    }
+
+    function formatTime(value) {
+      if (!Number.isFinite(value) || value < 0) return "0:00";
+      const total = Math.floor(value);
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+      if (hours > 0) {
+        return `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      }
+      return `${minutes}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function getVideoDuration() {
+      return Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 0;
+    }
+
+    function updateTimeReadout(progress) {
+      const duration = getVideoDuration();
+      const previewTime = Number.isFinite(progress) && duration > 0
+        ? duration * Math.max(0, Math.min(1, progress))
+        : video.currentTime || 0;
+      const currentLabel = formatTime(previewTime);
+      const totalLabel = formatTime(duration);
+
+      if (timeCurrent) timeCurrent.textContent = currentLabel;
+      if (timeTotal) timeTotal.textContent = totalLabel;
+      if (progressTooltip) progressTooltip.textContent = currentLabel;
+      if (mobileProgress) {
+        mobileProgress.setAttribute("aria-valuetext", `${currentLabel} / ${totalLabel}`);
+      }
+    }
+
+    function syncVolumeUI() {
+      if (volumeSlider) {
+        volumeSlider.value = Math.round((video.muted ? 0 : video.volume) * 100);
+      }
+      if (volumeButton) {
+        volumeButton.setAttribute("aria-label", `调节音量，当前 ${Math.round((video.muted ? 0 : video.volume) * 100)}%`);
+      }
+    }
+
+    function togglePlayback(x, y) {
+      if (video.paused) {
+        playVideoFromGesture(x || window.innerWidth / 2, y || window.innerHeight / 2);
+      } else {
+        video.pause();
+      }
+    }
+
+    function toggleFullscreen() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.();
+        return;
+      }
+      const fullscreenTarget = hero.requestFullscreen ? hero : video;
+      fullscreenTarget.requestFullscreen?.();
+    }
+
+    function makeIntroStar() {
+      return {
+        x: 0,
+        y: 0,
+        z: 1,
+        px: NaN,
+        py: NaN,
+        seed: 0,
+        speed: 1,
+        size: 1,
+        color: 0
+      };
+    }
+
+    function resetIntroStar(star, initial = false) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 0.2 + Math.random() * 1.4;
+      star.x = Math.cos(angle) * radius;
+      star.y = Math.sin(angle) * radius;
+      star.z = initial ? 0.18 + Math.random() * 0.82 : 1;
+      star.px = NaN;
+      star.py = NaN;
+      star.seed = Math.random() * 1000;
+      star.speed = 0.7 + Math.random() * 0.9;
+      star.size = 0.55 + Math.random() * 1.5;
+      star.color = Math.floor(Math.random() * introPalette.length);
+    }
+
+    function syncIntroStars() {
+      const target = reduceMotion ? 70 : 260;
+      while (introStars.length < target) {
+        const star = makeIntroStar();
+        resetIntroStar(star, true);
+        introStars.push(star);
+      }
+      if (introStars.length > target) {
+        introStars.length = target;
+      }
+    }
+
+    function resizeIntroGlitter() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      introCanvas.width = Math.floor(window.innerWidth * ratio);
+      introCanvas.height = Math.floor(window.innerHeight * ratio);
+      introCanvas.style.width = `${window.innerWidth}px`;
+      introCanvas.style.height = `${window.innerHeight}px`;
+      introCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      introCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      syncIntroStars();
+    }
+
+    function drawIntroGlitter(time) {
+      if (hero.classList.contains("intro-done")) {
+        introCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        return;
+      }
+
+      syncIntroStars();
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const cx = w / 2;
+      const cy = h / 2;
+      const scale = Math.min(w, h) * 0.92;
+      const focalDepth = 0.13;
+      const last = introLastTime || time;
+      const dt = Math.max(0.001, Math.min(0.1, (time - last) / 1000)) * 60;
+      introLastTime = time;
+
+      introCtx.globalAlpha = 1;
+      introCtx.globalCompositeOperation = "destination-out";
+      introCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      introCtx.fillRect(0, 0, w, h);
+      introCtx.globalCompositeOperation = "lighter";
+
+      for (const star of introStars) {
+        star.z -= 0.0047 * star.speed * dt;
+        if (star.z <= focalDepth) {
+          resetIntroStar(star);
+          continue;
+        }
+
+        const wobble = (1 - star.z) * 0.22;
+        const tx = star.x + Math.sin(time * 0.00125 + star.seed) * wobble;
+        const ty = star.y + Math.cos(time * 0.00105 + star.seed * 0.7) * wobble;
+        const persp = focalDepth / Math.max(star.z, 0.0001);
+        const sx = cx + tx * persp * scale;
+        const sy = cy + ty * persp * scale;
+
+        if (sx < -30 || sx > w + 30 || sy < -30 || sy > h + 30) {
+          resetIntroStar(star);
+          continue;
+        }
+
+        const life = 1 - star.z;
+        const radius = Math.min(2.8, (0.42 + life * 3.5) * star.size);
+        const flash = Math.sin(time * 0.0048 + star.seed) > 0.994 ? 1.55 : 1;
+        const alpha = Math.min(0.58, (0.1 + life * 0.6) * flash);
+        const color = introPalette[star.color];
+        const colorString = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+
+        if (!Number.isNaN(star.px) && !Number.isNaN(star.py)) {
+          introCtx.globalAlpha = alpha * 0.22;
+          introCtx.strokeStyle = colorString;
+          introCtx.lineWidth = Math.max(0.35, radius * 0.24);
+          introCtx.beginPath();
+          introCtx.moveTo(star.px, star.py);
+          introCtx.lineTo(sx, sy);
+          introCtx.stroke();
+        }
+
+        introCtx.globalAlpha = alpha;
+        introCtx.fillStyle = colorString;
+        introCtx.fillRect(sx - radius, sy - radius, radius * 2, radius * 2);
+
+        if (flash > 1) {
+          introCtx.globalAlpha = alpha * 0.36;
+          introCtx.fillRect(sx - radius * 1.6, sy - 0.8, radius * 3.2, 1.6);
+          introCtx.fillRect(sx - 0.8, sy - radius * 1.6, 1.6, radius * 3.2);
+        }
+
+        star.px = sx;
+        star.py = sy;
+      }
+
+      introCtx.globalAlpha = 1;
+      introCtx.globalCompositeOperation = "source-over";
     }
 
     function markVideoReady() {
       hero.classList.add("is-ready");
       hero.classList.remove("has-error");
       updateProgress();
+      updateTimeReadout();
+      syncVolumeUI();
     }
 
     function markVideoError() {
@@ -403,6 +3345,8 @@
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      resizeIntroGlitter();
+      updateProgressSprite();
     }
 
     function addParticle(x, y, burst = false) {
@@ -426,14 +3370,15 @@
       }
     }
 
-    function addRipple(x, y) {
+    function addRipple(x, y, strong = false) {
       ripples.push({
         x,
         y,
         life: 48,
         maxLife: 48,
         hue: pointer.hue,
-        rotate: Math.random() * Math.PI
+        rotate: Math.random() * Math.PI,
+        strong
       });
 
       if (ripples.length > 18) {
@@ -442,11 +3387,84 @@
     }
 
     function addTouchBurst(x, y, strong = false) {
-      addRipple(x, y);
-      const amount = strong ? 42 : 20;
+      addRipple(x, y, strong);
+      const amount = strong ? 48 : 24;
       for (let i = 0; i < amount; i += 1) {
-        addParticle(x, y, true);
+        const angle = (Math.PI * 2 * i) / amount + (Math.random() - 0.5) * 0.7;
+        const speed = (strong ? 1.4 : 0.9) + Math.random() * (strong ? 5.2 : 2.8);
+        const shapes = ["crescent", "star", "diamond", "lunar-dot", "spark", "dot"];
+        const hue = 262 + Math.random() * 46;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - (strong ? 0.35 : 0.12),
+          size: (strong ? 5 : 3.5) + Math.random() * (strong ? 9 : 6),
+          life: (strong ? 62 : 46) + Math.random() * 22,
+          maxLife: strong ? 84 : 62,
+          hue,
+          saturation: 82 + Math.random() * 14,
+          lightness: 74 + Math.random() * 14,
+          spin: Math.random() * Math.PI,
+          shape: shapes[i % shapes.length],
+          alphaBase: strong ? 0.9 : 0.72
+        });
       }
+
+      if (strong) {
+        addRipple(x, y, true);
+        for (let i = 0; i < 12; i += 1) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.2 + Math.random() * 2.4;
+          particles.push({
+            x: x + Math.cos(angle) * 8,
+            y: y + Math.sin(angle) * 8,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 0.18,
+            size: 10 + Math.random() * 18,
+            life: 34 + Math.random() * 18,
+            maxLife: 54,
+            hue: 282 + Math.random() * 28,
+            saturation: 84,
+            lightness: 78,
+            spin: Math.random() * Math.PI,
+            shape: "dot",
+            alphaBase: 0.2
+          });
+        }
+      }
+
+      if (particles.length > 220) {
+        particles.splice(0, particles.length - 220);
+      }
+    }
+
+    function updatePlayEyes(x, y) {
+      const rect = mobilePlay.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = Math.max(-1, Math.min(1, (x - centerX) / (rect.width * 0.44)));
+      const dy = Math.max(-1, Math.min(1, (y - centerY) / (rect.height * 0.48)));
+      mobilePlay.style.setProperty("--eye-x", `${dx * 5}px`);
+      mobilePlay.style.setProperty("--eye-y", `${dy * 4}px`);
+      mobilePlay.style.setProperty("--bunny-tilt", `${dx * 4}deg`);
+    }
+
+    function resetPlayEyes() {
+      mobilePlay.style.setProperty("--eye-x", "0px");
+      mobilePlay.style.setProperty("--eye-y", "0px");
+      mobilePlay.style.setProperty("--bunny-tilt", "0deg");
+    }
+
+    function smilePlayButton() {
+      mobilePlay.classList.add("is-pressed");
+      mobilePlay.classList.remove("is-blinking");
+      window.clearTimeout(smilePlayButton.timer);
+      smilePlayButton.timer = window.setTimeout(() => {
+        mobilePlay.classList.remove("is-pressed");
+      }, 430);
     }
 
     function drawSpark(x, y, radius, rotation) {
@@ -459,6 +3477,32 @@
         const angle = (Math.PI * 2 * i) / 8;
         ctx.lineTo(Math.cos(angle) * distance, Math.sin(angle) * distance);
       }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawDiamond(x, y, radius, rotation) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.beginPath();
+      ctx.moveTo(0, -radius);
+      ctx.lineTo(radius * 0.72, 0);
+      ctx.lineTo(0, radius);
+      ctx.lineTo(-radius * 0.72, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawCrescent(x, y, radius, rotation) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, Math.PI * 0.22, Math.PI * 1.76, false);
+      ctx.arc(radius * 0.48, -radius * 0.08, radius * 0.86, Math.PI * 1.7, Math.PI * 0.3, true);
       ctx.closePath();
       ctx.fill();
       ctx.restore();
@@ -491,23 +3535,43 @@
 
         const progress = 1 - ripple.life / ripple.maxLife;
         const alpha = Math.max(1 - progress, 0);
-        const radius = 18 + progress * 78;
+        const radius = 18 + progress * (ripple.strong ? 112 : 78);
 
         ctx.save();
         ctx.translate(ripple.x, ripple.y);
         ctx.rotate(ripple.rotate + time * 0.002);
-        ctx.strokeStyle = `hsla(${ripple.hue}, 98%, 68%, ${alpha * 0.62})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, radius, radius * (0.72 + progress * 0.16), 0, 0, Math.PI * 2);
-        ctx.stroke();
+        ctx.strokeStyle = `hsla(${ripple.hue + 12}, 92%, 78%, ${alpha * 0.46})`;
+        ctx.lineWidth = ripple.strong ? 4 : 2;
+        ctx.shadowColor = `hsla(${ripple.hue + 18}, 92%, 78%, ${alpha})`;
+        ctx.shadowBlur = ripple.strong ? 22 : 12;
+        for (let ring = 0; ring < (ripple.strong ? 3 : 1); ring += 1) {
+          const ringRadius = radius + ring * 18;
+          ctx.globalAlpha = alpha * (0.72 - ring * 0.18);
+          if (ring === 1) {
+            ctx.setLineDash([5, 14]);
+          } else {
+            ctx.setLineDash([]);
+          }
+          ctx.beginPath();
+          ctx.ellipse(0, 0, ringRadius, ringRadius * (0.72 + progress * 0.14), 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
 
         ctx.fillStyle = `hsla(${ripple.hue + 54}, 98%, 68%, ${alpha * 0.7})`;
-        for (let dot = 0; dot < 5; dot += 1) {
-          const angle = ripple.rotate + dot * 1.256 + time * 0.003;
+        for (let dot = 0; dot < (ripple.strong ? 9 : 5); dot += 1) {
+          const angle = ripple.rotate + dot * (Math.PI * 2 / (ripple.strong ? 9 : 5)) + time * 0.003;
+          const dotRadius = radius + Math.sin(time * 0.004 + dot) * 5;
           ctx.beginPath();
-          ctx.arc(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.74, 2.2 * alpha, 0, Math.PI * 2);
+          ctx.arc(Math.cos(angle) * dotRadius, Math.sin(angle) * dotRadius * 0.74, (ripple.strong ? 3.2 : 2.2) * alpha, 0, Math.PI * 2);
           ctx.fill();
+        }
+
+        if (ripple.strong) {
+          ctx.fillStyle = `hsla(${ripple.hue + 28}, 90%, 86%, ${alpha * 0.72})`;
+          drawCrescent(Math.cos(time * 0.002) * radius * 0.58, Math.sin(time * 0.002) * radius * 0.46, 9 * alpha, ripple.rotate - 0.6);
+          drawSpark(Math.cos(time * 0.002 + 2.4) * radius * 0.72, Math.sin(time * 0.002 + 2.4) * radius * 0.54, 8 * alpha, -ripple.rotate);
         }
         ctx.restore();
 
@@ -518,10 +3582,120 @@
     }
 
     function updateProgress() {
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      if (!Number.isFinite(video.duration) || video.duration <= 0) {
+        setProgressVisual(0);
+        return;
+      }
       const progress = Math.min(video.currentTime / video.duration, 1);
-      mobileProgress.value = Math.round(progress * 1000);
-      mobileProgress.style.setProperty("--progress", `${progress * 100}%`);
+      setProgressVisual(progress);
+    }
+
+    function setProgressVisual(progress) {
+      const clamped = Math.max(0, Math.min(1, progress || 0));
+      hero.classList.toggle("has-progress", clamped > 0.01);
+      mobileProgress.value = Math.round(clamped * 1000);
+      mobileProgress.style.setProperty("--progress", `${clamped * 100}%`);
+      updateTimeReadout(clamped);
+      updateProgressSprite(clamped);
+    }
+
+    function updateProgressSprite(progress = Number(mobileProgress.value) / 1000) {
+      const rect = mobileProgress.getBoundingClientRect();
+      if (!rect.width || !progressSprite) return;
+
+      if (progressHit) {
+        progressHit.style.setProperty("--progress-hit-left", `${rect.left}px`);
+        progressHit.style.setProperty("--progress-hit-top", `${rect.top - 24}px`);
+        progressHit.style.setProperty("--progress-hit-width", `${rect.width}px`);
+        progressHit.style.setProperty("--progress-hit-height", `${rect.height + 48}px`);
+      }
+
+      const clamped = Math.max(0, Math.min(1, progress || 0));
+      const x = rect.left + rect.width * clamped;
+      const y = rect.top + rect.height / 2;
+      progressSprite.style.setProperty("--progress-x", `${x}px`);
+      progressSprite.style.setProperty("--progress-y", `${y}px`);
+      if (progressTooltip) {
+        progressTooltip.style.setProperty("--progress-x", `${x}px`);
+        progressTooltip.style.setProperty("--progress-y", `${y}px`);
+      }
+    }
+
+    function scrubToClientX(clientX) {
+      const rect = mobileProgress.getBoundingClientRect();
+      if (!rect.width) return;
+
+      const progress = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      setProgressVisual(progress);
+      if (Number.isFinite(video.duration) && video.duration > 0) {
+        video.currentTime = progress * video.duration;
+      }
+    }
+
+    function isPointInProgress(clientX, clientY) {
+      const rect = mobileProgress.getBoundingClientRect();
+      if (!rect.width || getComputedStyle(mobileProgress).display === "none") return false;
+
+      const padX = 18;
+      const padY = 28;
+      return clientX >= rect.left - padX &&
+        clientX <= rect.right + padX &&
+        clientY >= rect.top - padY &&
+        clientY <= rect.bottom + padY;
+    }
+
+    function beginProgressScrub(event) {
+      isScrubbing = true;
+      hero.classList.add("is-scrubbing");
+      revealControls(0);
+      scrubToClientX(event.clientX);
+      const captureTarget = event.currentTarget || mobileProgress;
+      if (captureTarget && typeof captureTarget.setPointerCapture === "function" && event.pointerId != null) {
+        captureTarget.setPointerCapture(event.pointerId);
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    function endProgressScrub(clientX) {
+      if (!isScrubbing) return;
+      isScrubbing = false;
+      hero.classList.remove("is-scrubbing");
+      if (Number.isFinite(clientX)) {
+        scrubToClientX(clientX);
+      }
+      revealControls(1200);
+    }
+
+    function bindProgressScrubber(target) {
+      if (!target) return;
+
+      target.addEventListener("pointerdown", beginProgressScrub);
+      target.addEventListener("pointermove", (event) => {
+        if (!isScrubbing) return;
+        scrubToClientX(event.clientX);
+        event.stopPropagation();
+      });
+      target.addEventListener("pointerup", (event) => {
+        endProgressScrub(event.clientX);
+        event.stopPropagation();
+      });
+      target.addEventListener("click", (event) => {
+        scrubToClientX(event.clientX);
+        event.stopPropagation();
+      });
+      target.addEventListener("mousedown", beginProgressScrub);
+      target.addEventListener("touchstart", (event) => {
+        const touchPoint = event.touches[0];
+        if (!touchPoint) return;
+        beginProgressScrub({
+          clientX: touchPoint.clientX,
+          clientY: touchPoint.clientY,
+          currentTarget: target,
+          preventDefault: () => event.preventDefault(),
+          stopPropagation: () => event.stopPropagation()
+        });
+      }, { passive: false });
     }
 
     function showMobileInfo() {
@@ -539,17 +3713,23 @@
     }
 
     async function playVideoFromGesture(x, y) {
+      smilePlayButton();
       addTouchBurst(x || window.innerWidth / 2, y || window.innerHeight / 2, true);
       try {
         await video.play();
       } catch (error) {
         videoStatus.textContent = "点一下视频或播放按钮开始播放";
-        hero.classList.remove("is-ready");
+        hero.classList.add("is-ready");
       }
     }
 
     function render(time) {
+      drawIntroGlitter(time);
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      if (!isScrubbing && !video.paused && Number.isFinite(video.duration) && video.duration > 0) {
+        updateProgress();
+      }
 
       pointer.followX += (pointer.x - pointer.followX) * 0.16;
       pointer.followY += (pointer.y - pointer.followY) * 0.16;
@@ -570,13 +3750,29 @@
         p.vy = p.vy * 0.97 + 0.018;
         p.spin += 0.06;
 
-        const alpha = Math.max(p.life / p.maxLife, 0);
-        ctx.fillStyle = `hsla(${p.hue}, 96%, 68%, ${alpha})`;
-        ctx.shadowColor = `hsla(${p.hue}, 96%, 68%, ${alpha})`;
+        const alpha = Math.max(p.life / p.maxLife, 0) * (p.alphaBase || 1);
+        const saturation = p.saturation || 96;
+        const lightness = p.lightness || 68;
+        ctx.fillStyle = `hsla(${p.hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+        ctx.shadowColor = `hsla(${p.hue}, ${saturation}%, ${lightness}%, ${alpha})`;
         ctx.shadowBlur = 16;
 
         if (p.shape === "spark") {
           drawSpark(p.x, p.y, p.size * alpha, p.spin);
+        } else if (p.shape === "star") {
+          drawSpark(p.x, p.y, p.size * 1.12 * alpha, p.spin);
+        } else if (p.shape === "diamond") {
+          drawDiamond(p.x, p.y, p.size * alpha, p.spin);
+        } else if (p.shape === "crescent") {
+          drawCrescent(p.x, p.y, p.size * 1.25 * alpha, p.spin);
+        } else if (p.shape === "lunar-dot") {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.72})`;
+          ctx.beginPath();
+          ctx.arc(p.x - p.size * 0.24, p.y - p.size * 0.24, p.size * 0.22 * alpha, 0, Math.PI * 2);
+          ctx.fill();
         } else {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
@@ -595,6 +3791,19 @@
 
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("pointermove", (event) => {
+      revealControls(video.paused ? 2200 : 1400);
+      if (isScrubbing) {
+        scrubToClientX(event.clientX);
+        return;
+      }
+
+      if (event.buttons === 1 && isPointInProgress(event.clientX, event.clientY)) {
+        isScrubbing = true;
+        hero.classList.add("is-scrubbing");
+        scrubToClientX(event.clientX);
+        return;
+      }
+
       const controlSafeZone = window.innerHeight - 86;
       if (event.pointerType === "touch" || isCoarsePointer) {
         if (!touch.active || reduceMotion) return;
@@ -609,13 +3818,25 @@
         return;
       }
 
+      updatePlayEyes(event.clientX, event.clientY);
       pointer.active = event.clientY < controlSafeZone;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
     });
     window.addEventListener("pointerdown", (event) => {
-      if (event.clientY > window.innerHeight - 86) return;
+      revealControls(video.paused ? 2200 : 1400);
       const target = event.target instanceof Element ? event.target : null;
+      if (target && target.closest(".mobile-progress")) {
+        beginProgressScrub(event);
+        return;
+      }
+
+      if (isPointInProgress(event.clientX, event.clientY)) {
+        beginProgressScrub(event);
+        return;
+      }
+
+      if (event.clientY > window.innerHeight - 86) return;
       if (target && target.closest(".mobile-progress, .mobile-play")) return;
 
       if (event.pointerType === "touch" || isCoarsePointer) {
@@ -638,7 +3859,32 @@
         addParticle(event.clientX, event.clientY, true);
       }
     });
+    window.addEventListener("mousedown", (event) => {
+      if (!isPointInProgress(event.clientX, event.clientY)) return;
+      beginProgressScrub(event);
+    });
+    window.addEventListener("click", (event) => {
+      if (!isPointInProgress(event.clientX, event.clientY)) return;
+      scrubToClientX(event.clientX);
+      event.stopPropagation();
+    });
+    window.addEventListener("touchstart", (event) => {
+      const touchPoint = event.touches[0];
+      if (!touchPoint || !isPointInProgress(touchPoint.clientX, touchPoint.clientY)) return;
+      beginProgressScrub({
+        clientX: touchPoint.clientX,
+        clientY: touchPoint.clientY,
+        currentTarget: mobileProgress,
+        preventDefault: () => event.preventDefault(),
+        stopPropagation: () => event.stopPropagation()
+      });
+    }, { passive: false });
     window.addEventListener("pointerup", (event) => {
+      if (isScrubbing) {
+        endProgressScrub(event.clientX);
+        return;
+      }
+
       if (!touch.active) return;
       touch.active = false;
       const deltaY = event.clientY - touch.startY;
@@ -650,35 +3896,147 @@
       }
     });
     window.addEventListener("pointercancel", () => {
+      endProgressScrub();
       touch.active = false;
     });
     window.addEventListener("pointerleave", () => {
       pointer.active = false;
+      resetPlayEyes();
     });
     mobilePlay.addEventListener("click", (event) => {
-      playVideoFromGesture(event.clientX, event.clientY);
+      updatePlayEyes(event.clientX, event.clientY);
+      togglePlayback(event.clientX, event.clientY);
+    });
+    compactPlay.addEventListener("click", (event) => {
+      revealControls(video.paused ? 2200 : 1400);
+      togglePlayback(event.clientX, event.clientY);
+      event.stopPropagation();
+    });
+    video.addEventListener("click", (event) => {
+      togglePlayback(event.clientX, event.clientY);
+    });
+    volumeButton.addEventListener("click", (event) => {
+      const isOpen = volumeControl.classList.toggle("is-open");
+      volumeButton.setAttribute("aria-expanded", String(isOpen));
+      revealControls(0);
+      event.stopPropagation();
+    });
+    volumeSlider.addEventListener("input", (event) => {
+      const nextVolume = Math.max(0, Math.min(1, Number(event.currentTarget.value) / 100));
+      video.volume = nextVolume;
+      video.muted = false;
+      syncVolumeUI();
+      revealControls(0);
+      event.stopPropagation();
+    });
+    fullscreenButton.addEventListener("click", (event) => {
+      revealControls(1600);
+      toggleFullscreen();
+      event.stopPropagation();
+    });
+    speedButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const speed = Number(button.dataset.speed);
+        if (!Number.isFinite(speed)) return;
+        video.playbackRate = speed;
+        speedButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+        moreMenu.open = false;
+        revealControls(1800);
+        event.stopPropagation();
+      });
+    });
+    pipButton.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      moreMenu.open = false;
+      revealControls(1800);
+      if (!document.pictureInPictureEnabled || video.disablePictureInPicture) return;
+      try {
+        if (document.pictureInPictureElement) {
+          await document.exitPictureInPicture();
+        } else {
+          await video.requestPictureInPicture();
+        }
+      } catch (error) {
+        // The browser may block picture-in-picture until playback has started.
+      }
+    });
+    moreMenu.addEventListener("toggle", () => {
+      if (moreMenu.open) revealControls(0);
+    });
+    document.addEventListener("pointerdown", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (target && (volumeControl.contains(target) || moreMenu.contains(target))) return;
+      volumeControl.classList.remove("is-open");
+      volumeButton.setAttribute("aria-expanded", "false");
+      moreMenu.open = false;
+    });
+    bindProgressScrubber(mobileProgress);
+    bindProgressScrubber(progressHit);
+    window.addEventListener("mousemove", (event) => {
+      revealControls(video.paused ? 2200 : 1400);
+      if (!isScrubbing && !(event.buttons === 1 && isPointInProgress(event.clientX, event.clientY))) return;
+      if (!isScrubbing) {
+        isScrubbing = true;
+        hero.classList.add("is-scrubbing");
+      }
+      scrubToClientX(event.clientX);
+    });
+    window.addEventListener("mouseup", (event) => {
+      endProgressScrub(event.clientX);
+    });
+    window.addEventListener("touchmove", (event) => {
+      revealControls(video.paused ? 2200 : 1400);
+      if (!isScrubbing) return;
+      const touchPoint = event.touches[0];
+      if (!touchPoint) return;
+      scrubToClientX(touchPoint.clientX);
+      event.preventDefault();
+    }, { passive: false });
+    window.addEventListener("touchend", () => {
+      endProgressScrub();
     });
     mobileProgress.addEventListener("input", () => {
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-      video.currentTime = (Number(mobileProgress.value) / 1000) * video.duration;
-      updateProgress();
+      revealControls(1400);
+      const progress = Number(mobileProgress.value) / 1000;
+      setProgressVisual(progress);
+      if (Number.isFinite(video.duration) && video.duration > 0) {
+        video.currentTime = progress * video.duration;
+      }
     });
     video.addEventListener("loadeddata", markVideoReady);
+    video.addEventListener("loadedmetadata", () => {
+      updateProgress();
+      updateTimeReadout();
+    });
     video.addEventListener("canplay", markVideoReady);
     video.addEventListener("error", markVideoError);
     video.addEventListener("play", () => {
       hero.classList.add("is-playing");
       hero.classList.add("is-ready");
+      revealControls(900);
     });
     video.addEventListener("pause", () => {
       hero.classList.remove("is-playing");
+      revealControls(1600);
     });
     video.addEventListener("ended", () => {
       hero.classList.remove("is-playing");
+      revealControls(1800);
     });
     video.addEventListener("timeupdate", updateProgress);
     video.addEventListener("durationchange", updateProgress);
-
+    video.addEventListener("volumechange", syncVolumeUI);
+    video.addEventListener("ratechange", () => {
+      speedButtons.forEach((button) => {
+        button.classList.toggle("is-active", Number(button.dataset.speed) === video.playbackRate);
+      });
+    });
+    if (!document.pictureInPictureEnabled || video.disablePictureInPicture) {
+      pipButton.disabled = true;
+      pipButton.style.opacity = "0.45";
+    }
+    syncVolumeUI();
+    updateTimeReadout(0);
     setVideoSource();
     if (video.readyState >= 2) {
       markVideoReady();
