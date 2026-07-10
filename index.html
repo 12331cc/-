@@ -2823,6 +2823,10 @@
     }
 
     @media (max-width: 760px) {
+      .intro-screen {
+        display: none !important;
+      }
+
       .intro-stage {
         width: 100vw;
         height: min(62vw, 280px);
@@ -3171,7 +3175,7 @@
       hero.classList.add("intro-done");
       hideControls();
       autoStartMobileVideo();
-    }, reduceMotion ? 700 : (mobileLayoutQuery.matches ? 1800 : 2450));
+    }, mobileLayoutQuery.matches ? 0 : (reduceMotion ? 700 : 2450));
 
     window.setInterval(() => {
       if (document.hidden || mobilePlay.classList.contains("is-smiling")) return;
