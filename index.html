@@ -3081,6 +3081,10 @@
     <canvas class="cursor-fx" aria-hidden="true"></canvas>
   </main>
   <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script>
     const hero = document.querySelector(".hero");
     const introCanvas = document.querySelector(".intro-glitter");
     const introCtx = introCanvas.getContext("2d");
