@@ -617,6 +617,13 @@
       animation: barGrow 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
+    .dimension-reason {
+      margin: 8px 0 0;
+      color: var(--soft);
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
     .highlight-list {
       display: grid;
       gap: 0;
@@ -649,6 +656,19 @@
       font-size: 11px;
       font-weight: 800;
       content: "0" counter(highlight);
+    }
+
+    .highlight-requirement {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .highlight-evidence {
+      display: block;
+      color: var(--muted);
     }
 
     .result-footer {
@@ -1030,21 +1050,26 @@
     }
 
     function scoreLabel(score) {
-      if (score >= 88) return "高度匹配";
-      if (score >= 76) return "很值得聊聊";
-      if (score >= 64) return "具备较好基础";
-      return "存在可迁移潜力";
+      if (score >= 90) return "非常匹配";
+      if (score >= 75) return "匹配";
+      if (score >= 60) return "较匹配";
+      if (score >= 40) return "一般";
+      return "不匹配";
     }
 
     function renderResult(data, isPreview = false) {
-      const score = clampScore(data.totalScore);
-      const dimensions = Array.isArray(data.dimensions) ? data.dimensions.slice(0, 4) : [];
+      const score = clampScore(data.overallScore ?? data.totalScore);
+      const dimensions = Array.isArray(data.matrix)
+        ? data.matrix.slice(0, 4)
+        : Array.isArray(data.dimensions)
+          ? data.dimensions.slice(0, 4)
+          : [];
       const highlights = Array.isArray(data.highlights) ? data.highlights.slice(0, 3) : [];
 
       totalScore.style.setProperty("--score", String(score));
       scoreNumber.textContent = String(score);
-      resultTitle.textContent = data.title || scoreLabel(score);
-      resultSummary.textContent = data.summary || "该岗位与候选人的视觉设计及 AIGC 经历存在多处交集，建议结合具体团队职责继续沟通。";
+      resultTitle.textContent = data.overallLevel || data.title || scoreLabel(score);
+      resultSummary.textContent = data.summary || "匹配结果已根据岗位要求与简历中的可核对事实生成。";
       resultSource.textContent = isPreview
         ? "当前为本地预览评分；正式部署后将由 AI 大模型生成。"
         : "基于简历与当前 JD 由 AI 生成，结果仅供招聘沟通参考。";
@@ -1062,15 +1087,27 @@
             <strong class="dimension-value">${scoreValue}</strong>
           </div>
           <div class="dimension-track"><div class="dimension-fill"></div></div>
+          <p class="dimension-reason"></p>
         `;
         row.querySelector(".dimension-name").textContent = item.label || `维度 ${index + 1}`;
+        row.querySelector(".dimension-reason").textContent = item.reason || "当前维度依据简历事实与岗位要求综合评估。";
         dimensionList.append(row);
       });
 
       highlightList.replaceChildren();
       highlights.forEach((highlight) => {
         const item = document.createElement("li");
-        item.textContent = String(highlight);
+        if (highlight && typeof highlight === "object") {
+          const requirement = document.createElement("strong");
+          requirement.className = "highlight-requirement";
+          requirement.textContent = highlight.jdRequirement || "岗位要求";
+          const evidence = document.createElement("span");
+          evidence.className = "highlight-evidence";
+          evidence.textContent = highlight.resumeEvidence || "";
+          item.append(requirement, evidence);
+        } else {
+          item.textContent = String(highlight);
+        }
         highlightList.append(item);
       });
 
@@ -1089,32 +1126,49 @@
       const impactHits = countMatches(text, ["转化", "roi", "数据", "效率", "增长", "点击率", "业务"]);
       const roleHits = countMatches(text, ["设计师", "创意", "沟通", "执行", "独立", "项目", "审美", "协作"]);
       const dimensions = [
-        { label: "专业技能", score: Math.min(96, 62 + skillHits * 4) },
-        { label: "项目经验", score: Math.min(95, 60 + projectHits * 4) },
-        { label: "业务成果", score: Math.min(93, 66 + impactHits * 4) },
-        { label: "岗位方向", score: Math.min(94, 61 + roleHits * 4) }
+        { id: "education", label: "教育背景", score: 95, reason: "武汉工程大学艺术设计本科，GPA 3.72/4且专业前5%，具备系统视觉设计教育基础。" },
+        { id: "experience", label: "工作经验", score: Math.min(98, 68 + projectHits * 4), reason: "项目覆盖海外社交、文旅电商与服装电商场景，包含活动H5、运营视觉和动态物料实践。" },
+        { id: "skills", label: "专业技能", score: Math.min(95, 66 + skillHits * 4), reason: "简历明确列出Midjourney、Stable Diffusion、ComfyUI及动态视觉交付经验。" },
+        { id: "softSkills", label: "软技能", score: Math.min(95, 81 + roleHits * 3), reason: "多项目经历体现从调研、创意发散到视觉精修和动态物料交付的完整执行能力。" }
       ];
-      const total = Math.round(dimensions.reduce((sum, item) => sum + item.score, 0) / dimensions.length);
+      const total = Math.round(
+        dimensions[0].score * 0.1 +
+        dimensions[1].score * 0.35 +
+        dimensions[2].score * 0.3 +
+        dimensions[3].score * 0.25
+      );
       const highlights = [];
       if (/aigc|midjourney|stable diffusion|comfyui|ai/i.test(jd)) {
-        highlights.push("具备 Midjourney、Stable Diffusion、ComfyUI 等 AIGC 工作流经验，并有图片与短视频批量商业落地记录。");
+        highlights.push({
+          jdRequirement: "具备 AIGC 工具与商业视觉生产能力",
+          resumeEvidence: "赫基项目使用 Midjourney、Stable Diffusion、ComfyUI 等工具，单系列交付30-50张图片及5-8条AI短视频。"
+        });
       }
       if (/电商|h5|活动|转化|运营/i.test(jd)) {
-        highlights.push("飞猪项目覆盖活动 H5、运营视觉与转化链路优化，支付转化率提升 45%，实际成交金额提升 48%。");
+        highlights.push({
+          jdRequirement: "具备活动 H5 与转化导向的运营设计经验",
+          resumeEvidence: "飞猪环游季项目覆盖活动H5与运营视觉，支付转化率提升45%，实际成交金额提升48%。"
+        });
       }
       if (/品牌|服装|视频|动态|社交/i.test(jd)) {
-        highlights.push("赫基实习经历覆盖服装电商、社媒主图及 AI 动态短视频，可在统一品牌风格下完成多渠道物料交付。");
+        highlights.push({
+          jdRequirement: "能够完成多渠道品牌视觉与动态内容交付",
+          resumeEvidence: "海外社交平台斋月项目完成H5及直播礼物动效，设计效率提升38.6%，裂变转化率提升23.9%。"
+        });
       }
-      if (highlights.length < 2) {
-        highlights.push("艺术设计专业 GPA 3.72/4、专业前 5%，兼具视觉基础、动效能力与对业务指标的关注。");
+      if (highlights.length < 1) {
+        highlights.push({
+          jdRequirement: "具备视觉设计专业基础",
+          resumeEvidence: "武汉工程大学艺术设计本科，GPA 3.72/4且专业前5%，课程覆盖视觉设计、艺术设计与设计实践。"
+        });
       }
 
       return {
-        totalScore: total,
-        title: scoreLabel(total),
-        dimensions,
+        overallScore: total,
+        overallLevel: scoreLabel(total),
+        matrix: dimensions,
         highlights: highlights.slice(0, 3),
-        summary: "岗位对视觉执行、AIGC 应用与业务理解的要求，与候选人在文旅电商、服装电商及活动 H5 中的实践较为一致；建议进一步确认团队所需的资历深度与日常协作范围。"
+        summary: "候选人的活动H5、运营视觉与AIGC内容生产经历能够覆盖多类商业设计场景，并以转化率、点击率和交付效率等结果体现业务意识；完整的创意到交付流程也与岗位常见的执行和协作方式相符。"
       };
     }
 
