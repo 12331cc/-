@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f7f9">
+  <meta name="theme-color" content="#f3f8f7">
   <meta name="description" content="程志雯的视觉设计、AIGC 项目作品与 AI 岗位匹配器">
   <title>程志雯 · AI Visual Designer</title>
   <style>
@@ -20,7 +20,8 @@
       --coral: #ff806f;
       --yellow: #f2c94c;
       --green: #79b58b;
-      --violet: #9c8df1;
+      --violet: #6e46e8;
+      --lavender: #eee9ff;
       --shadow: 0 24px 70px rgba(35, 48, 71, 0.1);
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-right: env(safe-area-inset-right, 0px);
@@ -42,10 +43,7 @@
       min-width: 320px;
       margin: 0;
       overflow-x: hidden;
-      background:
-        linear-gradient(90deg, transparent 0 49.9%, rgba(23, 25, 31, 0.035) 50%, transparent 50.1%),
-        var(--page);
-      background-size: 160px 100%;
+      background: #ffffff;
       color: var(--ink);
       font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
       letter-spacing: 0;
@@ -80,27 +78,28 @@
     }
 
     .shell {
-      width: min(1180px, calc(100% - 48px));
+      width: min(1320px, calc(100% - 64px));
       margin-inline: auto;
     }
 
     .site-header {
       position: fixed;
       z-index: 50;
-      top: max(18px, var(--safe-top));
+      top: max(12px, var(--safe-top));
       right: max(24px, calc(var(--safe-right) + 16px));
       left: max(24px, calc(var(--safe-left) + 16px));
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: min(860px, calc(100% - 48px));
-      min-height: 58px;
+      width: min(1320px, calc(100% - 64px));
+      min-height: 78px;
       margin-inline: auto;
-      padding: 7px 12px 7px 8px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 14px 45px rgba(34, 47, 70, 0.1);
+      padding: 4px 10px 4px 4px;
+      border: 0;
+      border-bottom: 0;
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: none;
       backdrop-filter: blur(18px);
     }
 
@@ -108,39 +107,47 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 0 17px;
-      border-radius: 7px;
-      background: var(--ink);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 800;
+      width: 70px;
+      height: 70px;
+      overflow: hidden;
+      border-radius: 50%;
+      background: var(--lavender);
       text-decoration: none;
+    }
+
+    .brand img {
+      width: 112px;
+      height: 112px;
+      max-width: none;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      transform: translateY(-2px);
     }
 
     .site-nav {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 28px;
     }
 
     .site-nav a {
       display: inline-flex;
       align-items: center;
-      min-height: 40px;
-      padding: 0 13px;
-      border-radius: 6px;
+      min-height: 48px;
+      padding: 0 24px;
+      border-radius: 999px;
       color: #4f535d;
-      font-size: 13px;
-      font-weight: 650;
+      font-size: 16px;
+      font-weight: 700;
       text-decoration: none;
       transition: color 180ms ease, background 180ms ease;
     }
 
     .site-nav a:hover,
     .site-nav a.is-active {
-      background: #f0f2f5;
-      color: var(--ink);
+      background: var(--violet);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(110, 70, 232, 0.22);
     }
 
     .menu-button {
@@ -156,19 +163,28 @@
       cursor: pointer;
     }
 
+    .view-panel:not(.is-active) {
+      display: none;
+    }
+
+    .view-panel.is-active {
+      animation: viewPanelIn 180ms ease-out both;
+    }
+
+    @keyframes viewPanelIn {
+      from { opacity: 0.78; }
+      to { opacity: 1; }
+    }
+
     .hero {
       position: relative;
       display: flex;
       align-items: center;
-      min-height: 830px;
-      padding: 136px 0 76px;
+      min-height: 100svh;
+      padding: 136px 0 70px;
       overflow: hidden;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(27, 185, 206, 0.08) 1px, transparent 1px),
-        linear-gradient(rgba(255, 128, 111, 0.06) 1px, transparent 1px),
-        #fafbfc;
-      background-size: 80px 80px;
+      border-bottom: 1px solid #eff0f2;
+      background: #ffffff;
       isolation: isolate;
     }
 
@@ -200,68 +216,87 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.58fr);
-      gap: 64px;
+      grid-template-columns: minmax(0, 1.02fr) minmax(470px, 0.86fr);
+      gap: 58px;
       align-items: center;
     }
 
     .hero-copy {
-      max-width: 760px;
-    }
-
-    .hero-kicker {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin: 0 0 26px;
-      color: #096d9b;
-      font-size: 12px;
-      font-weight: 850;
-      text-transform: uppercase;
-    }
-
-    .hero-kicker::before {
-      width: 34px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--cyan) 0 33%, var(--coral) 33% 66%, var(--yellow) 66%);
-      content: "";
+      max-width: 720px;
     }
 
     h1 {
       max-width: 760px;
       margin: 0;
-      font-size: clamp(72px, 8.5vw, 128px);
+      font-size: clamp(64px, 5.8vw, 84px);
       font-weight: 860;
-      line-height: 0.84;
+      line-height: 1.04;
       letter-spacing: 0;
+      white-space: nowrap;
     }
 
-    .hero-name {
-      display: block;
-      margin-top: 22px;
-      color: var(--blue);
-      font-size: clamp(24px, 3vw, 42px);
-      font-weight: 760;
-      line-height: 1.1;
+    .hero-role {
+      margin: 20px 0 0;
+      color: var(--violet);
+      font-size: clamp(28px, 2.8vw, 38px);
+      font-weight: 700;
+      line-height: 1.2;
     }
 
     .hero-description {
-      max-width: 700px;
+      position: relative;
+      max-width: 680px;
       margin: 28px 0 0;
-      color: #555a64;
-      font-size: clamp(17px, 2vw, 24px);
-      line-height: 1.65;
+      padding-left: 44px;
+      color: #333741;
+      font-size: 19px;
+      line-height: 1.78;
     }
 
     .hero-description strong {
       color: var(--ink);
     }
 
+    .hero-description::before {
+      position: absolute;
+      top: -5px;
+      left: -10px;
+      color: #a28bff;
+      font-size: 46px;
+      line-height: 1;
+      content: "↪";
+      transform: rotate(12deg);
+    }
+
+    .advantage-line {
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      margin-top: 18px;
+      color: #343842;
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .advantage-line span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .advantage-line span::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #59cdb5;
+      content: "";
+    }
+
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 32px;
+      margin-top: 30px;
     }
 
     .button {
@@ -287,10 +322,34 @@
     }
 
     .button-primary {
-      border-color: var(--blue);
-      background: var(--blue);
+      border-color: var(--ink);
+      background: var(--ink);
       color: #fff;
-      box-shadow: 0 12px 30px rgba(8, 127, 232, 0.25);
+      box-shadow: 0 12px 28px rgba(23, 25, 31, 0.16);
+    }
+
+    .button-soft {
+      border-color: #c8eee5;
+      background: #dff6f0;
+      color: #134f45;
+    }
+
+    .button-resume {
+      min-width: 160px;
+      border: 1.5px solid #cbc7d9;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 8px 20px rgba(70, 58, 117, 0.08);
+    }
+
+    .button-contact {
+      min-width: 142px;
+      border-color: var(--violet);
+      border-radius: 8px;
+      background: var(--violet);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(110, 70, 232, 0.24);
     }
 
     .button-dark {
@@ -301,27 +360,45 @@
 
     .portrait-stage {
       position: relative;
+      z-index: 0;
       align-self: center;
       justify-self: end;
-      width: min(390px, 100%);
-      min-height: 540px;
+      width: min(530px, 100%);
+      min-height: 640px;
+      isolation: isolate;
     }
 
     .portrait-stage::before {
       position: absolute;
-      z-index: -1;
-      right: -34px;
-      bottom: 26px;
-      width: 82%;
-      height: 72%;
-      border: 1px solid rgba(8, 127, 232, 0.22);
-      border-radius: 50% 50% 8px 8px;
-      background: rgba(255, 255, 255, 0.66);
+      z-index: -2;
+      top: 88px;
+      right: -96px;
+      bottom: auto;
+      width: 470px;
+      height: 370px;
+      border: 0;
+      border-radius: 42% 58% 48% 52%;
+      background: #ded4ff;
       content: "";
+      transform: rotate(-20deg);
+    }
+
+    .portrait-stage::after {
+      position: absolute;
+      z-index: -1;
+      right: 18px;
+      bottom: 10px;
+      width: 290px;
+      height: 210px;
+      border-radius: 54% 46% 12% 64%;
+      background: #d9e7ff;
+      content: "";
+      transform: rotate(8deg);
     }
 
     .portrait-photo {
       position: absolute;
+      z-index: 2;
       right: 0;
       bottom: 0;
       width: 100%;
@@ -330,18 +407,87 @@
       object-fit: contain;
       object-position: bottom center;
       filter:
-        drop-shadow(4px 0 0 var(--cyan))
-        drop-shadow(-4px 0 0 var(--cyan))
-        drop-shadow(0 4px 0 var(--cyan))
-        drop-shadow(0 -4px 0 var(--cyan))
+        drop-shadow(4px 0 0 #7650e8)
+        drop-shadow(-4px 0 0 #7650e8)
+        drop-shadow(0 4px 0 #7650e8)
+        drop-shadow(0 -4px 0 #7650e8)
         drop-shadow(0 24px 32px rgba(26, 53, 76, 0.2));
+    }
+
+    .portrait-decoration {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .deco-star {
+      position: absolute;
+      color: #f4bf35;
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .deco-star-one {
+      top: 125px;
+      left: -18px;
+    }
+
+    .deco-star-two {
+      right: 22px;
+      bottom: 146px;
+      font-size: 32px;
+    }
+
+    .deco-burst {
+      position: absolute;
+      top: 78px;
+      right: 42px;
+      width: 48px;
+      height: 44px;
+      border-top: 7px solid #ff7d6f;
+      transform: rotate(26deg);
+    }
+
+    .deco-burst::before,
+    .deco-burst::after {
+      position: absolute;
+      width: 7px;
+      height: 26px;
+      border-radius: 4px;
+      background: #ff7d6f;
+      content: "";
+    }
+
+    .deco-burst::before {
+      top: 4px;
+      left: -15px;
+      transform: rotate(-26deg);
+    }
+
+    .deco-burst::after {
+      top: -1px;
+      right: 1px;
+      transform: rotate(60deg);
+    }
+
+    .deco-dots {
+      position: absolute;
+      z-index: -1;
+      right: -54px;
+      bottom: 42px;
+      width: 145px;
+      height: 96px;
+      opacity: 0.45;
+      background-image: radial-gradient(circle, #b9a5ff 2px, transparent 2.5px);
+      background-size: 14px 14px;
     }
 
     .portrait-label {
       position: absolute;
       right: 8px;
       bottom: 12px;
-      display: flex;
+      display: none;
       align-items: center;
       gap: 16px;
       min-height: 42px;
@@ -361,12 +507,12 @@
 
     .quick-match {
       width: min(720px, 100%);
-      margin-top: 30px;
-      padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.86);
+      margin-top: 40px;
+      padding: 20px 22px 16px;
+      border: 0;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 18px 45px rgba(35, 48, 71, 0.12);
+      background: #ffffff;
+      box-shadow: 0 20px 50px rgba(91, 64, 183, 0.13);
       backdrop-filter: blur(16px);
     }
 
@@ -375,40 +521,75 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      margin: 0 2px 8px;
-      color: var(--ink);
-      font-size: 12px;
+      margin: 0 2px 14px;
+      color: var(--violet);
+      font-size: 14px;
       font-weight: 820;
     }
 
     .quick-match-label span {
-      color: var(--blue);
-      font-size: 10px;
+      color: #6850bb;
+      font-size: 11px;
       font-weight: 760;
     }
 
     .quick-match-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
-      align-items: stretch;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .quick-input-wrap {
+      position: relative;
+      min-width: 0;
+    }
+
+    .search-mark {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 18px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #737887;
+      border-radius: 50%;
+      transform: translateY(-58%);
+      pointer-events: none;
+    }
+
+    .search-mark::after {
+      position: absolute;
+      right: -6px;
+      bottom: -4px;
+      width: 7px;
+      height: 2px;
+      background: #737887;
+      content: "";
+      transform: rotate(45deg);
     }
 
     .quick-match .jd-input {
+      width: 100%;
       min-height: 54px;
       max-height: 150px;
-      padding: 15px 16px;
+      padding: 15px 16px 15px 48px;
       resize: none;
-      border-color: #d8dce2;
-      background: rgba(249, 250, 251, 0.92);
+      border-color: #cacbd4;
+      border-radius: 999px;
+      background: #fff;
       line-height: 1.55;
     }
 
     .quick-match .match-button {
       width: auto;
-      min-width: 148px;
+      min-width: 190px;
+      height: 54px;
       min-height: 54px;
-      padding-inline: 18px;
+      max-height: 54px;
+      padding-inline: 24px;
+      border-radius: 999px;
+      align-self: start;
     }
 
     .quick-match .input-meta {
@@ -546,9 +727,10 @@
     }
 
     .stats-band {
+      display: none;
       position: relative;
       z-index: 2;
-      margin-top: -34px;
+      margin-top: 0;
       padding-bottom: 44px;
     }
 
@@ -584,8 +766,9 @@
     }
 
     .section {
+      min-height: 100svh;
       scroll-margin-top: 96px;
-      padding: 104px 0;
+      padding: 150px 0 84px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -649,43 +832,103 @@
       color: #aeb1ba;
     }
 
-    .education-row {
+    .education-showcase {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr) 160px;
-      gap: 28px;
-      align-items: center;
-      padding: 28px 0;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 56px;
+      align-items: end;
+      padding: 38px 0 34px;
       border-top: 1px solid var(--line);
-    }
-
-    .education-row:last-child {
       border-bottom: 1px solid var(--line);
     }
 
-    .education-year {
-      color: var(--blue);
-      font-size: 15px;
-      font-weight: 800;
+    .education-kicker {
+      margin: 0 0 12px;
+      color: var(--violet);
+      font-size: 13px;
+      font-weight: 820;
+      text-transform: uppercase;
     }
 
-    .education-main h3,
+    .education-school h3 {
+      margin: 0;
+      font-size: clamp(34px, 4.4vw, 62px);
+      line-height: 1.05;
+    }
+
+    .education-summary {
+      max-width: 680px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .education-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(132px, 1fr));
+      align-self: stretch;
+      min-width: 310px;
+    }
+
+    .education-metric {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      padding: 10px 24px 8px;
+      border-left: 1px solid var(--line);
+    }
+
+    .education-metric strong {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .education-metric span {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+    }
+
+    .education-courses {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      padding-top: 30px;
+    }
+
+    .education-courses h3 {
+      margin: 6px 0 0;
+      font-size: 16px;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .course-tags span {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: #4f545e;
+      font-size: 13px;
+    }
+
     .timeline-main h3 {
       margin: 0 0 8px;
       font-size: 24px;
     }
 
-    .education-main p,
     .timeline-main p {
       margin: 0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.75;
-    }
-
-    .education-score {
-      text-align: right;
-      font-size: 13px;
-      font-weight: 750;
     }
 
     .skills-layout {
@@ -761,6 +1004,344 @@
       font-size: 15px;
       font-weight: 760;
       line-height: 1.7;
+    }
+
+    .experience-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 34px;
+    }
+
+    .experience-heading h2 {
+      margin: 0;
+      font-size: clamp(48px, 5.6vw, 72px);
+      line-height: 1;
+    }
+
+    .experience-heading p:last-child {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .experience-card {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 372px;
+      padding: 24px 26px 26px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, var(--card-wash, #f7f4ff) 0, #fff 31%);
+      color: var(--ink);
+      text-align: left;
+      flex-direction: column;
+      cursor: pointer;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .experience-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 5px;
+      background: var(--card-accent, var(--violet));
+      content: "";
+    }
+
+    .experience-card:hover {
+      border-color: color-mix(in srgb, var(--card-accent, var(--violet)) 48%, var(--line));
+      box-shadow: 0 18px 46px rgba(35, 48, 71, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .experience-card:nth-child(1) { --card-accent: #6e46e8; }
+    .experience-card:nth-child(1) { --card-wash: #f3efff; }
+    .experience-card:nth-child(2) { --card-accent: #087fe8; --card-wash: #edf7ff; }
+    .experience-card:nth-child(3) { --card-accent: #e4ae20; --card-wash: #fff8df; }
+
+    .experience-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .experience-type {
+      flex: 0 0 auto;
+      padding: 5px 8px;
+      border: 1px solid color-mix(in srgb, var(--card-accent) 24%, transparent);
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--card-accent) 9%, #fff);
+      color: var(--card-accent);
+      font-size: 10px;
+      font-weight: 840;
+    }
+
+    .experience-period {
+      display: block;
+      margin-top: 13px;
+      color: #7f8794;
+      font-size: 11px;
+      font-weight: 740;
+    }
+
+    .experience-card h3 {
+      margin: 28px 0 10px;
+      font-size: 25px;
+      line-height: 1.22;
+    }
+
+    .experience-role {
+      margin: 0;
+      color: var(--violet);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .experience-summary {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .experience-card-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .experience-card-metrics span {
+      padding: 7px 10px;
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--card-accent) 9%, #fff);
+      color: color-mix(in srgb, var(--card-accent) 76%, #25243a);
+      font-size: 11px;
+      font-weight: 780;
+    }
+
+    .experience-open {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 26px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .experience-open span:last-child {
+      font-size: 20px;
+      transition: transform 180ms ease;
+    }
+
+    .experience-card:hover .experience-open span:last-child {
+      transform: translateX(4px);
+    }
+
+    .experience-modal {
+      position: fixed;
+      z-index: 110;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: max(18px, var(--safe-top)) max(18px, var(--safe-right)) max(18px, var(--safe-bottom)) max(18px, var(--safe-left));
+    }
+
+    .experience-backdrop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: rgba(22, 24, 29, 0.42);
+      backdrop-filter: blur(9px);
+    }
+
+    .experience-dialog {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, 100%);
+      max-height: calc(100svh - 36px);
+      padding: 26px;
+      overflow: auto;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 8px;
+      background: #ededee;
+      box-shadow: 0 38px 120px rgba(12, 18, 31, 0.32);
+      animation: modalReveal 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .experience-dialog-head {
+      padding: 22px 24px;
+      border: 1px solid rgba(216, 226, 242, 0.82);
+      border-radius: 8px;
+      background: linear-gradient(100deg, #f8fbff 0%, #fff 58%, #f3f6ff 100%);
+      box-shadow: 0 10px 30px rgba(41, 55, 79, 0.08);
+    }
+
+    .experience-detail-kicker {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .experience-dialog-head h2 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.15;
+    }
+
+    .experience-detail-meta {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .experience-close {
+      min-width: 62px;
+      height: 38px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 6px;
+      background: #111216;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .experience-detail-section {
+      padding: 24px 0 8px;
+    }
+
+    .experience-detail-section + .experience-detail-section {
+      margin-top: 6px;
+      padding: 22px 18px;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .experience-detail-title {
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .experience-detail-title h3 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .experience-detail-title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .experience-duty-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .experience-duty {
+      min-width: 0;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(30, 42, 66, 0.05);
+    }
+
+    .experience-duty h4 {
+      margin: -18px -18px 15px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #cde7ff, #eef7ff);
+      font-size: 16px;
+    }
+
+    .experience-duty:nth-child(2) h4 { background: linear-gradient(135deg, #bcefe1, #ebfff8); }
+    .experience-duty:nth-child(3) h4 { background: linear-gradient(135deg, #ffe0a7, #fff6df); }
+    .experience-duty:nth-child(4) h4 { background: linear-gradient(135deg, #d7cbff, #f5f1ff); }
+
+    .experience-duty p {
+      position: relative;
+      margin: 0;
+      padding-left: 13px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .experience-duty p::before {
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #6797c9;
+      content: "";
+    }
+
+    .experience-result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .experience-result {
+      min-width: 0;
+      padding: 18px 20px;
+      border: 1px solid #ececf0;
+      border-radius: 6px;
+      background: #fafafa;
+      text-align: center;
+    }
+
+    .experience-result strong {
+      display: block;
+      color: var(--violet);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .experience-result span {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .experience-detail-footer {
+      display: flex;
+      justify-content: flex-start;
+      padding-top: 18px;
     }
 
     .work-stage {
@@ -1225,6 +1806,16 @@
       font-size: 12px;
     }
 
+    .highlight-label {
+      margin-right: 4px;
+      color: var(--blue);
+      font-weight: 850;
+    }
+
+    .highlight-evidence .highlight-label {
+      color: var(--coral);
+    }
+
     .result-footer {
       display: flex;
       align-items: center;
@@ -1245,15 +1836,21 @@
     }
 
     .contact-band {
+      min-height: 100svh;
       padding: 86px 0 max(86px, calc(var(--safe-bottom) + 56px));
-      background: #e9edf2;
+      background: #f6f7fb;
+    }
+
+    .contact-band.is-active {
+      display: flex;
+      align-items: center;
     }
 
     .contact-layout {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 40px;
+      display: grid;
+      grid-template-columns: minmax(280px, 0.72fr) minmax(520px, 1.28fr);
+      align-items: center;
+      gap: 72px;
     }
 
     .contact-title {
@@ -1269,6 +1866,54 @@
       margin: 18px 0 0;
       color: var(--muted);
       line-height: 1.8;
+    }
+
+    .contact-methods {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-method {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      min-height: 82px;
+      padding: 18px 20px;
+      border: 1px solid #e0e3eb;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+
+    .contact-method:hover {
+      border-color: rgba(112, 78, 246, 0.34);
+      box-shadow: 0 14px 30px rgba(39, 45, 69, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-method-label {
+      color: var(--violet);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .contact-method strong {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: 17px;
+    }
+
+    .contact-method-action {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      white-space: nowrap;
     }
 
     .reveal {
@@ -1306,13 +1951,802 @@
       to { transform: scaleX(1); }
     }
 
+    /* Resume-backed advantages */
+    .advantages-section {
+      background: #f7f8fb;
+      color: var(--ink);
+    }
+
+    .advantages-heading {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.68fr) minmax(420px, 1.32fr);
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .advantages-kicker {
+      margin: 0 0 16px;
+      color: var(--violet);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .advantages-heading h2 {
+      margin: 0;
+      font-size: clamp(52px, 6vw, 82px);
+      line-height: 0.95;
+    }
+
+    .advantages-heading > p {
+      max-width: 620px;
+      margin: 0;
+      color: #626a78;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .advantage-card {
+      --advantage-accent: #6c4cf3;
+      position: relative;
+      display: grid;
+      min-width: 0;
+      min-height: 220px;
+      padding: 30px 34px;
+      overflow: hidden;
+      grid-template-columns: 170px minmax(0, 1fr) 190px;
+      grid-template-areas: "head content proof";
+      align-items: center;
+      gap: 34px;
+      border: 1px solid #e1e4ea;
+      border-left: 4px solid var(--advantage-accent);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .advantage-card:nth-child(2) { --advantage-accent: #0c8dde; }
+    .advantage-card:nth-child(3) { --advantage-accent: #ef7b91; }
+
+    .advantage-card:nth-child(even) {
+      grid-template-areas: "proof content head";
+      border-right: 4px solid var(--advantage-accent);
+      border-left-width: 1px;
+    }
+
+    .advantage-card::after {
+      position: absolute;
+      top: -42px;
+      right: -30px;
+      width: 92px;
+      height: 92px;
+      border: 1px solid color-mix(in srgb, var(--advantage-accent) 24%, transparent);
+      border-radius: 8px;
+      content: "";
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .advantage-card:nth-child(even)::after {
+      right: auto;
+      left: -30px;
+      transform: rotate(-18deg);
+    }
+
+    .advantage-card-head {
+      display: flex;
+      grid-area: head;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
+      color: var(--advantage-accent);
+      font-size: 11px;
+      font-weight: 850;
+      flex-direction: column;
+    }
+
+    .advantage-card-head span {
+      font-size: 48px;
+      line-height: 1;
+      opacity: 0.18;
+    }
+
+    .advantage-card:nth-child(even) .advantage-card-head {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .advantage-content {
+      grid-area: content;
+      min-width: 0;
+    }
+
+    .advantage-card h3 {
+      max-width: none;
+      margin: 0 0 14px;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+
+    .advantage-content p {
+      margin: 0;
+      color: #666e7c;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .advantage-card > p {
+      max-width: 620px;
+      margin: 0;
+      color: #666e7c;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .advantage-proof {
+      display: flex;
+      grid-area: proof;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 9px;
+      margin: 0;
+      padding: 18px 0 18px 24px;
+      border-left: 1px solid #e8eaf0;
+      flex-direction: column;
+    }
+
+    .advantage-card:nth-child(even) .advantage-proof {
+      align-items: flex-end;
+      padding: 18px 24px 18px 0;
+      border-right: 1px solid #e8eaf0;
+      border-left: 0;
+      text-align: right;
+    }
+
+    .advantage-proof strong {
+      color: var(--advantage-accent);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .advantage-proof span {
+      color: #747b87;
+      font-size: 12px;
+    }
+
+    /* Image-led company experience list */
+    .experience-list {
+      display: grid;
+      gap: 24px;
+    }
+
+    .experience-list .experience-card {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.78fr) minmax(440px, 1.22fr);
+      min-height: 330px;
+      padding: 0;
+      border-radius: 8px;
+      background: #fff;
+      align-items: stretch;
+    }
+
+    .experience-list .experience-card::before {
+      display: none;
+    }
+
+    .experience-list .experience-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .experience-card-content {
+      display: flex;
+      min-width: 0;
+      padding: 30px 32px;
+      flex-direction: column;
+    }
+
+    .experience-company {
+      display: grid;
+      gap: 7px;
+      margin-top: 26px;
+    }
+
+    .experience-company strong {
+      font-size: clamp(27px, 3vw, 38px);
+      line-height: 1.16;
+    }
+
+    .experience-company small {
+      color: var(--card-accent);
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .experience-list .experience-summary {
+      margin-top: 20px;
+    }
+
+    .experience-list .experience-open {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid #eceef2;
+    }
+
+    .experience-visual {
+      position: relative;
+      display: block;
+      min-width: 0;
+      min-height: 330px;
+      overflow: hidden;
+      background: var(--card-wash);
+    }
+
+    .experience-visual img {
+      width: 100%;
+      height: 100%;
+      min-height: 330px;
+      object-fit: cover;
+      transition: transform 600ms cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+
+    .experience-visual-portrait img {
+      object-position: center 38%;
+    }
+
+    .experience-card:hover .experience-visual img {
+      transform: scale(1.025);
+    }
+
+    .experience-visual-caption {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      backdrop-filter: blur(10px);
+    }
+
+    .experience-visual-caption strong {
+      font-size: 15px;
+    }
+
+    .experience-visual-caption small {
+      color: #6e7582;
+      font-size: 10px;
+      text-align: right;
+    }
+
+    .experience-list .experience-card:nth-child(even) .experience-card-content {
+      order: 2;
+    }
+
+    .experience-list .experience-card:nth-child(even) .experience-visual {
+      order: 1;
+    }
+
+    /* Company overview followed by image-led project cards. */
+    .experience-heading-centered {
+      display: block;
+      margin-bottom: 54px;
+      text-align: center;
+    }
+
+    .experience-heading-centered h2 {
+      font-size: clamp(46px, 5vw, 68px);
+    }
+
+    .experience-heading-centered p {
+      max-width: 640px !important;
+      margin: 18px auto 0 !important;
+    }
+
+    .experience-showcase-list {
+      display: grid;
+      gap: 28px;
+    }
+
+    .experience-showcase {
+      --company-accent: #704ef6;
+      padding: 38px;
+      border: 1px solid #e3e6ed;
+      border-top: 4px solid var(--company-accent);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 18px 44px rgba(32, 40, 64, 0.06);
+    }
+
+    .experience-showcase:nth-child(2) { --company-accent: #0c8dde; }
+    .experience-showcase:nth-child(3) { --company-accent: #e4aa24; }
+
+    .experience-overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px 36px;
+      padding: 0;
+    }
+
+    .experience-overview h3 {
+      margin: 0;
+      font-size: clamp(27px, 3vw, 38px);
+      letter-spacing: 0;
+      line-height: 1.08;
+    }
+
+    .experience-overview time {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 740;
+      white-space: nowrap;
+    }
+
+    .experience-overview-role {
+      grid-column: 1 / -1;
+      margin: 0;
+      color: var(--company-accent);
+      font-size: 14px;
+      font-weight: 820;
+    }
+
+    .experience-overview-copy {
+      grid-column: 1 / -1;
+      max-width: 850px;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .experience-tags {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 8px;
+    }
+
+    .experience-tags span {
+      min-width: 132px;
+      padding: 8px 15px;
+      border: 1px solid color-mix(in srgb, var(--company-accent) 18%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--company-accent) 8%, #fff);
+      color: color-mix(in srgb, var(--company-accent) 82%, #17181d);
+      font-size: 12px;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .experience-project-divider {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      margin: 34px 0 22px;
+      color: #697181;
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .experience-project-divider::before,
+    .experience-project-divider::after {
+      height: 1px;
+      background: var(--line);
+      content: "";
+    }
+
+    .experience-project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .experience-project-card {
+      display: flex;
+      min-width: 0;
+      min-height: 344px;
+      padding: 0;
+      overflow: hidden;
+      flex-direction: column;
+      border: 1px solid #e5e8ef;
+      border-radius: 8px;
+      background: #fafbfc;
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+    }
+
+    .experience-project-card:hover {
+      border-color: rgba(112, 78, 246, 0.34);
+      box-shadow: 0 16px 34px rgba(36, 43, 66, 0.09);
+      transform: translateY(-3px);
+    }
+
+    .experience-project-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #f1f3f7;
+    }
+
+    .experience-project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 500ms cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+
+    .experience-project-image.is-square img {
+      object-position: center 34%;
+    }
+
+    .experience-project-card:hover img {
+      transform: scale(1.035);
+    }
+
+    .experience-project-body {
+      display: flex;
+      padding: 20px;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .experience-project-body h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .experience-project-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .experience-project-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 18px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    /* Compact company cards: one company per card, one row on desktop. */
+    .experience-showcase-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .experience-showcase {
+      display: grid;
+      min-width: 0;
+      min-height: 500px;
+      padding: 0;
+      overflow: hidden;
+      grid-template-rows: 210px minmax(0, 1fr);
+      border-top-width: 1px;
+      box-shadow: none;
+      cursor: pointer;
+      transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+    }
+
+    .experience-showcase:hover {
+      border-color: color-mix(in srgb, var(--company-accent) 40%, #dfe3ea);
+      box-shadow: 0 16px 34px rgba(33, 40, 62, 0.09);
+      transform: translateY(-3px);
+    }
+
+    .experience-showcase::before {
+      display: block;
+      background: #eef1f6 var(--company-cover) center / cover no-repeat;
+      content: "";
+    }
+
+    .experience-showcase .experience-overview {
+      display: flex;
+      min-width: 0;
+      padding: 24px;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .experience-showcase .experience-overview h3 {
+      font-size: clamp(23px, 2vw, 29px);
+      line-height: 1.2;
+    }
+
+    .experience-showcase .experience-overview time {
+      order: -1;
+      font-size: 11px;
+    }
+
+    .experience-showcase .experience-overview-role,
+    .experience-showcase .experience-overview-copy,
+    .experience-showcase .experience-tags {
+      grid-column: auto;
+    }
+
+    .experience-showcase .experience-overview-copy {
+      display: -webkit-box;
+      margin-top: 4px;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .experience-showcase .experience-tags {
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .experience-showcase .experience-tags span {
+      min-width: 0;
+      padding: 6px 10px;
+      font-size: 10px;
+    }
+
+    .experience-showcase .experience-overview::after {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid #eceef2;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 820;
+      content: "查看详情  ↗";
+    }
+
+    .experience-showcase .experience-project-divider,
+    .experience-showcase .experience-project-grid {
+      display: none;
+    }
+
+    /* Two clear portfolio entry points. */
+    .works-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .works-heading h2 {
+      margin: 0;
+      font-size: clamp(48px, 6vw, 78px);
+      line-height: 1;
+    }
+
+    .works-heading p {
+      max-width: 580px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .work-entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .work-entry-card {
+      display: flex;
+      min-width: 0;
+      overflow: hidden;
+      flex-direction: column;
+      border: 1px solid #e1e4eb;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+    }
+
+    .work-entry-card:hover {
+      border-color: rgba(112, 78, 246, 0.34);
+      box-shadow: 0 18px 42px rgba(35, 43, 70, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .work-entry-media {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #111217;
+    }
+
+    .work-entry-media img,
+    .work-entry-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 520ms cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+
+    .work-entry-card:hover .work-entry-media img,
+    .work-entry-card:hover .work-entry-media video {
+      transform: scale(1.025);
+    }
+
+    .work-entry-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px 24px;
+      padding: 24px;
+    }
+
+    .work-entry-type {
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .work-entry-body h3 {
+      grid-column: 1 / -1;
+      margin: 8px 0 0;
+      font-size: clamp(24px, 2.5vw, 34px);
+      line-height: 1.16;
+    }
+
+    .work-entry-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .work-entry-arrow {
+      align-self: end;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    /* Keep the matcher action stable while the JD field grows. */
+    .quick-match .match-button {
+      box-sizing: border-box;
+      width: 190px !important;
+      min-width: 190px;
+      max-width: 190px;
+      height: 54px !important;
+      min-height: 54px;
+      max-height: 54px;
+      overflow: hidden;
+      flex: 0 0 190px;
+      white-space: nowrap;
+    }
+
+    /* Match report aligned to the supplied matrix layout. */
+    .match-dialog {
+      width: min(820px, 100%);
+      padding: 24px;
+      background: rgba(247, 247, 248, 0.98);
+    }
+
+    .report-matrix {
+      grid-template-columns: 168px minmax(0, 1fr);
+      gap: 28px;
+      padding: 24px;
+      box-shadow: 0 12px 34px rgba(31, 40, 60, 0.05);
+    }
+
+    .report-matrix-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #1f8ccc;
+      font-size: 18px;
+    }
+
+    .report-matrix-title::before {
+      width: 13px;
+      height: 13px;
+      border-bottom: 2px solid currentColor;
+      border-left: 2px solid currentColor;
+      content: "";
+      transform: skewY(-20deg);
+    }
+
+    .report-matrix .total-score {
+      width: 136px;
+      height: 136px;
+      background: radial-gradient(circle at 34% 26%, #fff4ed 0, #ffd9ca 48%, #ffc8b8 100%);
+      box-shadow: 0 14px 32px rgba(232, 139, 111, 0.22);
+    }
+
+    .report-matrix .total-score::before {
+      display: none;
+    }
+
+    .report-matrix .dimension-list {
+      gap: 15px;
+    }
+
+    .report-matrix .dimension-track {
+      height: 6px;
+      border-radius: 999px;
+      background: #e8edf1;
+    }
+
+    .report-matrix .dimension-fill {
+      border-radius: inherit;
+      background: #78bae5;
+    }
+
+    .report-bottom {
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .report-block {
+      min-height: 246px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(31, 40, 60, 0.04);
+    }
+
+    .match-dialog .result-footer {
+      justify-content: flex-end;
+      margin-top: 16px;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .result-close {
+      width: auto;
+      min-width: 72px;
+      height: 38px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 7px;
+      background: #111217;
+      color: #fff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 820;
+      cursor: pointer;
+    }
+
+    .result-close:hover {
+      background: #2a2c33;
+    }
+
+    @media (min-width: 781px) {
+      html {
+        scrollbar-gutter: stable;
+      }
+    }
+
     @media (max-width: 1020px) {
       .hero {
-        min-height: 760px;
+        min-height: 740px;
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1fr) 290px;
+        grid-template-columns: minmax(0, 1fr) 320px;
         gap: 32px;
       }
 
@@ -1333,6 +2767,26 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .advantages-heading {
+        gap: 36px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .advantage-card:last-child {
+        grid-column: auto;
+      }
+
+      .experience-list .experience-card {
+        grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+      }
+
+      .experience-project-grid {
+        gap: 12px;
+      }
+
       .skill-group:last-child {
         grid-column: 1 / -1;
       }
@@ -1343,6 +2797,19 @@
 
       .timeline-metric {
         grid-column: 2;
+      }
+
+      .experience-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .experience-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .experience-duty-grid,
+      .experience-result-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
       .matcher-shell {
@@ -1360,10 +2827,6 @@
     }
 
     @media (max-width: 780px) {
-      body {
-        background-size: 80px 100%;
-      }
-
       .shell {
         width: min(100% - 30px, 1180px);
       }
@@ -1402,8 +2865,8 @@
       }
 
       .hero {
-        min-height: 780px;
-        padding: 116px 0 58px;
+        min-height: auto;
+        padding: 104px 0 50px;
       }
 
       .hero-media {
@@ -1423,6 +2886,7 @@
       .hero-grid {
         position: relative;
         grid-template-columns: 1fr;
+        gap: 24px;
       }
 
       .hero-copy {
@@ -1432,18 +2896,21 @@
       }
 
       h1 {
-        max-width: 580px;
-        font-size: clamp(62px, 17vw, 98px);
+        max-width: 680px;
+        font-size: clamp(48px, 10vw, 68px);
+        white-space: normal;
       }
 
       .portrait-stage {
-        position: absolute;
+        position: relative;
         z-index: 0;
-        top: 18px;
-        right: -48px;
-        width: 300px;
-        min-height: 520px;
-        opacity: 0.2;
+        top: auto;
+        right: auto;
+        justify-self: center;
+        width: min(330px, 88vw);
+        min-height: 430px;
+        margin-top: -6px;
+        opacity: 1;
         pointer-events: none;
       }
 
@@ -1453,7 +2920,11 @@
 
       .hero-description {
         max-width: 600px;
-        font-size: 17px;
+        font-size: 16px;
+      }
+
+      .hero-role {
+        font-size: 25px;
       }
 
       .stats-band {
@@ -1461,7 +2932,8 @@
       }
 
       .section {
-        padding: 76px 0;
+        min-height: 100svh;
+        padding: 112px 0 56px;
       }
 
       .section-head {
@@ -1470,13 +2942,63 @@
         margin-bottom: 40px;
       }
 
-      .education-row {
+      .advantages-heading {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 18px;
+        margin-bottom: 30px;
       }
 
-      .education-score {
+      .advantages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .advantage-card:last-child {
+        grid-column: auto;
+      }
+
+      .advantage-card {
+        min-height: 0;
+        padding: 24px;
+        grid-template-columns: 1fr;
+        grid-template-areas: "head" "content" "proof";
+        gap: 22px;
+      }
+
+      .advantage-card:nth-child(even) {
+        grid-template-areas: "head" "content" "proof";
+      }
+
+      .advantage-card:nth-child(even) .advantage-card-head,
+      .advantage-card:nth-child(even) .advantage-proof {
+        align-items: flex-start;
         text-align: left;
+      }
+
+      .advantage-card:nth-child(even) .advantage-proof,
+      .advantage-proof {
+        padding: 18px 0 0;
+        border-top: 1px solid #e8eaf0;
+        border-right: 0;
+        border-left: 0;
+      }
+
+      .education-showcase {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .education-metrics {
+        min-width: 0;
+      }
+
+      .education-metric:first-child {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .education-courses {
+        grid-template-columns: 1fr;
+        gap: 14px;
       }
 
       .skills-layout {
@@ -1496,9 +3018,79 @@
         grid-column: auto;
       }
 
+      .experience-heading {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .experience-list .experience-card {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-list .experience-card:nth-child(even) .experience-card-content,
+      .experience-list .experience-card:nth-child(even) .experience-visual {
+        order: initial;
+      }
+
+      .experience-showcase-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .experience-showcase {
+        min-height: 0;
+        grid-template-rows: 190px auto;
+      }
+
+      .experience-overview { grid-template-columns: 1fr; }
+
+      .experience-overview time,
+      .experience-overview-role,
+      .experience-overview-copy,
+      .experience-tags {
+        grid-column: auto;
+      }
+
+      .experience-project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-project-card {
+        min-height: 0;
+      }
+
+      .experience-card-content {
+        padding: 26px 24px;
+      }
+
+      .experience-visual,
+      .experience-visual img {
+        min-height: 290px;
+      }
+
+      .experience-grid,
+      .experience-duty-grid,
+      .experience-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-card:last-child {
+        grid-column: auto;
+      }
+
       .work-caption {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .works-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .work-entry-grid {
+        grid-template-columns: 1fr;
       }
 
       .work-caption .button {
@@ -1526,25 +3118,42 @@
 
       .contact-layout {
         align-items: flex-start;
-        flex-direction: column;
+        grid-template-columns: 1fr;
+      }
+
+      .contact-method {
+        grid-template-columns: 82px minmax(0, 1fr);
+      }
+
+      .contact-method-action {
+        grid-column: 2;
       }
     }
 
     @media (max-width: 520px) {
       .hero {
-        min-height: 720px;
-      }
-
-      .hero-kicker {
-        font-size: 10px;
+        min-height: auto;
       }
 
       h1 {
-        font-size: clamp(58px, 19vw, 86px);
+        font-size: 44px;
+        line-height: 1.12;
       }
 
-      .hero-name {
-        font-size: 25px;
+      .hero-role {
+        font-size: 21px;
+        line-height: 1.35;
+      }
+
+      .hero-description {
+        margin-top: 20px;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .advantage-line {
+        gap: 9px 16px;
+        font-size: 12px;
       }
 
       .hero-actions .button {
@@ -1555,12 +3164,63 @@
         grid-template-columns: 1fr;
       }
 
+      .quick-match-label {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
       .quick-match .match-button {
-        width: 100%;
+        width: 100% !important;
+        min-width: 0;
+        max-width: none;
+        flex-basis: auto;
+      }
+
+      .advantage-card {
+        min-height: 0;
+        padding: 24px 22px;
+      }
+
+      .advantage-card h3 {
+        margin-top: 24px;
+        font-size: 23px;
+      }
+
+      .experience-company strong {
+        font-size: 27px;
+      }
+
+      .experience-visual,
+      .experience-visual img {
+        min-height: 240px;
+      }
+
+      .experience-visual-caption {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .experience-visual-caption small {
+        text-align: left;
       }
 
       .match-modal {
         padding: max(10px, var(--safe-top)) max(10px, var(--safe-right)) max(10px, var(--safe-bottom)) max(10px, var(--safe-left));
+      }
+
+      .experience-modal {
+        padding: max(10px, var(--safe-top)) max(10px, var(--safe-right)) max(10px, var(--safe-bottom)) max(10px, var(--safe-left));
+      }
+
+      .experience-dialog {
+        max-height: calc(100svh - 20px);
+        padding: 20px 14px;
+      }
+
+      .experience-detail-section {
+        padding: 22px 14px;
       }
 
       .match-dialog {
@@ -1635,6 +3295,2746 @@
       }
     }
 
+    /* Airy Japanese-inspired visual system. Layout and content stay unchanged. */
+    :root {
+      --page: #f3f8f7;
+      --paper: #fffdf8;
+      --ink: #273536;
+      --muted: #687776;
+      --soft: #94a6a2;
+      --line: #cfdfda;
+      --blue: #357f84;
+      --cyan: #68b8bc;
+      --coral: #ef806d;
+      --yellow: #e8b949;
+      --green: #77a98d;
+      --violet: #397d82;
+      --lavender: #e1f0ec;
+      --shadow: 0 22px 60px rgba(52, 91, 89, 0.1);
+    }
+
+    html,
+    body {
+      background: var(--page);
+    }
+
+    body {
+      color: var(--ink);
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Microsoft YaHei UI", "Hiragino Maru Gothic ProN", "PingFang SC", sans-serif;
+      font-variation-settings: "wght" 540;
+    }
+
+    button:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline-color: rgba(53, 127, 132, 0.32);
+    }
+
+    .site-header {
+      top: max(18px, var(--safe-top));
+      width: min(1180px, calc(100% - 64px));
+      min-height: 68px;
+      padding: 5px 12px 5px 5px;
+      border: 1px solid rgba(207, 223, 218, 0.86);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.9);
+      box-shadow: 0 12px 34px rgba(58, 93, 91, 0.08);
+    }
+
+    .brand {
+      width: 58px;
+      height: 58px;
+      border: 1px solid #c4ddd6;
+      background: #e7f2ed;
+      transition: transform 220ms ease, background 220ms ease;
+    }
+
+    .brand:hover {
+      background: #f8e9d0;
+      transform: rotate(-4deg);
+    }
+
+    .brand img {
+      width: 94px;
+      height: 94px;
+    }
+
+    .site-nav {
+      gap: 5px;
+    }
+
+    .site-nav a {
+      min-height: 42px;
+      padding: 0 20px;
+      color: #526160;
+      font-size: 15px;
+      transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.is-active {
+      background: #397d82;
+      color: #fffdf8;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .menu-button {
+      border: 1px solid #cfe0dc;
+      border-radius: 50%;
+      background: #fffdf8;
+      color: #397d82;
+    }
+
+    .view-panel.is-active {
+      animation: jpViewIn 420ms cubic-bezier(0.22, 0.75, 0.3, 1) both;
+    }
+
+    @keyframes jpViewIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      align-items: flex-start;
+      min-height: 980px;
+      padding-top: 270px;
+      border-bottom-color: #cfe1dc;
+      background: #f8fbf8;
+    }
+
+    .hero::before,
+    .hero::after {
+      display: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1,
+    .hero-role,
+    .section-title,
+    .advantages-heading h2,
+    .experience-heading-centered h2,
+    .works-heading h2,
+    .contact-title,
+    .education-heading h2 {
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Microsoft YaHei UI", "PingFang SC", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .jp-scenery {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 260px;
+      overflow: hidden;
+      background: #b9dfe2;
+      pointer-events: none;
+    }
+
+    .jp-sun {
+      position: absolute;
+      z-index: 0;
+      top: 62px;
+      right: 10%;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #f4ce5a;
+      box-shadow: 0 0 0 12px rgba(255, 253, 248, 0.34);
+      animation: sunPulse 5s ease-in-out infinite;
+    }
+
+    .jp-cloud {
+      position: absolute;
+      z-index: 1;
+      width: 116px;
+      height: 27px;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.72);
+      animation: cloudDrift 13s ease-in-out infinite alternate;
+    }
+
+    .jp-cloud::before,
+    .jp-cloud::after {
+      position: absolute;
+      bottom: 0;
+      border-radius: 50%;
+      background: inherit;
+      content: "";
+    }
+
+    .jp-cloud::before {
+      left: 22px;
+      width: 46px;
+      height: 46px;
+    }
+
+    .jp-cloud::after {
+      right: 20px;
+      width: 34px;
+      height: 34px;
+    }
+
+    .jp-cloud-one { top: 58px; left: 8%; }
+    .jp-cloud-two { top: 112px; left: 46%; transform: scale(0.68); animation-delay: -5s; }
+
+    .jp-mountain {
+      position: absolute;
+      right: -3%;
+      left: -3%;
+      transform-origin: center bottom;
+      animation: mountainBreathe 10s ease-in-out infinite alternate;
+    }
+
+    .jp-mountain-far {
+      z-index: 1;
+      bottom: 36px;
+      height: 142px;
+      background: #8cc3c7;
+      clip-path: polygon(0 83%, 8% 61%, 16% 73%, 25% 39%, 34% 66%, 44% 32%, 55% 65%, 65% 45%, 76% 71%, 86% 40%, 100% 77%, 100% 100%, 0 100%);
+    }
+
+    .jp-mountain-near {
+      z-index: 2;
+      bottom: 18px;
+      height: 110px;
+      background: #63a9ae;
+      clip-path: polygon(0 72%, 12% 48%, 25% 75%, 39% 42%, 51% 73%, 65% 48%, 79% 76%, 91% 53%, 100% 67%, 100% 100%, 0 100%);
+      animation-delay: -3s;
+    }
+
+    .jp-bird {
+      position: absolute;
+      z-index: 4;
+      width: 42px;
+      height: auto;
+      mix-blend-mode: multiply;
+      object-fit: contain;
+      animation: birdGlide 8s ease-in-out infinite;
+    }
+
+    .jp-bird-one { top: 78px; right: 25%; }
+    .jp-bird-two { top: 126px; right: 18%; width: 30px; animation-delay: -3.5s; }
+
+    .jp-scenery-wave {
+      position: absolute;
+      z-index: 5;
+      right: -3%;
+      bottom: -42px;
+      left: -3%;
+      display: flex;
+      align-items: flex-start;
+      height: 94px;
+    }
+
+    .jp-scenery-wave::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 50px;
+      background: #f8fbf8;
+      content: "";
+    }
+
+    .jp-scenery-wave i {
+      position: relative;
+      z-index: 1;
+      flex: 1 0 22%;
+      height: 80px;
+      margin-left: -2%;
+      border-radius: 52% 48% 0 0 / 50% 48% 0 0;
+      background: #f8fbf8;
+    }
+
+    .jp-scenery-wave i:nth-child(2),
+    .jp-scenery-wave i:nth-child(5) { transform: translateY(10px); }
+
+    .jp-scenery-wave i:nth-child(3) { transform: translateY(-5px); }
+
+    @keyframes sunPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes cloudDrift {
+      from { margin-left: -10px; }
+      to { margin-left: 18px; }
+    }
+
+    @keyframes mountainBreathe {
+      from { transform: translateX(-0.5%) scaleY(1); }
+      to { transform: translateX(0.5%) scaleY(1.025); }
+    }
+
+    @keyframes birdGlide {
+      0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+      45% { transform: translate(-36px, -12px) rotate(3deg); }
+      65% { transform: translate(-48px, -5px) rotate(-2deg); }
+    }
+
+    h1,
+    .section-title,
+    .advantages-heading h2,
+    .experience-heading-centered h2,
+    .works-heading h2,
+    .contact-title {
+      color: #274548;
+    }
+
+    .hero-role {
+      color: #df725e;
+    }
+
+    .hero-description {
+      color: #4f615f;
+    }
+
+    .hero-description::before {
+      color: #e6b33d;
+      animation: pointerSway 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pointerSway {
+      0%, 100% { transform: rotate(9deg) translateX(0); }
+      50% { transform: rotate(15deg) translateX(5px); }
+    }
+
+    .button {
+      border-color: #c7dad5;
+      border-radius: 999px;
+      background: #fffdf8;
+      color: #29484a;
+    }
+
+    .button:hover {
+      background: #f3ead2;
+      box-shadow: 0 10px 24px rgba(55, 91, 88, 0.1);
+    }
+
+    .button-primary,
+    .button-dark,
+    .button-contact,
+    .match-button {
+      border-color: #397d82;
+      background: #397d82;
+      color: #fffdf8;
+      box-shadow: 0 10px 26px rgba(57, 125, 130, 0.17);
+    }
+
+    .button-resume {
+      border-color: #bfd6d0;
+      background: #fffdf8;
+      color: #29484a;
+      box-shadow: none;
+    }
+
+    .button-soft {
+      border-color: #bdddd4;
+      background: #e4f2ed;
+      color: #315f5d;
+    }
+
+    .portrait-stage::before {
+      border-radius: 44% 56% 50% 50%;
+      background: #cfe8e5;
+      animation: portraitShape 7s ease-in-out infinite alternate;
+    }
+
+    .portrait-stage::after {
+      border-radius: 56% 44% 18% 62%;
+      background: #f4df9c;
+      animation: portraitShape 9s ease-in-out -2s infinite alternate-reverse;
+    }
+
+    @keyframes portraitShape {
+      from { transform: rotate(-15deg) translateY(0); }
+      to { transform: rotate(-9deg) translateY(-10px); }
+    }
+
+    .portrait-photo {
+      filter:
+        drop-shadow(3px 0 0 #4d9a9d)
+        drop-shadow(-3px 0 0 #4d9a9d)
+        drop-shadow(0 3px 0 #4d9a9d)
+        drop-shadow(0 -3px 0 #4d9a9d)
+        drop-shadow(0 24px 30px rgba(39, 82, 80, 0.16));
+    }
+
+    .deco-star {
+      color: #e6b33d;
+      animation: decoFloat 3.5s ease-in-out infinite;
+    }
+
+    .deco-star-two {
+      animation-delay: -1.4s;
+    }
+
+    .deco-burst {
+      border-top-color: #ef806d;
+      background: transparent;
+    }
+
+    .deco-burst::before,
+    .deco-burst::after {
+      background: #ef806d;
+    }
+
+    .deco-dots {
+      opacity: 0.24;
+      background-image: radial-gradient(circle, #4c9798 2px, transparent 2.5px);
+    }
+
+    @keyframes decoFloat {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-9px) rotate(8deg); }
+    }
+
+    .quick-match {
+      border: 1px solid #c8ddd8;
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.94);
+      box-shadow: 12px 14px 0 rgba(218, 235, 230, 0.72);
+    }
+
+    .quick-match-label {
+      color: #397d82;
+    }
+
+    .quick-match .jd-input {
+      border-color: #bfd5d0;
+      background: #fffdf8;
+      color: #29484a;
+    }
+
+    .search-mark {
+      border-color: #718886;
+    }
+
+    .search-mark::after {
+      background: #718886;
+    }
+
+    .section,
+    .contact-band {
+      position: relative;
+      overflow: hidden;
+      border-bottom-color: #cfe0dc;
+      background: var(--page);
+    }
+
+    #education,
+    #advantages,
+    #works {
+      background: #fffdf8;
+    }
+
+    #experience,
+    #contact {
+      background: #f3f8f7;
+    }
+
+    .section::after,
+    .contact-band::after {
+      position: absolute;
+      z-index: 0;
+      top: 116px;
+      right: -34px;
+      width: 118px;
+      height: 26px;
+      border-top: 2px solid rgba(239, 128, 109, 0.45);
+      border-bottom: 2px solid rgba(232, 185, 73, 0.45);
+      content: "";
+      transform: rotate(-8deg);
+      pointer-events: none;
+      animation: kazariDrift 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes kazariDrift {
+      from { transform: translateX(0) rotate(-8deg); }
+      to { transform: translateX(-16px) rotate(-4deg); }
+    }
+
+    .section > .shell,
+    .contact-band > .shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-index,
+    .advantages-kicker,
+    .work-entry-type {
+      color: #397d82;
+    }
+
+    .section-index::before {
+      background: #e8b949;
+    }
+
+    .advantages-heading {
+      position: relative;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .advantages-heading > p {
+      display: none;
+    }
+
+    .advantages-heading::after {
+      position: absolute;
+      right: 5%;
+      bottom: 14px;
+      color: #ef806d;
+      content: "⌁  ✦  ⌁";
+      font-size: 24px;
+      letter-spacing: 18px;
+      animation: decoFloat 4s ease-in-out infinite;
+    }
+
+    .advantages-grid {
+      gap: 18px;
+    }
+
+    .advantage-card {
+      --advantage-accent: #397d82;
+      border-color: #cadeda;
+      border-left-color: var(--advantage-accent);
+      background: #fffdf8;
+      box-shadow: 0 14px 34px rgba(54, 91, 88, 0.06);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .advantage-card:nth-child(2) { --advantage-accent: #df725e; }
+    .advantage-card:nth-child(3) { --advantage-accent: #c3922d; }
+
+    .advantage-card:hover {
+      box-shadow: 0 18px 38px rgba(54, 91, 88, 0.11);
+      transform: translateY(-3px);
+    }
+
+    .advantage-card::after {
+      border-color: color-mix(in srgb, var(--advantage-accent) 28%, transparent);
+    }
+
+    .advantage-proof,
+    .advantage-card:nth-child(even) .advantage-proof {
+      border-color: #dce7e3;
+    }
+
+    .education-showcase,
+    .education-course,
+    .experience-showcase,
+    .work-entry-card,
+    .contact-method,
+    .report-matrix,
+    .report-block,
+    .experience-dialog,
+    .match-dialog {
+      border-color: #cbded9;
+      background: #fffdf8;
+      box-shadow: 0 14px 38px rgba(53, 88, 86, 0.07);
+    }
+
+    .education-showcase,
+    .education-course,
+    .experience-showcase,
+    .work-entry-card,
+    .contact-method {
+      border-radius: 8px;
+    }
+
+    .experience-showcase {
+      --company-accent: #397d82;
+    }
+
+    .experience-showcase:nth-child(2) { --company-accent: #df725e; }
+    .experience-showcase:nth-child(3) { --company-accent: #c3922d; }
+
+    .experience-showcase:hover,
+    .work-entry-card:hover {
+      border-color: #91bbb4;
+      box-shadow: 0 18px 38px rgba(53, 88, 86, 0.12);
+    }
+
+    .experience-showcase .experience-overview::after,
+    .experience-project-link,
+    .work-entry-arrow {
+      color: #397d82;
+    }
+
+    .work-entry-media {
+      background: #dfeeea;
+    }
+
+    .work-entry-card:first-child {
+      border-bottom: 4px solid #397d82;
+    }
+
+    .work-entry-card:last-child {
+      border-bottom: 4px solid #df725e;
+    }
+
+    .education-section {
+      padding-top: 142px;
+      background: #fffaf1;
+    }
+
+    .education-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.75fr);
+      gap: 70px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .education-heading p {
+      margin: 0 0 10px;
+      color: #397d82;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+    }
+
+    .education-heading h2 {
+      margin: 0;
+      color: #315a5c;
+      font-size: clamp(54px, 6.6vw, 92px);
+      font-weight: 880;
+      line-height: 0.98;
+    }
+
+    .education-heading > span {
+      padding-bottom: 8px;
+      color: #71817f;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .education-showcase {
+      position: relative;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 70px;
+      align-items: center;
+      padding: 50px 56px;
+      overflow: hidden;
+      border: 1px solid #c9dfda;
+      border-radius: 42px 12px 42px 12px;
+      background: #e4f2ef;
+      box-shadow: none;
+    }
+
+    .education-showcase::before {
+      position: absolute;
+      right: -52px;
+      bottom: -72px;
+      width: 235px;
+      height: 145px;
+      border: 2px solid rgba(239, 128, 109, 0.38);
+      border-radius: 52% 48% 0 0;
+      content: "";
+      transform: rotate(-7deg);
+    }
+
+    .education-showcase::after {
+      position: absolute;
+      top: 28px;
+      right: 36px;
+      color: #e8b949;
+      content: "✦";
+      font-size: 26px;
+      animation: decoFloat 3.8s ease-in-out infinite;
+    }
+
+    .education-kicker {
+      margin-bottom: 16px;
+      color: #df725e;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+
+    .education-school h3 {
+      color: #284b4d;
+      font-size: clamp(40px, 4.4vw, 62px);
+      font-weight: 860;
+    }
+
+    .education-degree {
+      display: inline-block;
+      margin: 16px 0 0;
+      padding: 7px 15px;
+      border-radius: 999px;
+      background: #397d82;
+      color: #fffdf8;
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .education-summary {
+      max-width: 640px;
+      margin-top: 20px;
+      color: #536765;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .education-metrics {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .education-metric,
+    .education-metric:first-child {
+      position: relative;
+      min-height: 92px;
+      padding: 22px 25px;
+      border: 0;
+      border-radius: 24px 8px 24px 8px;
+      background: #fffdf8;
+      box-shadow: 0 10px 24px rgba(60, 101, 98, 0.07);
+    }
+
+    .education-metric strong {
+      color: #315f60;
+      font-size: 30px;
+    }
+
+    .education-metric span {
+      color: #7b8987;
+      letter-spacing: 0.06em;
+    }
+
+    .education-courses {
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 32px;
+      margin-top: 30px;
+      padding: 30px 4px 0;
+      border-top: 1px dashed #bfd5d0;
+    }
+
+    .education-courses h3 {
+      color: #315a5c;
+      font-size: 17px;
+    }
+
+    .education-courses h3 span {
+      display: block;
+      margin-bottom: 5px;
+      color: #df725e;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+    }
+
+    .course-tags {
+      gap: 9px;
+    }
+
+    .course-tags span {
+      padding: 9px 14px;
+      border-color: #c7ddd7;
+      border-radius: 999px;
+      background: #fffdf8;
+      color: #506765;
+      font-size: 13px;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .course-tags span:nth-child(3n + 2) {
+      border-color: #ebc9bf;
+      background: #fff7f1;
+    }
+
+    .course-tags span:hover {
+      background: #f5e8c6;
+      transform: translateY(-2px) rotate(-1deg);
+    }
+
+    .education-walker {
+      display: block;
+      width: 172px;
+      height: auto;
+      margin: 28px 26px -10px auto;
+      mix-blend-mode: multiply;
+      animation: walkerStep 5.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes walkerStep {
+      from { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(-12px) translateY(-3px); }
+      to { transform: translateX(-24px) translateY(0); }
+    }
+
+    .contact-band {
+      background: #dfeeea;
+    }
+
+    .contact-method {
+      color: #29484a;
+    }
+
+    .contact-method:hover {
+      background: #f5ecd5;
+      transform: translateX(4px);
+    }
+
+    .contact-method-label,
+    .contact-method-action {
+      color: #397d82;
+    }
+
+    .modal-backdrop,
+    .experience-backdrop {
+      background: rgba(39, 57, 57, 0.36);
+    }
+
+    .modal-grade span {
+      background: #f8dfd8;
+      color: #8e4c40;
+    }
+
+    .report-matrix-title,
+    .result-section-title,
+    .experience-detail-kicker {
+      color: #397d82;
+    }
+
+    .result-section-title::before {
+      background: #e8b949;
+    }
+
+    .dimension-fill {
+      background: #397d82;
+    }
+
+    .jp-cursor-leaf,
+    .jp-cursor-guide {
+      position: fixed;
+      z-index: 220;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .jp-cursor-leaf {
+      width: 11px;
+      height: 17px;
+      border-radius: 85% 15% 82% 18%;
+      background: #ef806d;
+      box-shadow: 7px 8px 0 -3px #e8b949;
+    }
+
+    .jp-cursor-guide {
+      width: 34px;
+      height: 26px;
+      border: 1px solid rgba(57, 125, 130, 0.72);
+      border-radius: 64% 36% 58% 42%;
+      transition: width 160ms ease, height 160ms ease, border-color 160ms ease, opacity 160ms ease;
+    }
+
+    .jp-cursor-leaf.is-visible,
+    .jp-cursor-guide.is-visible {
+      opacity: 1;
+    }
+
+    .jp-cursor-guide.is-interactive {
+      width: 46px;
+      height: 34px;
+      border-color: rgba(232, 185, 73, 0.92);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body,
+      a,
+      button,
+      textarea {
+        cursor: none;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .site-header {
+        top: max(10px, var(--safe-top));
+        width: calc(100% - 30px);
+        border-radius: 999px;
+      }
+
+      .site-nav {
+        border: 1px solid #cfe0dc;
+        border-radius: 8px;
+        background: rgba(255, 253, 248, 0.97);
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 218px;
+      }
+
+      .jp-scenery {
+        height: 190px;
+      }
+
+      .jp-sun {
+        top: 84px;
+        right: 12%;
+        width: 38px;
+        height: 38px;
+      }
+
+      .jp-cloud-one {
+        top: 76px;
+        left: 3%;
+        transform: scale(0.62);
+      }
+
+      .jp-cloud-two {
+        display: none;
+      }
+
+      .jp-mountain-far {
+        bottom: 30px;
+        height: 98px;
+      }
+
+      .jp-mountain-near {
+        bottom: 18px;
+        height: 72px;
+      }
+
+      .jp-bird-one {
+        top: 86px;
+        right: 30%;
+        width: 29px;
+      }
+
+      .jp-bird-two {
+        display: none;
+      }
+
+      .jp-scenery-wave {
+        bottom: -48px;
+        height: 82px;
+      }
+
+      .education-section {
+        padding-top: 118px;
+      }
+
+      .education-heading {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+
+      .education-heading h2 {
+        font-size: clamp(48px, 16vw, 66px);
+      }
+
+      .education-heading > span {
+        font-size: 14px;
+      }
+
+      .education-showcase {
+        grid-template-columns: 1fr;
+        gap: 26px;
+        padding: 34px 24px;
+        border-radius: 32px 10px 32px 10px;
+      }
+
+      .education-showcase::after {
+        top: 18px;
+        right: 22px;
+      }
+
+      .education-school h3 {
+        max-width: 8em;
+        font-size: 40px;
+      }
+
+      .education-summary {
+        font-size: 14px;
+      }
+
+      .education-courses {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .education-walker {
+        width: 138px;
+        margin-right: 4px;
+      }
+
+      .advantages-heading::after {
+        display: none;
+      }
+
+      .jp-cursor-leaf,
+      .jp-cursor-guide {
+        display: none;
+      }
+    }
+
+    /* Japanese landscape system v2: calm scenery, rounded type and restrained cards. */
+    :root {
+      --jp-cream: #fbf7ee;
+      --jp-paper: #fffdf8;
+      --jp-teal: #3f7778;
+      --jp-teal-dark: #315f61;
+      --jp-sky: #d8eef2;
+      --jp-coral: #dd765e;
+      --jp-gold: #e8b64b;
+      --jp-olive: #65744f;
+      --jp-line: #e2ddcf;
+    }
+
+    html,
+    body {
+      background: var(--jp-cream);
+    }
+
+    body {
+      color: #344342;
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Microsoft YaHei UI", "Hiragino Maru Gothic ProN", "PingFang SC", sans-serif;
+    }
+
+    .site-header {
+      top: max(24px, var(--safe-top));
+      width: min(1120px, calc(100% - 72px));
+      min-height: 66px;
+      border-color: rgba(255, 255, 255, 0.76);
+      background: rgba(255, 253, 248, 0.88);
+      box-shadow: 0 16px 38px rgba(55, 91, 90, 0.1);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      border-color: #c7deda;
+      background: #e7f2ef;
+    }
+
+    .site-nav a {
+      color: #465857;
+      font-weight: 760;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.is-active {
+      background: var(--jp-teal);
+    }
+
+    .hero {
+      min-height: 1010px;
+      padding-top: 330px;
+      background: var(--jp-cream);
+    }
+
+    .jp-scenery {
+      height: 325px;
+      background: #dff1f4 url("jp-mountain-hero.png") center 66% / cover no-repeat;
+    }
+
+    .jp-sun,
+    .jp-cloud,
+    .jp-mountain {
+      display: none;
+    }
+
+    .jp-scenery::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(217, 240, 243, 0.08));
+      content: "";
+    }
+
+    .jp-scenery-wave {
+      z-index: 6;
+      right: -1%;
+      bottom: -58px;
+      left: -1%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: start;
+      height: 126px;
+    }
+
+    .jp-scenery-wave::after {
+      height: 70px;
+      background: var(--jp-cream);
+    }
+
+    .jp-scenery-wave i {
+      width: 108%;
+      height: 104px;
+      margin-left: -4%;
+      border-radius: 50% 50% 0 0 / 42% 42% 0 0;
+      background: var(--jp-cream);
+    }
+
+    .jp-scenery-wave i:nth-child(1) { transform: translateY(2px) scaleX(1.05); }
+    .jp-scenery-wave i:nth-child(2) { transform: translateY(22px) scaleX(1.08); }
+    .jp-scenery-wave i:nth-child(3) { transform: translateY(-6px) scaleX(1.1); }
+    .jp-scenery-wave i:nth-child(4) { transform: translateY(19px) scaleX(1.08); }
+    .jp-scenery-wave i:nth-child(5) { transform: translateY(0) scaleX(1.05); }
+
+    .jp-bird {
+      z-index: 5;
+      width: 58px;
+      mix-blend-mode: normal;
+      filter: drop-shadow(0 7px 7px rgba(188, 146, 52, 0.12));
+    }
+
+    .jp-bird-one {
+      top: 208px;
+      right: 17%;
+    }
+
+    .jp-bird-two {
+      top: 240px;
+      right: 12%;
+      width: 42px;
+    }
+
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.04fr) minmax(450px, 0.82fr);
+      gap: 54px;
+      align-items: center;
+    }
+
+    h1 {
+      color: var(--jp-teal-dark);
+      font-size: clamp(64px, 5.6vw, 88px);
+      font-weight: 860;
+      line-height: 1.04;
+    }
+
+    .hero-role {
+      margin-top: 16px;
+      color: var(--jp-coral);
+      font-size: clamp(27px, 2.6vw, 38px);
+    }
+
+    .hero-description {
+      max-width: 700px;
+      margin-top: 22px;
+      color: #50605e;
+      line-height: 1.9;
+    }
+
+    .hero-description::before {
+      color: var(--jp-gold);
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+    }
+
+    .button,
+    .match-button {
+      border-radius: 999px;
+    }
+
+    .quick-match {
+      max-width: 720px;
+      margin-top: 24px;
+      border-color: #e4ded0;
+      border-radius: 22px;
+      background: rgba(255, 253, 248, 0.94);
+      box-shadow: 0 18px 42px rgba(59, 87, 82, 0.08);
+    }
+
+    .quick-match-label {
+      color: var(--jp-teal);
+    }
+
+    .portrait-stage {
+      width: min(520px, 100%);
+      min-height: 610px;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    .portrait-stage::before {
+      right: 2%;
+      bottom: 8%;
+      left: 14%;
+      border-radius: 48% 52% 38% 62%;
+      background: #dceced;
+      opacity: 0.86;
+    }
+
+    .portrait-stage::after {
+      right: 10%;
+      bottom: 4%;
+      width: 58%;
+      height: 34%;
+      border-radius: 54% 46% 42% 58%;
+      background: #f5dea0;
+      opacity: 0.78;
+    }
+
+    .portrait-photo {
+      z-index: 3;
+      padding: 0;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 24px 30px rgba(57, 91, 88, 0.16));
+    }
+
+    .portrait-foliage {
+      position: absolute;
+      z-index: 4;
+      bottom: 4%;
+      width: 132px;
+      height: 286px;
+      opacity: 0.72;
+      pointer-events: none;
+      transform-origin: 50% 100%;
+      animation: foliageSway 6.8s ease-in-out infinite alternate;
+    }
+
+    .portrait-foliage::before {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(142, 175, 157, 0.2), rgba(111, 151, 132, 0.82));
+      content: "";
+      transform: rotate(9deg);
+      transform-origin: bottom;
+    }
+
+    .portrait-foliage i {
+      position: absolute;
+      width: 34px;
+      height: 18px;
+      border: 1px solid rgba(133, 169, 150, 0.28);
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, rgba(222, 236, 225, 0.96), rgba(144, 178, 157, 0.72));
+      box-shadow: inset 5px 4px 9px rgba(255, 255, 255, 0.58);
+      transform-origin: 100% 50%;
+    }
+
+    .portrait-foliage i:nth-child(1) { top: 13%; left: 25%; transform: rotate(28deg); }
+    .portrait-foliage i:nth-child(2) { top: 25%; right: 4%; transform: scaleX(-1) rotate(28deg); }
+    .portrait-foliage i:nth-child(3) { top: 39%; left: 17%; transform: rotate(18deg); }
+    .portrait-foliage i:nth-child(4) { top: 52%; right: 0; transform: scaleX(-1) rotate(20deg); }
+    .portrait-foliage i:nth-child(5) { top: 65%; left: 11%; transform: rotate(11deg); }
+    .portrait-foliage i:nth-child(6) { top: 76%; right: 8%; transform: scaleX(-1) rotate(15deg); }
+
+    .portrait-foliage-left {
+      left: -5%;
+      transform: rotate(-22deg);
+    }
+
+    .portrait-foliage-right {
+      right: -8%;
+      bottom: 8%;
+      transform: rotate(24deg) scale(0.92);
+      animation-delay: -3.4s;
+    }
+
+    @keyframes foliageSway {
+      from { translate: 0 0; rotate: -1deg; }
+      to { translate: 2px -7px; rotate: 3deg; }
+    }
+
+    .portrait-decoration {
+      z-index: 4;
+    }
+
+    .portrait-tags {
+      position: absolute;
+      z-index: 6;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .portrait-tags span {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border: 1px solid rgba(193, 215, 207, 0.9);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.98);
+      color: #405e5d;
+      box-shadow: 0 12px 26px rgba(55, 86, 82, 0.14), 0 0 0 5px rgba(255, 253, 248, 0.42);
+      font-size: 14px;
+      font-weight: 820;
+      opacity: 1;
+      animation: portraitTagRise 720ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
+    }
+
+    .portrait-tags span::before {
+      width: 7px;
+      height: 7px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--jp-gold);
+      content: "";
+    }
+
+    .portrait-tags span:nth-child(1) {
+      top: 22%;
+      left: -4%;
+      animation-delay: 180ms;
+    }
+
+    .portrait-tags span:nth-child(2) {
+      top: 36%;
+      right: -5%;
+      animation-delay: 340ms;
+    }
+
+    .portrait-tags span:nth-child(3) {
+      bottom: 25%;
+      left: -2%;
+      animation-delay: 500ms;
+    }
+
+    .portrait-tags span:nth-child(4) {
+      right: 0;
+      bottom: 13%;
+      animation-delay: 660ms;
+    }
+
+    @keyframes portraitTagRise {
+      from { transform: translateY(34px) scale(0.94); }
+      to { transform: translateY(0) scale(1); }
+    }
+
+    .portrait-label {
+      z-index: 7;
+      border-color: #d7ddd4;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.92);
+      color: var(--jp-teal-dark);
+    }
+
+    .stats-band,
+    .section,
+    .contact-band {
+      border-bottom-color: var(--jp-line);
+    }
+
+    .stats-band {
+      background: #f1eadc;
+    }
+
+    .section::after,
+    .contact-band::after {
+      display: none;
+    }
+
+    .education-section {
+      min-height: auto;
+      padding: 122px 0 104px;
+      background: var(--jp-paper);
+    }
+
+    .education-heading {
+      display: block;
+      max-width: 820px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .education-heading p {
+      margin-bottom: 12px;
+      color: var(--jp-coral);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+    }
+
+    .education-heading h2 {
+      color: var(--jp-teal-dark);
+      font-size: clamp(48px, 5vw, 70px);
+      line-height: 1.05;
+    }
+
+    .education-heading > span {
+      display: block;
+      max-width: 650px;
+      margin: 20px auto 0;
+      padding: 0;
+      color: #74807e;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .education-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 50px;
+      align-items: center;
+      padding: 38px 42px;
+      overflow: visible;
+      border: 1px solid #e5dfd2;
+      border-radius: 26px;
+      background: #fbf8f1;
+      box-shadow: 0 18px 42px rgba(68, 88, 82, 0.07);
+    }
+
+    .education-showcase::before,
+    .education-showcase::after {
+      display: none;
+    }
+
+    .education-kicker {
+      margin-bottom: 10px;
+      color: var(--jp-coral);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .education-school h3 {
+      color: #334f4f;
+      font-size: clamp(34px, 3.6vw, 48px);
+      line-height: 1.15;
+    }
+
+    .education-degree {
+      margin-top: 12px;
+      padding: 0;
+      background: transparent;
+      color: var(--jp-teal);
+      font-size: 16px;
+    }
+
+    .education-summary {
+      max-width: 720px;
+      margin-top: 16px;
+      color: #65716f;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .education-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .education-metric,
+    .education-metric:first-child {
+      min-height: 112px;
+      padding: 22px 16px;
+      border: 1px solid #dce7e1;
+      border-radius: 18px;
+      background: var(--jp-paper);
+      box-shadow: none;
+      text-align: center;
+    }
+
+    .education-metric strong {
+      color: var(--jp-teal-dark);
+      font-size: 27px;
+    }
+
+    .education-metric span {
+      margin-top: 7px;
+      color: #8b9693;
+      font-size: 11px;
+    }
+
+    .education-courses {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      margin-top: 22px;
+      padding: 22px 4px 0;
+      border-top: 1px solid #e6e0d4;
+    }
+
+    .education-courses h3 {
+      color: #46605e;
+      font-size: 15px;
+    }
+
+    .education-courses h3 span {
+      color: var(--jp-coral);
+    }
+
+    .course-tags {
+      gap: 8px;
+    }
+
+    .course-tags span,
+    .course-tags span:nth-child(3n + 2) {
+      padding: 8px 13px;
+      border-color: #dedfd6;
+      background: var(--jp-paper);
+      color: #61706d;
+      font-size: 12px;
+    }
+
+    .education-walker {
+      display: none;
+    }
+
+    #experience {
+      min-height: auto;
+      padding: 122px 0 110px;
+      background: var(--jp-cream);
+    }
+
+    #experience::before {
+      position: absolute;
+      z-index: 0;
+      top: 62px;
+      right: 0;
+      left: 0;
+      height: 170px;
+      background: url("jp-mountain-hero.png") center 72% / cover no-repeat;
+      content: "";
+      opacity: 0.34;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 66%, transparent);
+    }
+
+    .experience-heading-centered {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .experience-heading-centered h2 {
+      color: #4b5e46;
+      font-size: clamp(52px, 6vw, 78px);
+      line-height: 1;
+    }
+
+    .experience-heading-centered p {
+      max-width: 660px;
+      margin: 18px auto 0;
+      color: #71807b;
+      line-height: 1.8;
+    }
+
+    .experience-showcase-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .experience-showcase {
+      display: grid;
+      min-height: 590px;
+      overflow: hidden;
+      grid-template-rows: 228px minmax(0, 1fr);
+      border: 1px solid #e4ddce;
+      border-radius: 28px;
+      background: var(--jp-paper);
+      box-shadow: 0 16px 36px rgba(79, 91, 78, 0.08);
+      cursor: pointer;
+    }
+
+    .experience-showcase::before {
+      height: auto;
+      background: #dcecee var(--company-cover) center / cover no-repeat;
+      transition: transform 520ms cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+
+    .experience-showcase:hover {
+      border-color: #c9d7cc;
+      box-shadow: 0 22px 46px rgba(65, 88, 78, 0.13);
+      transform: translateY(-5px);
+    }
+
+    .experience-showcase:hover::before {
+      transform: scale(1.025);
+    }
+
+    .experience-showcase .experience-overview {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-width: 0;
+      padding: 26px 24px 24px;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--jp-paper);
+    }
+
+    .experience-showcase .experience-overview::before {
+      position: absolute;
+      z-index: -1;
+      top: -24px;
+      right: -2px;
+      left: -2px;
+      height: 40px;
+      background: var(--jp-paper);
+      clip-path: polygon(0 48%, 10% 22%, 22% 42%, 34% 16%, 49% 39%, 62% 20%, 76% 42%, 88% 18%, 100% 42%, 100% 100%, 0 100%);
+      content: "";
+    }
+
+    .experience-showcase .experience-overview h3 {
+      color: #40523f;
+      font-size: clamp(23px, 2vw, 28px);
+      line-height: 1.25;
+    }
+
+    .experience-showcase .experience-overview time {
+      order: -1;
+      color: #858f89;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .experience-showcase .experience-overview-role {
+      color: var(--company-accent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .experience-showcase .experience-overview-copy {
+      -webkit-line-clamp: 4;
+      color: #67736f;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .experience-showcase .experience-tags {
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .experience-showcase .experience-tags span {
+      padding: 6px 9px;
+      border-color: #dce2d8;
+      border-radius: 999px;
+      background: #f7f4eb;
+      color: #657265;
+      font-size: 10px;
+    }
+
+    .experience-showcase .experience-overview::after {
+      margin-top: auto;
+      border-top-color: #e9e3d8;
+      color: #51634e;
+      content: "查看详情  →";
+    }
+
+    .experience-showcase .experience-project-divider,
+    .experience-showcase .experience-project-grid {
+      display: none;
+    }
+
+    .experience-walker {
+      display: block;
+      width: 184px;
+      height: auto;
+      margin: 28px 12px -26px auto;
+      filter: drop-shadow(0 10px 12px rgba(101, 94, 67, 0.08));
+      animation: experienceWalker 6.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes experienceWalker {
+      from { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(-14px) translateY(-3px); }
+      to { transform: translateX(-30px) translateY(0); }
+    }
+
+    #advantages,
+    #works {
+      background: var(--jp-paper);
+    }
+
+    .advantages-heading h2,
+    .works-heading h2 {
+      color: var(--jp-teal-dark);
+    }
+
+    .advantage-card,
+    .work-entry-card {
+      border-color: #e2ddcf;
+      background: #fbf8f1;
+      box-shadow: 0 14px 34px rgba(67, 88, 80, 0.06);
+    }
+
+    .work-entry-card {
+      overflow: hidden;
+      border-radius: 28px;
+    }
+
+    .work-entry-media {
+      position: relative;
+      background: #dcecef;
+    }
+
+    .work-entry-media::after {
+      position: absolute;
+      right: -2px;
+      bottom: -1px;
+      left: -2px;
+      height: 28px;
+      background: #fbf8f1;
+      clip-path: polygon(0 56%, 13% 28%, 27% 54%, 42% 24%, 58% 53%, 73% 30%, 88% 54%, 100% 34%, 100% 100%, 0 100%);
+      content: "";
+    }
+
+    .contact-band {
+      background: #e8f1eb;
+    }
+
+    .jp-cursor-guide {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(63, 119, 120, 0.6);
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 34%, rgba(255, 255, 255, 0.92) 0 12%, rgba(128, 197, 194, 0.22) 32%, rgba(128, 197, 194, 0.04) 68%, transparent 72%);
+      box-shadow: 0 0 0 5px rgba(145, 208, 203, 0.08), 0 7px 22px rgba(63, 119, 120, 0.16);
+      transition: width 160ms ease, height 160ms ease, border-color 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+    }
+
+    .jp-cursor-leaf {
+      width: 12px;
+      height: 12px;
+      border-radius: 0;
+      background: var(--jp-gold);
+      clip-path: polygon(50% 0, 62% 37%, 100% 50%, 62% 63%, 50% 100%, 38% 63%, 0 50%, 38% 37%);
+      box-shadow: 0 0 12px rgba(232, 182, 75, 0.78);
+      animation: cursorSpark 1.5s ease-in-out infinite;
+    }
+
+    .jp-cursor-leaf::before,
+    .jp-cursor-leaf::after {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff2bd;
+      box-shadow: 0 0 8px rgba(255, 238, 170, 0.9);
+      content: "";
+    }
+
+    .jp-cursor-leaf::before {
+      top: 16px;
+      left: -8px;
+    }
+
+    .jp-cursor-leaf::after {
+      top: 25px;
+      left: -15px;
+      opacity: 0.64;
+    }
+
+    .jp-cursor-guide.is-interactive {
+      width: 48px;
+      height: 48px;
+      border-color: rgba(221, 118, 94, 0.72);
+      box-shadow: 0 0 0 7px rgba(221, 118, 94, 0.08), 0 10px 26px rgba(63, 119, 120, 0.16);
+    }
+
+    @keyframes cursorSpark {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.25); }
+    }
+
+    @media (max-width: 1020px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) 390px;
+      }
+
+      .portrait-stage {
+        min-height: 540px;
+      }
+
+      .experience-showcase-list {
+        gap: 14px;
+      }
+
+      .experience-showcase {
+        min-height: 570px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .site-header {
+        top: max(10px, var(--safe-top));
+        width: calc(100% - 30px);
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 230px;
+      }
+
+      .jp-scenery {
+        height: 216px;
+        background-position: 52% 72%;
+      }
+
+      .jp-scenery-wave {
+        bottom: -45px;
+        height: 86px;
+      }
+
+      .jp-scenery-wave i {
+        height: 70px;
+      }
+
+      .jp-bird-one {
+        top: 138px;
+        right: 12%;
+        width: 42px;
+      }
+
+      .jp-bird-two {
+        display: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      h1 {
+        font-size: clamp(44px, 13vw, 60px);
+      }
+
+      .hero-role {
+        font-size: 24px;
+      }
+
+      .hero-description {
+        padding-left: 34px;
+        font-size: 15px;
+      }
+
+      .portrait-stage {
+        width: min(350px, 94vw);
+        min-height: 430px;
+      }
+
+      .portrait-tags span {
+        min-height: 36px;
+        padding: 0 13px;
+        font-size: 11px;
+      }
+
+      .portrait-tags span:nth-child(1) { top: 20%; left: 0; }
+      .portrait-tags span:nth-child(2) { top: 35%; right: 0; }
+      .portrait-tags span:nth-child(3) { bottom: 22%; left: 1%; }
+      .portrait-tags span:nth-child(4) { right: 2%; bottom: 10%; }
+
+      .education-section,
+      #experience {
+        padding: 100px 0 70px;
+      }
+
+      .education-heading h2,
+      .experience-heading-centered h2 {
+        font-size: 48px;
+      }
+
+      .education-showcase {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 24px;
+        border-radius: 22px;
+      }
+
+      .education-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .education-courses {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .experience-showcase-list {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .experience-showcase {
+        min-height: 0;
+        grid-template-rows: 210px auto;
+      }
+
+      .experience-walker {
+        width: 142px;
+        margin-right: 0;
+      }
+
+      .jp-cursor-leaf,
+      .jp-cursor-guide {
+        display: none;
+      }
+    }
+
+    /* Final Japanese-fresh art direction: preserve the page framework, unify every view. */
+    .view-panel.is-active {
+      animation: jpViewIn 320ms cubic-bezier(0.22, 0.75, 0.3, 1) both;
+    }
+
+    @keyframes jpViewIn {
+      from { transform: translateY(6px); }
+      to { transform: translateY(0); }
+    }
+
+    .education-section,
+    .advantages-section,
+    #experience,
+    #works,
+    .contact-band {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .education-section > .shell,
+    .advantages-section > .shell,
+    #experience > .shell,
+    #works > .shell,
+    .contact-band > .shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-landscape-bg {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      pointer-events: none;
+    }
+
+    .page-decor {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .page-decor img {
+      position: absolute;
+      width: 72px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 9px 14px rgba(71, 100, 92, 0.1));
+    }
+
+    .page-decor .mini-sparkle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--jp-gold);
+      clip-path: polygon(50% 0, 62% 37%, 100% 50%, 62% 63%, 50% 100%, 38% 63%, 0 50%, 38% 37%);
+      animation: jpSparkleFloat 3.8s ease-in-out infinite;
+    }
+
+    .page-decor-education img { top: 17%; right: 8%; animation: jpBirdDrift 7s ease-in-out infinite; }
+    .page-decor-education .mini-sparkle { top: 35%; left: 8%; }
+    .page-decor-advantages img { right: 4%; bottom: 3%; width: 130px; animation: jpWalkerBob 4.8s ease-in-out infinite; }
+    .page-decor-advantages .mini-sparkle { top: 16%; right: 15%; }
+    .page-decor-experience img:first-child { top: 16%; left: 5%; animation: jpBirdDrift 6.4s ease-in-out infinite; }
+    .page-decor-experience img:nth-child(2) { top: 12%; left: 10%; width: 52px; animation: jpBirdDrift 7.2s ease-in-out -1.2s infinite reverse; }
+    .page-decor-experience .mini-sparkle { top: 19%; right: 8%; }
+    .page-decor-works img { top: 14%; right: 7%; animation: jpBirdDrift 7.4s ease-in-out infinite; }
+    .page-decor-works .mini-sparkle { left: 7%; bottom: 14%; }
+
+    @keyframes jpBirdDrift {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(-4deg); }
+      50% { transform: translate3d(16px, -12px, 0) rotate(3deg); }
+    }
+
+    @keyframes jpWalkerBob {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(-12px, -5px, 0); }
+    }
+
+    @keyframes jpSparkleFloat {
+      0%, 100% { opacity: 0.55; transform: translateY(0) rotate(0deg) scale(0.9); }
+      50% { opacity: 1; transform: translateY(-8px) rotate(22deg) scale(1.08); }
+    }
+
+    .portrait-tags span {
+      opacity: 0;
+      animation-duration: 1050ms;
+      animation-timing-function: cubic-bezier(0.2, 0.8, 0.25, 1);
+      animation-fill-mode: forwards;
+    }
+
+    .portrait-tags span:nth-child(1) { animation-delay: 520ms; }
+    .portrait-tags span:nth-child(2) { animation-delay: 1250ms; }
+    .portrait-tags span:nth-child(3) { animation-delay: 1980ms; }
+    .portrait-tags span:nth-child(4) { animation-delay: 2710ms; }
+
+    @keyframes portraitTagRise {
+      from { opacity: 0; transform: translateY(38px) scale(0.94); }
+      70% { opacity: 1; transform: translateY(-3px) scale(1.01); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .education-section {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 148px 0 72px;
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.24), rgba(255, 253, 248, 0.08)),
+        url("jp-education-landscape.png") center bottom / cover no-repeat;
+    }
+
+    .education-section > .shell {
+      width: 100%;
+    }
+
+    .education-heading {
+      max-width: 720px;
+      margin-bottom: 44px;
+    }
+
+    .education-heading p {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      margin-bottom: 15px;
+      padding: 0 15px;
+      border: 1px solid #eadfcb;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.86);
+      color: var(--jp-coral);
+      letter-spacing: 0.08em;
+    }
+
+    .education-heading h2,
+    .advantages-heading h2,
+    .experience-heading-centered h2,
+    .works-heading h2 {
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Microsoft YaHei UI", "PingFang SC", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .education-showcase {
+      position: relative;
+      max-width: 1120px;
+      margin: 0 auto;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 46px;
+      padding: 42px 46px;
+      border-radius: 34px 16px 34px 16px;
+      background: rgba(255, 253, 248, 0.96);
+      box-shadow: 0 22px 48px rgba(76, 95, 85, 0.08);
+    }
+
+    .education-showcase::after {
+      position: absolute;
+      right: 22px;
+      bottom: 18px;
+      display: block;
+      width: 58px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(232, 185, 73, 0.16);
+      content: "";
+      transform: rotate(-8deg);
+    }
+
+    .education-kicker {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff0e8;
+    }
+
+    .education-metric,
+    .education-metric:first-child {
+      border: 0;
+      border-radius: 22px 10px 22px 10px;
+      background: #edf6f2;
+    }
+
+    .education-metric:nth-child(2) {
+      background: #fff2dc;
+    }
+
+    .education-courses {
+      max-width: 1120px;
+      margin-right: auto;
+      margin-left: auto;
+      grid-template-columns: 128px minmax(0, 1fr);
+      padding-top: 26px;
+    }
+
+    .education-courses h3 span {
+      display: none;
+    }
+
+    .course-tags span,
+    .course-tags span:nth-child(3n + 2) {
+      border-color: #dedfd6;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.92);
+    }
+
+    .advantages-section {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.2), rgba(255, 253, 248, 0.06)),
+        url("jp-advantages-landscape.png") center bottom / cover no-repeat;
+    }
+
+    .advantages-heading {
+      max-width: 1040px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .advantages-kicker {
+      display: inline-flex;
+      padding: 7px 14px;
+      border: 1px solid #e6dcc6;
+      border-radius: 999px;
+      background: #fffdf8;
+      color: var(--jp-coral);
+      letter-spacing: 0.08em;
+    }
+
+    .advantages-grid {
+      display: flex;
+      max-width: 1120px;
+      margin: 0 auto;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .advantage-card,
+    .advantage-card:nth-child(even) {
+      display: grid;
+      width: calc(100% - 72px);
+      min-height: 180px;
+      padding: 28px 30px;
+      grid-template-columns: 190px minmax(0, 1fr) 170px;
+      gap: 28px;
+      align-items: center;
+      border: 2px solid color-mix(in srgb, var(--advantage-accent) 38%, #e6ddcd);
+      border-radius: 30px 12px 30px 12px;
+      background: rgba(255, 253, 248, 0.96);
+      box-shadow:
+        0 20px 46px rgba(68, 91, 82, 0.13),
+        inset 7px 0 0 color-mix(in srgb, var(--advantage-accent) 72%, transparent);
+      backdrop-filter: blur(8px);
+      transform: none;
+    }
+
+    .advantage-card:nth-child(2) {
+      margin-left: 72px;
+      background: rgba(239, 248, 244, 0.97);
+    }
+
+    .advantage-card:nth-child(3) {
+      background: rgba(255, 246, 226, 0.97);
+    }
+
+    .advantage-card::after {
+      display: none;
+    }
+
+    .advantage-card-head,
+    .advantage-card:nth-child(even) .advantage-card-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .advantage-card-head span {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--advantage-accent);
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .advantage-card-head strong {
+      color: #66726c;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .advantage-content h3 {
+      margin-bottom: 12px;
+      color: #405552;
+      font-size: 20px;
+      line-height: 1.45;
+    }
+
+    .advantage-content p {
+      color: #687571;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .advantage-proof,
+    .advantage-card:nth-child(even) .advantage-proof {
+      align-items: center;
+      justify-content: center;
+      min-height: 98px;
+      padding: 18px;
+      border: 2px solid color-mix(in srgb, var(--advantage-accent) 30%, #dce6df);
+      border-radius: 50%;
+      background: rgba(255, 253, 248, 0.94);
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--advantage-accent) 13%, transparent);
+      text-align: center;
+    }
+
+    #experience {
+      overflow: hidden;
+      background: linear-gradient(180deg, #fffaf0 0%, #fffdf8 58%, #eef5f1 100%);
+    }
+
+    #experience::before {
+      top: 56px;
+      height: 260px;
+      background: url("jp-mountain-hero.png") center 66% / cover no-repeat;
+      opacity: 0.48;
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 72%, transparent 100%);
+    }
+
+    #experience::after {
+      position: absolute;
+      z-index: 0;
+      right: -4%;
+      bottom: -34px;
+      left: -4%;
+      display: block;
+      height: 210px;
+      border-radius: 50% 50% 0 0 / 30% 28% 0 0;
+      background: url("jp-mountain-hero.png") center bottom / 118% auto no-repeat;
+      content: "";
+      opacity: 0.76;
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 100%);
+    }
+
+    #experience .shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    .experience-heading-centered h2 {
+      color: #40523f;
+      font-size: clamp(54px, 6vw, 80px);
+    }
+
+    .experience-showcase {
+      min-height: 550px;
+      grid-template-rows: 214px minmax(0, 1fr);
+      border-color: rgba(218, 208, 190, 0.92);
+      background: rgba(255, 253, 248, 0.97);
+    }
+
+    .experience-showcase:nth-child(1) { --company-accent: #718b72; }
+    .experience-showcase:nth-child(2) { --company-accent: #dd765e; }
+    .experience-showcase:nth-child(3) { --company-accent: #c6952f; }
+
+    .experience-showcase .experience-overview-role {
+      display: inline-flex;
+      width: max-content;
+      max-width: 100%;
+      padding: 6px 11px;
+      border: 1px solid color-mix(in srgb, var(--company-accent) 24%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--company-accent) 10%, #fffdf8);
+      color: color-mix(in srgb, var(--company-accent) 86%, #273832);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .experience-showcase .experience-overview-copy strong {
+      padding: 0 2px;
+      background: linear-gradient(transparent 58%, color-mix(in srgb, var(--company-accent) 24%, transparent) 58%);
+      color: color-mix(in srgb, var(--company-accent) 82%, #283c37);
+      font-weight: 850;
+    }
+
+    .experience-showcase .experience-tags {
+      gap: 7px;
+      margin-top: 5px;
+    }
+
+    .experience-showcase .experience-tags span {
+      padding: 7px 11px;
+      border: 1px solid color-mix(in srgb, var(--company-accent) 30%, #e8e2d6);
+      background: color-mix(in srgb, var(--company-accent) 11%, #fffdf8);
+      color: color-mix(in srgb, var(--company-accent) 88%, #33443e);
+      box-shadow: 0 4px 10px color-mix(in srgb, var(--company-accent) 8%, transparent);
+      font-size: 11px;
+      font-weight: 820;
+    }
+
+    .experience-walker {
+      position: relative;
+      z-index: 2;
+    }
+
+    #works {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.94), rgba(248, 246, 237, 0.96)),
+        url("jp-mountain-hero.png") center 18% / cover no-repeat;
+    }
+
+    .works-botanical-overlay {
+      position: absolute;
+      z-index: 1;
+      right: -4%;
+      bottom: -18%;
+      width: min(500px, 38vw);
+      height: auto;
+      opacity: 0.34;
+      pointer-events: none;
+      filter: saturate(0.76) drop-shadow(0 12px 18px rgba(72, 111, 97, 0.08));
+      animation: worksBotanicalBreathe 9s ease-in-out infinite alternate;
+    }
+
+    .page-decor-works img:first-child {
+      top: 14%;
+      right: 7%;
+    }
+
+    .page-decor-works img:nth-child(2) {
+      top: 22%;
+      left: 8%;
+      width: 48px;
+      opacity: 0.72;
+      animation: jpBirdDrift 8.2s ease-in-out -1.7s infinite reverse;
+    }
+
+    .works-dot-cluster {
+      position: absolute;
+      right: 11%;
+      bottom: 18%;
+      width: 88px;
+      height: 58px;
+      opacity: 0.34;
+      background-image: radial-gradient(circle, #78aaa3 2px, transparent 2.5px);
+      background-size: 14px 14px;
+      animation: jpSparkleFloat 5.6s ease-in-out infinite;
+    }
+
+    @keyframes worksBotanicalBreathe {
+      from { transform: translate3d(0, 8px, 0) rotate(-1deg); }
+      to { transform: translate3d(-10px, -7px, 0) rotate(1deg); }
+    }
+
+    @media (max-width: 780px) {
+      .page-decor img { width: 52px; }
+      .page-decor-advantages img { width: 92px; opacity: 0.7; }
+      .page-decor-experience img:nth-child(2) { display: none; }
+
+      .education-showcase {
+        grid-template-columns: 1fr;
+        padding: 28px 24px;
+      }
+
+      .education-section {
+        min-height: 100svh;
+        display: block;
+        padding: 112px 0 64px;
+      }
+
+      .education-courses {
+        grid-template-columns: 1fr;
+      }
+
+      .advantage-card,
+      .advantage-card:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        padding: 24px;
+        grid-template-columns: 1fr;
+      }
+
+      .advantage-card-head,
+      .advantage-card:nth-child(even) .advantage-card-head {
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .advantage-proof,
+      .advantage-card:nth-child(even) .advantage-proof {
+        min-height: auto;
+        border-radius: 18px;
+      }
+
+      .works-botanical-overlay {
+        right: -36%;
+        bottom: -5%;
+        width: 112vw;
+        opacity: 0.22;
+      }
+
+      .page-decor-works img:nth-child(2) {
+        display: none;
+      }
+
+      #experience {
+        background-size: auto, auto 300px, auto;
+        background-position: center, center 72px, center;
+      }
+
+      #experience::after {
+        bottom: -54px;
+        height: 170px;
+      }
+    }
+
+    /* Final visual polish: continuous scenery, authentic artwork and readable work highlights. */
+    .jp-scenery-wave {
+      right: 0;
+      bottom: -68px;
+      left: 0;
+      display: block;
+      height: 148px;
+      overflow: hidden;
+    }
+
+    .jp-scenery-wave::after,
+    .jp-scenery-wave i {
+      display: none;
+    }
+
+    .jp-scenery-wave svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .jp-scenery-wave path {
+      fill: var(--jp-cream);
+    }
+
+    .portrait-stage {
+      width: min(570px, 100%);
+      min-height: 610px;
+    }
+
+    .portrait-stage::before {
+      top: 14%;
+      right: 4%;
+      bottom: auto;
+      left: 16%;
+      width: auto;
+      height: 68%;
+      border-radius: 46% 54% 50% 50%;
+      background: rgba(218, 235, 235, 0.82);
+      transform: rotate(-7deg);
+    }
+
+    .portrait-stage::after {
+      right: 5%;
+      bottom: 4%;
+      width: 54%;
+      height: 31%;
+      border-radius: 55% 45% 42% 58%;
+      background: rgba(246, 221, 151, 0.74);
+    }
+
+    .portrait-photo {
+      right: 8%;
+      bottom: 0;
+      width: 80%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      object-fit: unset;
+      object-position: unset;
+      filter: drop-shadow(0 24px 30px rgba(57, 91, 88, 0.14));
+    }
+
+    .portrait-foliage {
+      display: none;
+    }
+
+    .portrait-decoration,
+    .portrait-watercolor-bird {
+      display: none;
+    }
+
+    .portrait-botanical-overlay {
+      position: absolute;
+      z-index: 2;
+      inset: -2% -5% -1%;
+      width: 110%;
+      height: 104%;
+      object-fit: contain;
+      opacity: 0.9;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 16px rgba(72, 111, 97, 0.08));
+      animation: portraitBotanicalBreathe 7.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes portraitBotanicalBreathe {
+      from { transform: translate3d(-2px, 2px, 0) rotate(-0.5deg); }
+      to { transform: translate3d(5px, -6px, 0) rotate(0.8deg); }
+    }
+
+    .advantages-botanical-overlay {
+      position: absolute;
+      z-index: 1;
+      right: -5%;
+      bottom: -12%;
+      width: min(560px, 42vw);
+      height: auto;
+      opacity: 0.52;
+      pointer-events: none;
+      filter: saturate(0.82) drop-shadow(0 12px 20px rgba(72, 111, 97, 0.08));
+      animation: advantagesBotanicalDrift 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes advantagesBotanicalDrift {
+      from { transform: translate3d(0, 8px, 0) rotate(-1deg); }
+      to { transform: translate3d(-12px, -5px, 0) rotate(1deg); }
+    }
+
+    .experience-duty p strong {
+      color: #3f6f69;
+      font-weight: 880;
+    }
+
+    .music-toggle {
+      position: fixed;
+      z-index: 82;
+      top: max(29px, calc(var(--safe-top) + 13px));
+      right: max(22px, var(--safe-right));
+      display: grid;
+      width: 54px;
+      height: 54px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(178, 202, 190, 0.9);
+      border-radius: 50%;
+      background: rgba(255, 253, 248, 0.94);
+      box-shadow: 0 12px 28px rgba(57, 91, 88, 0.14), inset 0 0 0 5px rgba(232, 242, 236, 0.74);
+      color: #3f7778;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .music-toggle:hover {
+      transform: translateY(-2px) rotate(-3deg);
+      border-color: rgba(220, 159, 92, 0.82);
+      box-shadow: 0 16px 32px rgba(57, 91, 88, 0.17), inset 0 0 0 5px rgba(250, 234, 204, 0.72);
+    }
+
+    .music-disc {
+      position: relative;
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(67, 119, 120, 0.28);
+      border-radius: 50%;
+      background: conic-gradient(from 20deg, #d9ece8, #fff6db, #f3cfae, #d8edeb, #d9ece8);
+      box-shadow: inset 0 0 0 6px rgba(255, 253, 248, 0.6), 0 5px 12px rgba(68, 101, 94, 0.14);
+    }
+
+    .music-disc::after {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fffdf8;
+      box-shadow: 0 0 0 2px rgba(63, 119, 120, 0.25);
+      content: "";
+    }
+
+    .music-note {
+      position: relative;
+      z-index: 1;
+      translate: 7px -8px;
+      color: #cf765e;
+      font-family: Georgia, serif;
+      font-size: 17px;
+      font-weight: 800;
+      text-shadow: 0 2px 6px rgba(207, 118, 94, 0.22);
+    }
+
+    .music-equalizer {
+      position: absolute;
+      right: 1px;
+      bottom: 6px;
+      display: flex;
+      height: 12px;
+      align-items: end;
+      gap: 2px;
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .music-equalizer i {
+      display: block;
+      width: 2px;
+      height: 5px;
+      border-radius: 999px;
+      background: #e6ad4b;
+      transform-origin: bottom;
+    }
+
+    .music-toggle.is-playing .music-disc {
+      animation: musicDiscSpin 7s linear infinite;
+    }
+
+    .music-toggle.is-playing .music-equalizer {
+      opacity: 1;
+    }
+
+    .music-toggle.is-playing .music-equalizer i {
+      animation: musicBar 720ms ease-in-out infinite alternate;
+    }
+
+    .music-toggle.is-playing .music-equalizer i:nth-child(2) { animation-delay: -240ms; }
+    .music-toggle.is-playing .music-equalizer i:nth-child(3) { animation-delay: -480ms; }
+
+    @keyframes musicDiscSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes musicBar {
+      from { transform: scaleY(0.55); }
+      to { transform: scaleY(1.8); }
+    }
+
+    #experience {
+      background: #fffaf0;
+    }
+
+    #experience::before {
+      top: 0;
+      height: 330px;
+      background: url("jp-mountain-hero.png") center 68% / cover no-repeat;
+      opacity: 0.7;
+      mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+    }
+
+    #experience::after {
+      display: none;
+    }
+
+    .experience-meadow {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 420px;
+      max-width: none;
+      object-fit: cover;
+      object-position: center bottom;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 100%);
+    }
+
+    .experience-showcase .experience-overview-copy strong {
+      padding: 0;
+      background: none;
+      color: color-mix(in srgb, var(--company-accent) 90%, #273a35);
+      font-weight: 880;
+      text-decoration: none;
+    }
+
+    .experience-walker {
+      position: absolute;
+      z-index: 3;
+      right: 3.5%;
+      bottom: -126px;
+      width: 158px;
+      margin: 0;
+      animation: experienceWalker 6.8s ease-in-out infinite alternate;
+    }
+
+    @media (max-width: 780px) {
+      .jp-scenery-wave {
+        bottom: -54px;
+        height: 106px;
+      }
+
+      .portrait-stage {
+        width: min(370px, 96vw);
+        min-height: 420px;
+      }
+
+      .portrait-photo {
+        right: 7%;
+        bottom: 4px;
+        width: 88%;
+      }
+
+      .portrait-botanical-overlay {
+        inset: -4% -8% -2%;
+        width: 116%;
+      }
+
+      .advantages-botanical-overlay {
+        right: -34%;
+        bottom: -4%;
+        width: 108vw;
+        opacity: 0.3;
+      }
+
+      .music-toggle {
+        top: max(17px, calc(var(--safe-top) + 7px));
+        right: max(78px, calc(var(--safe-right) + 78px));
+        width: 48px;
+        height: 48px;
+      }
+
+      .music-disc {
+        width: 30px;
+        height: 30px;
+      }
+
+      #experience::before {
+        height: 250px;
+        opacity: 0.62;
+      }
+
+      #experience::after {
+        height: 270px;
+        opacity: 1;
+      }
+
+      .experience-meadow {
+        height: 270px;
+      }
+
+      .experience-walker {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 142px;
+        margin: 22px 0 -26px auto;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
@@ -1653,57 +6053,410 @@
         transform: none;
       }
     }
+  
+    /* Opening cinematic intro */
+    .intro-screen {
+      position: fixed;
+      z-index: 100000;
+      inset: 0;
+      overflow: hidden;
+      background: #05070b;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 900ms ease;
+    }
+
+    .intro-screen.is-leaving {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background: #05070b;
+    }
+
+    .intro-shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(2, 6, 15, 0.08), rgba(2, 6, 15, 0.2)),
+        linear-gradient(90deg, rgba(2, 6, 15, 0.14), transparent 40%, rgba(2, 6, 15, 0.08));
+      pointer-events: none;
+    }
+
+    .intro-brand {
+      position: absolute;
+      left: max(26px, calc(env(safe-area-inset-left, 0px) + 20px));
+      bottom: max(28px, calc(env(safe-area-inset-bottom, 0px) + 20px));
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      max-width: min(72vw, 560px);
+      color: #fff5ef;
+      text-align: left;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.24);
+      pointer-events: none;
+    }
+
+    .intro-brand strong {
+      display: block;
+      max-width: 100%;
+      margin: 0;
+      font-family: "Didot", "Bodoni MT", "Baskerville", "Times New Roman", serif;
+      font-size: clamp(38px, 5.2vw, 72px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+      transform: none;
+      font-feature-settings: "liga" 1, "clig" 1, "kern" 1;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      text-shadow: 0 3px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .intro-brand > span {
+      display: block;
+      margin: 0;
+      padding-left: 3px;
+      color: rgba(255, 255, 255, 0.9);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: clamp(11px, 1.15vw, 14px);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .intro-actions {
+      position: absolute;
+      top: max(22px, calc(env(safe-area-inset-top, 0px) + 16px));
+      right: max(22px, calc(env(safe-area-inset-right, 0px) + 16px));
+      display: flex;
+      gap: 10px;
+    }
+
+    .intro-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 999px;
+      background: rgba(8, 14, 24, 0.28);
+      color: #fff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 760;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .intro-action:hover {
+      background: rgba(8, 14, 24, 0.52);
+      transform: translateY(-1px);
+    }
+
+    body.intro-active {
+      overflow: hidden;
+    }
+
+    body.intro-reveal .site-header {
+      animation: introSiteHeaderReveal 900ms 120ms ease both;
+    }
+
+    body.intro-reveal main {
+      animation: introSiteMainReveal 1100ms ease both;
+    }
+
+    @keyframes introSiteHeaderReveal {
+      from { opacity: 0; transform: translateY(-18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes introSiteMainReveal {
+      from { opacity: 0; transform: translateY(22px) scale(0.992); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 760px), (orientation: portrait) {
+      .intro-video {
+        object-position: center;
+      }
+
+      .intro-brand {
+        right: 24px;
+        left: 24px;
+        bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+        max-width: none;
+        gap: 10px;
+      }
+      .intro-brand strong {
+        font-size: clamp(31px, 9.2vw, 46px);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        white-space: nowrap;
+      }
+
+      .intro-brand > span {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+      }
+
+      .intro-actions {
+        gap: 8px;
+      }
+
+      .intro-action {
+        min-height: 38px;
+        padding-inline: 13px;
+        font-size: 12px;
+      }
+    }
+
+      .intro-brand {
+        right: 24px;
+        left: 24px;
+        bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+        max-width: none;
+        gap: 8px;
+      }
+
+      .intro-brand strong {
+        font-size: clamp(28px, 9vw, 42px);
+        line-height: 1.04;
+      }
+
+      .intro-brand span {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+      }
+
+      .intro-actions {
+        gap: 8px;
+      }
+
+      .intro-action {
+        min-height: 38px;
+        padding-inline: 13px;
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro-screen,
+      body.intro-reveal .site-header,
+      body.intro-reveal main {
+        animation: none !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+  
+    /* Staggered reveal after opening animation */
+    .portfolio-stagger-item,
+    .portfolio-stagger-tag {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(18px) scale(0.985);
+      will-change: opacity, transform, filter;
+    }
+
+    .portfolio-stagger-item.is-stagger-visible,
+    .portfolio-stagger-tag.is-stagger-visible {
+      animation: portfolioStaggerReveal 1050ms
+        cubic-bezier(0.22, 1, 0.36, 1)
+        var(--stagger-delay, 0ms)
+        both;
+    }
+
+    .portfolio-stagger-tag {
+      transform: translateY(12px) scale(0.97);
+    }
+
+    .site-nav a.portfolio-stagger-item {
+      transform: translateY(-10px) scale(0.97);
+    }
+
+    .portrait-stage.portfolio-stagger-item {
+      transform: translateX(24px) scale(0.985);
+    }
+
+    .portrait-tags span {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(14px) scale(0.98);
+      will-change: opacity, transform, filter;
+    }
+
+    .portrait-tags span.is-portrait-tag-visible {
+      animation: portraitTagReveal 980ms
+        cubic-bezier(0.22, 1, 0.36, 1)
+        var(--tag-delay, 0ms)
+        both;
+    }
+
+    @keyframes portraitTagReveal {
+      0% {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(14px) scale(0.98);
+      }
+      55% {
+        opacity: 0.78;
+        filter: blur(1.4px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes portfolioStaggerReveal {
+      0% {
+        opacity: 0;
+        filter: blur(5px);
+      }
+      55% {
+        opacity: 0.78;
+        filter: blur(1.5px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portfolio-stagger-item,
+      .portfolio-stagger-tag,
+      .portfolio-stagger-item.is-stagger-visible,
+      .portfolio-stagger-tag.is-stagger-visible {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        animation: none !important;
+      }
+
+      .portrait-tags span,
+      .portrait-tags span.is-portrait-tag-visible {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        animation: none !important;
+      }
+    }
+
   </style>
 </head>
-<body>
+<body class="intro-active">
+
+  <div class="intro-screen" id="intro-screen" aria-label="网站开场动画">
+    <video
+      class="intro-video"
+      id="intro-video"
+      src="intro-video.mp4"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+    ></video>
+    <div class="intro-shade"></div>
+
+    <div class="intro-brand">
+      <strong class="intro-title">Hi, I&apos;m Mani</strong>
+      <span>AI VISUAL DESIGNER · PORTFOLIO</span>
+    </div>
+
+    <div class="intro-actions">
+      <button class="intro-action" id="intro-sound" type="button">开启声音</button>
+      <button class="intro-action" id="intro-skip" type="button">跳过</button>
+    </div>
+  </div>
+
+  <span class="jp-cursor-guide" aria-hidden="true"></span>
+  <span class="jp-cursor-leaf" aria-hidden="true"></span>
+  <audio id="background-music" src="background-music.mp3" loop preload="auto"></audio>
+  <button class="music-toggle" id="music-toggle" type="button" aria-label="播放背景音乐" aria-pressed="false" title="播放背景音乐">
+    <span class="music-disc" aria-hidden="true"><span class="music-note">♪</span></span>
+    <span class="music-equalizer" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
   <header class="site-header">
-    <a class="brand" href="#home">ZHIWEN</a>
+    <a class="brand" href="#home" aria-label="返回关于我">
+      <img src="avatar-mark.png" alt="程志雯手绘头像">
+    </a>
     <button class="menu-button" id="menu-button" type="button" aria-label="打开导航" aria-expanded="false">☰</button>
     <nav class="site-nav" id="site-nav" aria-label="网站导航">
-      <a href="#education">教育</a>
-      <a href="#skills">技能</a>
-      <a href="#experience">经历</a>
+      <a class="is-active" href="#home">关于我</a>
+      <a href="#education">教育背景</a>
+      <a href="#experience">工作经历</a>
+      <a href="#advantages">我的优势</a>
       <a href="#works">作品</a>
-      <a href="#ai-match">AI 匹配</a>
-      <a href="#contact">联系</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" id="home">
+    <section class="hero view-panel is-active" id="home">
+      <div class="jp-scenery" aria-hidden="true">
+        <span class="jp-sun"></span>
+        <span class="jp-cloud jp-cloud-one"></span>
+        <span class="jp-cloud jp-cloud-two"></span>
+        <span class="jp-mountain jp-mountain-far"></span>
+        <span class="jp-mountain jp-mountain-near"></span>
+        <img class="jp-bird jp-bird-one" src="jp-yellow-bird-v2.png" alt="">
+        <img class="jp-bird jp-bird-two" src="jp-yellow-bird-v2.png" alt="">
+        <div class="jp-scenery-wave">
+          <svg viewBox="0 0 1440 132" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 38C116 83 232 7 365 40C510 77 625 6 770 42C914 80 1023 5 1164 40C1288 72 1377 58 1440 34V132H0Z"></path>
+          </svg>
+        </div>
+      </div>
       <div class="shell hero-grid">
         <div class="hero-copy">
-          <p class="hero-kicker">Visual Design · AIGC · Motion</p>
-          <h1>AI Visual<br>Designer.</h1>
-          <strong class="hero-name">程志雯 / Cheng Zhiwen</strong>
+          <h1>Hi，我是程志雯</h1>
+          <p class="hero-role">AI Creative Designer</p>
           <p class="hero-description">
-            用<strong>视觉设计、AIGC 与动态表达</strong>搭建完整的商业内容工作流，
-            把创意快速推进为可交付、可验证的视觉作品。
+            拥有<strong>视觉设计与互联网项目经验</strong>，熟悉电商、文旅、海外社交与跨境业务场景。
+            具备 <strong>Vibe Coding</strong> 能力，擅长用用户体验、视觉设计、AIGC 与智能编程工作流，
+            把创意推进为可交付、可验证的商业内容。
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#works">查看视频作品</a>
-            <a class="button" href="#education">教育背景</a>
-            <a class="button" href="#ai-match">AI 岗位匹配</a>
+            <a class="button button-resume" href="程志雯的简历-20260718.pdf" download="程志雯的简历.pdf">↓&nbsp;&nbsp;下载简历</a>
+            <a class="button button-contact" href="#contact">✦&nbsp;&nbsp;联系我</a>
           </div>
 
           <div class="quick-match" id="ai-match">
             <form id="match-form">
               <label class="quick-match-label" for="jd-input">
-                AI 岗位匹配器
-                <span>基于真实简历</span>
+                ✦&nbsp; AI 岗位匹配器
               </label>
               <div class="quick-match-row">
-                <textarea
-                  class="jd-input"
-                  id="jd-input"
-                  name="jd"
-                  rows="1"
-                  maxlength="8000"
-                  spellcheck="false"
-                  placeholder="粘贴岗位 JD，查看我与岗位之间的匹配度"
-                  required
-                ></textarea>
-                <button class="match-button" id="match-button" type="submit">开始匹配</button>
+                <div class="quick-input-wrap">
+                  <span class="search-mark" aria-hidden="true"></span>
+                  <textarea
+                    class="jd-input"
+                    id="jd-input"
+                    name="jd"
+                    rows="1"
+                    maxlength="8000"
+                    spellcheck="false"
+                    placeholder="粘贴岗位 JD，查看我与岗位之间的匹配度"
+                    required
+                  ></textarea>
+                </div>
+                <button class="match-button" id="match-button" type="submit">✦&nbsp; 开始匹配&nbsp; →</button>
               </div>
               <div class="input-meta">
                 <button class="text-action" id="sample-button" type="button">填入示例 JD</button>
@@ -1715,7 +6468,20 @@
         </div>
 
         <aside class="portrait-stage" aria-label="程志雯个人照片">
-          <img class="portrait-photo" src="profile-photo.svg" alt="程志雯个人照片">
+          <img class="portrait-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
+          <img class="portrait-photo" src="profile-photo-hand-complete.png" alt="程志雯个人照片">
+          <div class="portrait-decoration" aria-hidden="true">
+            <span class="deco-star deco-star-one">✦</span>
+            <span class="deco-star deco-star-two">✦</span>
+            <span class="deco-burst"></span>
+            <span class="deco-dots"></span>
+          </div>
+          <div class="portrait-tags" aria-label="性格特征">
+            <span>阳光开朗</span>
+            <span>喜欢画画</span>
+            <span>执行力强</span>
+            <span>喜欢探索</span>
+          </div>
           <div class="portrait-label">
             <span>视觉设计 / AIGC</span>
             <span>2026</span>
@@ -1733,121 +6499,217 @@
       </div>
     </section>
 
-    <section class="section" id="education">
+    <section class="section education-section view-panel" id="education">
+      <img class="section-landscape-bg" src="jp-education-landscape.png" alt="" aria-hidden="true">
+      <div class="page-decor page-decor-education" aria-hidden="true">
+        <img src="jp-yellow-bird-v2.png" alt="">
+        <span class="mini-sparkle"></span>
+      </div>
       <div class="shell reveal">
-        <header class="section-head">
-          <p class="section-index">01 Education</p>
+        <header class="education-heading">
           <div>
-            <h2 class="section-title">设计基础，来自系统训练。</h2>
-            <p class="section-lead">以艺术设计专业训练为底座，将视觉方法延伸到 AIGC 工作流、动态内容与商业转化场景。</p>
+            <h2>教育背景</h2>
           </div>
+          <span>从艺术设计的系统训练出发，持续把审美、方法与新工具带进真实商业项目。</span>
         </header>
-
-        <div class="education-row">
-          <span class="education-year">2022 — 2026</span>
-          <div class="education-main">
-            <h3>武汉工程大学 · 艺术设计本科</h3>
-            <p>课程覆盖视觉设计、艺术设计与设计实践，并持续通过项目训练建立从创意到交付的完整能力。</p>
+        <div class="education-showcase">
+          <div class="education-school">
+            <p class="education-kicker">2022 — 2026</p>
+            <h3>武汉工程大学</h3>
+            <p class="education-degree">艺术设计 · 本科</p>
+            <p class="education-summary">以系统的视觉设计与艺术设计训练为基础，将设计理论、表现方法和创新实践延伸到商业视觉、AIGC 内容生产与动态交付。</p>
           </div>
-          <strong class="education-score">GPA 3.72 / 4<br>专业前 5%</strong>
+          <div class="education-metrics" aria-label="教育成绩">
+            <div class="education-metric"><strong>3.72 / 4</strong><span>GPA</span></div>
+            <div class="education-metric"><strong>Top 5%</strong><span>专业排名</span></div>
+          </div>
+        </div>
+        <div class="education-courses">
+          <h3>主修课程</h3>
+          <div class="course-tags">
+            <span>视觉设计基础</span><span>艺术设计素养</span><span>艺术设计概论</span>
+            <span>设计表现实践</span><span>设计心理学</span><span>设计创新专题实践</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-dark" id="skills">
-      <div class="shell reveal">
-        <header class="section-head">
-          <p class="section-index">02 Skills</p>
-          <div>
-            <h2 class="section-title">视觉、生成与动态，一条链路完成。</h2>
-            <p class="section-lead">根据商业目标选择工具与表达方式，让视觉不止好看，也能适配不同渠道和交付节奏。</p>
-          </div>
-        </header>
-
-        <div class="skills-layout">
-          <article class="skill-group">
-            <span class="skill-number">01</span>
-            <h3>视觉设计</h3>
-            <div class="skill-tags">
-              <span>活动 H5</span><span>运营视觉</span><span>品牌 IP</span><span>详情页</span><span>Banner</span><span>社媒物料</span>
-            </div>
-          </article>
-          <article class="skill-group">
-            <span class="skill-number">02</span>
-            <h3>AIGC 工作流</h3>
-            <div class="skill-tags">
-              <span>Midjourney</span><span>Stable Diffusion</span><span>ComfyUI</span><span>即梦</span><span>可灵</span><span>Seedance</span>
-            </div>
-          </article>
-          <article class="skill-group">
-            <span class="skill-number">03</span>
-            <h3>动态与业务</h3>
-            <div class="skill-tags">
-              <span>AI 短视频</span><span>直播礼物动效</span><span>粒子光效</span><span>镜头动态化</span><span>转化指标</span><span>ROI</span>
-            </div>
-          </article>
-        </div>
+    <section class="section advantages-section view-panel" id="advantages">
+      <img class="section-landscape-bg" src="jp-advantages-landscape.png" alt="" aria-hidden="true">
+      <div class="page-decor page-decor-advantages" aria-hidden="true">
+        <img src="jp-walker-cow-v2.png" alt="">
+        <span class="mini-sparkle"></span>
       </div>
-    </section>
-
-    <section class="section" id="experience">
+      <img class="advantages-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
       <div class="shell reveal">
-        <header class="section-head">
-          <p class="section-index">03 Experience</p>
+        <header class="advantages-heading">
           <div>
-            <h2 class="section-title">作品之外，也关注结果。</h2>
-            <p class="section-lead">项目从海外社交活动延伸到文旅与服装电商，设计成果以效率、点击与转化数据持续验证。</p>
+            <p class="advantages-kicker">WHAT I BRING</p>
+            <h2>我的优势</h2>
           </div>
         </header>
 
-        <div class="timeline">
-          <article class="timeline-item">
-            <span class="timeline-date">海外社交平台</span>
-            <div class="timeline-main">
-              <h3>斋月裂变活动 · 视觉设计师</h3>
-              <p>建立斋月主题视觉体系，完成活动 H5 信息分区、邀请奖励、排行榜奖池与直播礼物动效设计。</p>
+        <div class="advantages-grid">
+          <article class="advantage-card">
+            <div class="advantage-card-head"><span>01</span><strong>INTERNET & BRAND</strong></div>
+            <div class="advantage-content">
+              <h3>1 年视觉设计经验＋互联网／品牌项目背景</h3>
+              <p>覆盖互联网、文旅出行、海外社交及跨境电商，擅长活动 H5、运营视觉、品牌 IP、详情页、Banner 及社媒物料。参与飞猪环游季 H5 项目，负责 IP 主视觉、权益展示与转化路径优化；在赫基结合 AIGC 完成电商主图、直播间 KV 及短视频，推动点击率与转化率提升。</p>
             </div>
-            <strong class="timeline-metric">设计效率 +38.6%<br>裂变转化率 +23.9%</strong>
+            <div class="advantage-proof"><strong>+65%</strong><span>飞猪活动渗透率提升</span></div>
           </article>
-          <article class="timeline-item">
-            <span class="timeline-date">2025.01 — 2025.04</span>
-            <div class="timeline-main">
-              <h3>飞猪旅行科技 · 视觉设计实习生</h3>
-              <p>使用 AIGC 完成飞猪环游季 H5 主视觉、核心素材、Banner 与活动运营物料。</p>
+
+          <article class="advantage-card">
+            <div class="advantage-card-head"><span>02</span><strong>AIGC & MOTION</strong></div>
+            <div class="advantage-content">
+              <h3>艺术设计科班＋AIGC 创意视频全流程能力</h3>
+              <p>具备手绘、插画、排版、IP 设计及动效基础，熟悉 Midjourney、Stable Diffusion、ComfyUI、即梦、可灵、Seedance 等工具。可完成创意策划、分镜拆解、AI 图片与视频生成、视觉精修、剪辑及动效包装。</p>
             </div>
-            <strong class="timeline-metric">支付转化 +45%<br>成交金额 +48%</strong>
+            <div class="advantage-proof"><strong>8 条／日</strong><span>AI 视频单日最高交付</span></div>
           </article>
-          <article class="timeline-item">
-            <span class="timeline-date">2025.11 — 2026.05</span>
-            <div class="timeline-main">
-              <h3>赫基（中国）集团 · AI 视觉设计实习生</h3>
-              <p>面向服装电商与社媒批量生成、精修和动态化图片及短视频，完成多系列商业素材交付。</p>
+
+          <article class="advantage-card">
+            <div class="advantage-card-head"><span>03</span><strong>VIBE CODING</strong></div>
+            <div class="advantage-content">
+              <h3>Vibe Coding＋数字化落地能力</h3>
+              <p>能够借助 Codex 等 AI 编程工具，将设计方案转化为可访问、可交互的网页。已完成个人作品集网站的信息架构、页面视觉、移动端适配、域名配置及 Vercel 部署，并持续迭代优化。</p>
             </div>
-            <strong class="timeline-metric">主图点击率 +25%<br>转化率 +18%</strong>
+            <div class="advantage-proof"><strong>FULL-LINK</strong><span>设计、开发、部署持续迭代</span></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="works">
+    <section class="section view-panel" id="experience">
+      <div class="page-decor page-decor-experience" aria-hidden="true">
+        <img src="jp-yellow-bird-v2.png" alt="">
+        <img src="jp-yellow-bird-v2.png" alt="">
+        <span class="mini-sparkle"></span>
+      </div>
+      <img class="experience-meadow" src="jp-meadow-experience.png" alt="" aria-hidden="true">
       <div class="shell reveal">
-        <header class="section-head">
-          <p class="section-index">04 Works</p>
-          <div>
-            <h2 class="section-title">视频作品集。</h2>
-            <p class="section-lead">从活动视觉、AIGC 商业图像到动态内容，把不同项目汇总为一支可直接浏览的视频作品集。</p>
-          </div>
+        <header class="experience-heading experience-heading-centered">
+          <h2>工作经历</h2>
+          <p>以公司与项目为线索，呈现视觉职责、互联网业务场景和可核对的交付结果。</p>
         </header>
 
-        <div class="work-stage">
-          <video class="work-video" id="work-video" controls playsinline preload="metadata" aria-label="程志雯视频作品集"></video>
-          <div class="work-caption">
-            <div>
-              <h3>2025—2026 Visual Portfolio</h3>
-              <p>视觉设计 · UI/UX · AIGC · Illustration · Motion</p>
+        <div class="experience-showcase-list">
+          <article class="experience-showcase" data-experience-id="ramadan" style="--company-cover: url('experience-ramadan.png')">
+            <header class="experience-overview">
+              <h3>海外社交平台</h3>
+              <time datetime="2026-01">2026.01 — 2026.02</time>
+              <p class="experience-overview-role">视觉设计师 · 项目经历</p>
+              <p class="experience-overview-copy">围绕<strong>中东斋月增长活动</strong>，完成从节日视觉体系、<strong>活动 H5</strong>、权益信息层级到<strong>直播礼物动效</strong>的完整设计链路，以视觉交付支持用户分享与裂变转化。</p>
+              <div class="experience-tags"><span>斋月视觉体系</span><span>活动 H5</span><span>用户路径</span><span>直播礼物动效</span></div>
+            </header>
+            <div class="experience-project-divider"><span>项目经历</span></div>
+            <div class="experience-project-grid">
+              <button class="experience-project-card" type="button" data-experience-id="ramadan">
+                <span class="experience-project-image"><img src="experience-ramadan.png" alt="斋月活动 H5 视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>斋月活动 H5 与视觉体系</h4><p>以清真寺、弯月、灯笼和鎏金纹样构建统一节日视觉，设计效率提升 38.6%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="ramadan">
+                <span class="experience-project-image"><img src="experience-ramadan-detail.png" alt="斋月活动视觉元素拆解" loading="lazy"></span>
+                <span class="experience-project-body"><h4>权益信息与邀请路径</h4><p>重组新人券、邀请奖励和排行榜信息层级，支持裂变转化率提升 23.9%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="ramadan">
+                <span class="experience-project-image is-square"><img src="experience-ramadan-poster.png" alt="斋月节日氛围视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>直播礼物动效与节日氛围</h4><p>延展星月、金币和粒子光效，设计礼物入场、爆点与落版反馈。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
             </div>
-            <a class="button button-dark" href="portfolio.html">进入沉浸式播放</a>
-          </div>
+          </article>
+
+          <article class="experience-showcase" data-experience-id="fliggy" style="--company-cover: url('experience-fliggy.png')">
+            <header class="experience-overview">
+              <h3>飞猪旅行科技（杭州）有限公司</h3>
+              <time datetime="2025-01">2025.01 — 2025.04</time>
+              <p class="experience-overview-role">视觉设计实习生 · 互联网平台文旅业务</p>
+              <p class="experience-overview-copy">参与飞猪<strong>互联网平台活动视觉</strong>，围绕<strong>平台 IP、用户路径</strong>、权益信息和多端运营内容完成 <strong>H5</strong> 与配套素材交付，让视觉表达直接服务活动理解与转化。</p>
+              <div class="experience-tags"><span>互联网平台活动</span><span>飞猪 IP</span><span>AIGC 主视觉</span><span>运营视觉</span></div>
+            </header>
+            <div class="experience-project-divider"><span>项目经历</span></div>
+            <div class="experience-project-grid">
+              <button class="experience-project-card" type="button" data-experience-id="fliggy">
+                <span class="experience-project-image"><img src="experience-fliggy.png" alt="飞猪平台活动主视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>平台活动主视觉与 IP 表达</h4><p>以 AIGC 支持飞猪 IP 与夏日旅行场景，活动渗透率提升 65%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="fliggy">
+                <span class="experience-project-image is-square"><img src="experience-fliggy-square.png" alt="飞猪环游季运营视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>用户路径与权益信息设计</h4><p>梳理活动流程、目的地推荐与券权益信息，支付转化率提升 45%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="fliggy">
+                <span class="experience-project-image"><img src="experience-fliggy.png" alt="飞猪活动多端运营物料" loading="lazy"></span>
+                <span class="experience-project-body"><h4>H5 与多端运营内容交付</h4><p>统一品牌色、IP 和旅行场景规范，支持实际成交金额提升 48%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+            </div>
+          </article>
+
+          <article class="experience-showcase" data-experience-id="haki" style="--company-cover: url('experience-haki.png')">
+            <header class="experience-overview">
+              <h3>赫基（中国）集团股份有限公司</h3>
+              <time datetime="2025-11">2025.11 — 2026.05</time>
+              <p class="experience-overview-role">AI 视觉设计实习生 · 服装品牌内容</p>
+              <p class="experience-overview-copy">面向服装电商、社媒与市场活动，结合多种 <strong>AIGC 工具</strong>完成<strong>批量图像、视觉精修</strong>、镜头动态化和<strong>短视频交付</strong>，并延展至主图、Banner 与线下灯箱画。</p>
+              <div class="experience-tags"><span>AI 图像生成</span><span>视觉精修</span><span>短视频动态化</span><span>批量商业交付</span></div>
+            </header>
+            <div class="experience-project-divider"><span>项目经历</span></div>
+            <div class="experience-project-grid">
+              <button class="experience-project-card" type="button" data-experience-id="haki">
+                <span class="experience-project-image is-square"><img src="experience-haki.png" alt="服装品牌 AI 视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>服装品牌 AI 内容生产</h4><p>日均输出 40+ 张图片，覆盖主图、社媒、Banner 和营销物料。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="haki">
+                <span class="experience-project-image"><img src="experience-haki-product.png" alt="品牌产品 AI 场景视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>产品场景与商业画面延展</h4><p>结合 AI 生成与精修完成系列化场景，延展至电商与线下传播。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+              <button class="experience-project-card" type="button" data-experience-id="haki">
+                <span class="experience-project-image"><img src="experience-haki-concept.png" alt="AI 创意概念视觉" loading="lazy"></span>
+                <span class="experience-project-body"><h4>AI 创意概念与动态测试</h4><p>完成镜头动态化和视频测试，单系列交付 3–5 条 AI 短视频。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+              </button>
+            </div>
+          </article>
+        </div>
+        <img class="experience-walker" src="jp-walker-cow-v2.png" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <section class="section view-panel" id="works">
+      <div class="page-decor page-decor-works" aria-hidden="true">
+        <img src="jp-yellow-bird-v2.png" alt="">
+        <img src="jp-yellow-bird-v2.png" alt="">
+        <span class="mini-sparkle"></span>
+        <span class="works-dot-cluster"></span>
+      </div>
+      <img class="works-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
+      <div class="shell reveal">
+        <header class="works-heading">
+          <h2>我的作品</h2>
+          <p>两类内容分别浏览：视觉类作品保留完整项目过程与静态呈现，AI 视频及动效类作品集中展示动态表达与镜头实验。</p>
+        </header>
+
+        <div class="work-entry-grid">
+          <a class="work-entry-card" href="程志雯-视觉作品集.pdf" target="_blank" rel="noopener">
+            <span class="work-entry-media"><img src="frame-70.png" alt="程志雯视觉作品集封面" loading="lazy"></span>
+            <span class="work-entry-body">
+              <span class="work-entry-type">VISUAL DESIGN · PDF / 31 PAGES</span>
+              <h3>视觉类作品</h3>
+              <p>活动 H5、平台运营视觉、品牌内容、AIGC 商业图像与项目过程整理。</p>
+              <span class="work-entry-arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+
+          <a class="work-entry-card" href="portfolio.html">
+            <span class="work-entry-media">
+              <img src="ai-motion-cover.gif" alt="AI 视频及动效作品动态封面" loading="lazy">
+              <video id="work-video" hidden muted playsinline preload="none" aria-hidden="true"></video>
+            </span>
+            <span class="work-entry-body">
+              <span class="work-entry-type">AI VIDEO · MOTION / SHOWREEL</span>
+              <h3>AI 视频及动效类作品</h3>
+              <p>AI 短视频、镜头动态化、剪辑包装与直播礼物入场、粒子及节奏动效。</p>
+              <span class="work-entry-arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -1859,7 +6721,6 @@
     <section class="match-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <header class="modal-head">
         <h2 class="modal-grade" id="modal-title">综合等级 <span id="result-title">匹配</span></h2>
-        <button class="modal-close" id="modal-close" type="button" aria-label="关闭匹配报告">×</button>
       </header>
 
       <div class="result-loading" id="result-loading" hidden aria-live="polite">
@@ -1886,7 +6747,7 @@
 
         <div class="report-bottom">
           <section class="report-block">
-            <h3 class="result-section-title">匹配亮点</h3>
+            <h3 class="result-section-title" id="highlight-section-title">匹配亮点</h3>
             <ol class="highlight-list" id="highlight-list"></ol>
           </section>
           <section class="report-block">
@@ -1896,20 +6757,68 @@
         </div>
 
         <footer class="result-footer">
-          <span id="result-source">基于简历与当前 JD 生成，结果仅供招聘沟通参考。</span>
-          <a class="result-portfolio-link" href="#works" data-modal-close>查看视频作品</a>
+          <button class="result-close" id="modal-close" type="button" data-modal-close>关闭</button>
         </footer>
       </article>
     </section>
   </div>
 
-  <footer class="contact-band" id="contact">
+  <div class="experience-modal" id="experience-modal" hidden>
+    <button class="experience-backdrop" type="button" data-experience-close aria-label="关闭工作经历详情"></button>
+    <section class="experience-dialog" role="dialog" aria-modal="true" aria-labelledby="experience-detail-title">
+      <header class="experience-dialog-head">
+        <div>
+          <p class="experience-detail-kicker" id="experience-detail-kicker">工作经历</p>
+          <h2 id="experience-detail-title">经历详情</h2>
+          <p class="experience-detail-meta" id="experience-detail-meta"></p>
+        </div>
+      </header>
+
+      <section class="experience-detail-section">
+        <div class="experience-detail-title">
+          <h3>核心职责</h3>
+          <p>Core Responsibilities</p>
+        </div>
+        <div class="experience-duty-grid" id="experience-duty-list"></div>
+      </section>
+
+      <section class="experience-detail-section">
+        <div class="experience-detail-title">
+          <h3>核心成果</h3>
+          <p>Core Results</p>
+        </div>
+        <div class="experience-result-grid" id="experience-result-list"></div>
+      </section>
+
+      <footer class="experience-detail-footer">
+        <button class="experience-close" id="experience-close" type="button" data-experience-close>关闭</button>
+      </footer>
+    </section>
+  </div>
+
+  <footer class="contact-band view-panel" id="contact">
     <div class="shell contact-layout reveal">
       <div>
-        <h2 class="contact-title">让设计与岗位，先认真认识一下。</h2>
-        <p class="contact-copy">你可以先浏览视频作品，也可以把职位 JD 放入匹配器，用一份结构化报告快速了解我的经历与岗位需求如何对应。</p>
+        <h2 class="contact-title">联系我</h2>
+        <p class="contact-copy">如果你想进一步了解我的项目、作品或岗位匹配情况，可以通过以下方式直接联系我。</p>
       </div>
-      <a class="button button-primary" href="#ai-match">开始岗位匹配</a>
+      <div class="contact-methods" aria-label="程志雯的联系方式">
+        <button class="contact-method contact-copy-button" type="button" data-value="13250562590">
+          <span class="contact-method-label">电话</span>
+          <strong>132 5056 2590</strong>
+          <span class="contact-method-action">复制</span>
+        </button>
+        <button class="contact-method contact-copy-button" type="button" data-value="517406858@qq.com">
+          <span class="contact-method-label">邮箱</span>
+          <strong>517406858@qq.com</strong>
+          <span class="contact-method-action">复制</span>
+        </button>
+        <button class="contact-method contact-copy-button" type="button" data-value="Qerbulai">
+          <span class="contact-method-label">微信</span>
+          <strong>Qerbulai</strong>
+          <span class="contact-method-action">复制</span>
+        </button>
+      </div>
     </div>
   </footer>
 
@@ -1934,7 +6843,16 @@
     const resultSummary = document.querySelector("#result-summary");
     const dimensionList = document.querySelector("#dimension-list");
     const highlightList = document.querySelector("#highlight-list");
-    const resultSource = document.querySelector("#result-source");
+    const highlightSectionTitle = document.querySelector("#highlight-section-title");
+    const experienceModal = document.querySelector("#experience-modal");
+    const experienceClose = document.querySelector("#experience-close");
+    const experienceDetailKicker = document.querySelector("#experience-detail-kicker");
+    const experienceDetailTitle = document.querySelector("#experience-detail-title");
+    const experienceDetailMeta = document.querySelector("#experience-detail-meta");
+    const experienceDutyList = document.querySelector("#experience-duty-list");
+    const experienceResultList = document.querySelector("#experience-result-list");
+    const backgroundMusic = document.querySelector("#background-music");
+    const musicToggle = document.querySelector("#music-toggle");
 
     const remoteVideo = "https://github.com/12331cc/-/releases/download/v1/hero-video.mp4";
     const sampleJD = "视觉设计师 / AIGC 设计师\n岗位职责：负责品牌活动视觉、电商主图、H5 页面及社交媒体物料设计；参与创意提案，能够将品牌策略转化为清晰的视觉表达；使用 AIGC 工具提升图片与短视频生产效率，完成部分动态视觉交付。\n任职要求：艺术设计相关专业，熟悉 Photoshop、Illustrator、Midjourney、Stable Diffusion 或 ComfyUI；有电商、文旅或服装行业项目经验；具备良好的沟通、执行与项目推进能力，关注业务转化效果。";
@@ -1944,10 +6862,114 @@
       "计算四个维度的匹配程度…",
       "整理可以进一步聊聊的亮点…"
     ];
+    const experienceDetails = {
+      ramadan: {
+        kicker: "斋月裂变活动 · 项目经历",
+        title: "海外社交平台",
+        meta: "视觉设计师 · 2026.01 — 2026.02 · 活动 H5 / 裂变转化 / 直播动效",
+        duties: [
+          { title: "活动视觉升级", description: "负责中东斋月裂变<strong>活动 H5</strong>设计，围绕节日氛围与活动识别度完成主视觉升级。" },
+          { title: "节日视觉体系", description: "提取清真寺、弯月、棕榈树、灯笼等节日元素，搭建<strong>深绿鎏金视觉体系</strong>。" },
+          { title: "裂变路径设计", description: "围绕新人券、满减券、邀请奖励和排行榜奖池，优化<strong>信息层级与分享入口</strong>。" },
+          { title: "直播礼物动效", description: "结合星月、灯笼、金币和鎏金纹样，设计<strong>礼物入场与光效反馈</strong>动效。" }
+        ],
+        results: [
+          { value: "+38.6%", label: "设计效率提升，强化活动识别度与地域文化氛围。" },
+          { value: "+23.9%", label: "裂变转化率提升，降低用户理解成本并突出核心入口。" },
+          { value: "完整链路", label: "覆盖活动主视觉、转化模块与直播互动动效交付。" }
+        ]
+      },
+      fliggy: {
+        kicker: "互联网平台 · 飞猪环游季 H5 · 实习经历",
+        title: "飞猪旅行科技（杭州）有限公司",
+        meta: "视觉设计实习生 · 2025.01 — 2025.04",
+        duties: [
+          { title: "互联网活动视觉", description: "运用 AIGC 工具完成<strong>飞猪环游季 H5 主视觉</strong>与核心素材生成，支持平台活动快速落地。" },
+          { title: "平台 IP 视觉表达", description: "围绕<strong>飞猪 IP 与旅行场景</strong>展开视觉探索，统一平台品牌色和权益信息表达。" },
+          { title: "用户路径与信息设计", description: "梳理出行保障、活动流程和券权益信息，完成<strong>用户路径与关键入口</strong>的模块化呈现。" },
+          { title: "多端运营视觉", description: "输出活动 H5 长页、Banner 与配套物料，保持<strong>多端运营视觉一致性</strong>。" }
+        ],
+        results: [
+          { value: "+65%", label: "活动渗透率提升，强化活动入口与品牌记忆。" },
+          { value: "+45% / +12%", label: "支付转化率提升 45%，ROI 投资回报率提升 12%。" },
+          { value: "+48%", label: "实际成交金额提升，验证互联网平台活动视觉对业务转化的支持。" }
+        ]
+      },
+      haki: {
+        kicker: "AI 视觉与视频生产 · 实习经历",
+        title: "赫基（中国）集团股份有限公司",
+        meta: "AI 视觉设计实习生 · 2025.11 — 2026.05",
+        duties: [
+          { title: "AI 生产管理", description: "面向服装电商、社媒及市场活动需求，使用飞书多维表格完成<strong>需求与进度管理</strong>。" },
+          { title: "系列动态输出", description: "针对春夏新品、职场通勤和轻法式女装，完成<strong>AI 图像与短视频</strong>的系列化输出。" },
+          { title: "工具组合应用", description: "组合 Midjourney、Stable Diffusion、ComfyUI、即梦、可灵和 Seedance 完成<strong>生成与动作测试</strong>。" },
+          { title: "商业物料延展", description: "将 AI 内容延展至电商主图、社媒、Banner 与线下灯箱画，支持<strong>多渠道商业交付</strong>。" }
+        ],
+        results: [
+          { value: "40+ / 日", label: "日均输出图片数量，提升多渠道视觉与视频响应效率。" },
+          { value: "20–50 + 3–5", label: "单系列交付图片及 AI 短视频数量，保持系列视觉与动态风格统一。" },
+          { value: "+25% / +18%", label: "完成 4 张 AI 灯箱画与 30+ 张营销物料，电商主图点击率和转化率分别提升 25% 与 18%。" }
+        ]
+      }
+    };
     const dimensionColors = ["#087fe8", "#f2c94c", "#ff806f", "#9c8df1"];
+    const viewPanels = Array.from(document.querySelectorAll(".view-panel"));
     let loadingTimer = 0;
+    let lastExperienceTrigger = null;
 
     workVideo.src = window.location.protocol === "file:" ? "hero-video.mp4" : remoteVideo;
+
+    backgroundMusic.volume = 0.56;
+
+    const syncMusicButton = () => {
+      const isPlaying = !backgroundMusic.paused;
+      const label = isPlaying ? "暂停背景音乐" : "播放背景音乐";
+      musicToggle.classList.toggle("is-playing", isPlaying);
+      musicToggle.setAttribute("aria-pressed", String(isPlaying));
+      musicToggle.setAttribute("aria-label", label);
+      musicToggle.title = label;
+    };
+
+    musicToggle.addEventListener("click", async () => {
+      if (backgroundMusic.paused) {
+        try {
+          backgroundMusic.muted = false;
+          if (backgroundMusic.readyState === 0) backgroundMusic.load();
+          await backgroundMusic.play();
+        } catch (error) {
+          musicToggle.classList.remove("is-playing");
+          musicToggle.title = "音乐暂时无法播放，请刷新后重试";
+          console.warn("Background music playback failed", error);
+        }
+      } else {
+        backgroundMusic.pause();
+      }
+      syncMusicButton();
+    });
+
+    backgroundMusic.addEventListener("play", syncMusicButton);
+    backgroundMusic.addEventListener("pause", syncMusicButton);
+    backgroundMusic.addEventListener("ended", syncMusicButton);
+    syncMusicButton();
+
+    const startMusicOnFirstInteraction = async () => {
+      if (!backgroundMusic.paused) return;
+      try {
+        backgroundMusic.muted = false;
+        if (backgroundMusic.readyState === 0) backgroundMusic.load();
+        await backgroundMusic.play();
+        syncMusicButton();
+      } catch (error) {
+        console.warn("Background music autoplay was blocked", error);
+      }
+    };
+
+    ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
+      document.addEventListener(eventName, startMusicOnFirstInteraction, {
+        once: true,
+        passive: eventName !== "keydown"
+      });
+    });
 
     menuButton.addEventListener("click", () => {
       const isOpen = siteNav.classList.toggle("is-open");
@@ -1964,12 +6986,126 @@
       menuButton.textContent = "☰";
     });
 
+    document.querySelectorAll(".contact-copy-button").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.dataset.value || "";
+        const label = button.querySelector(".contact-method-action");
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch {
+          const input = document.createElement("textarea");
+          input.value = value;
+          input.setAttribute("readonly", "");
+          input.style.position = "fixed";
+          input.style.opacity = "0";
+          document.body.append(input);
+          input.select();
+          document.execCommand("copy");
+          input.remove();
+        }
+        label.textContent = "已复制";
+        window.setTimeout(() => { label.textContent = "复制"; }, 1600);
+      });
+    });
+
+    function activateView(targetId, updateHistory = true) {
+      const requestedId = targetId || "home";
+      const viewId = requestedId === "ai-match" ? "home" : requestedId;
+      const activePanel = viewPanels.find((panel) => panel.id === viewId) || document.querySelector("#home");
+
+      viewPanels.forEach((panel) => {
+        const isActive = panel === activePanel;
+        panel.classList.toggle("is-active", isActive);
+        panel.setAttribute("aria-hidden", String(!isActive));
+        if (isActive) panel.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+      });
+
+      document.querySelectorAll(".site-nav a").forEach((link) => {
+        link.classList.toggle("is-active", link.getAttribute("href") === `#${viewId}`);
+      });
+
+      if (viewId !== "works" && !workVideo.paused) workVideo.pause();
+      window.scrollTo(0, 0);
+
+      if (updateHistory) window.history.pushState({ viewId: requestedId }, "", `#${requestedId}`);
+      if (requestedId === "ai-match") window.setTimeout(() => jdInput.focus(), 180);
+    }
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const targetId = link.getAttribute("href").slice(1);
+      const viewId = targetId === "ai-match" ? "home" : targetId;
+      if (!viewPanels.some((panel) => panel.id === viewId)) return;
+      event.preventDefault();
+      activateView(targetId);
+    });
+
+    window.addEventListener("popstate", () => activateView(window.location.hash.slice(1) || "home", false));
+
+    function createExperienceDuty(item) {
+      const article = document.createElement("article");
+      article.className = "experience-duty";
+      const title = document.createElement("h4");
+      title.textContent = item.title;
+      const description = document.createElement("p");
+      description.innerHTML = item.description;
+      article.append(title, description);
+      return article;
+    }
+
+    function createExperienceResult(item) {
+      const article = document.createElement("article");
+      article.className = "experience-result";
+      const value = document.createElement("strong");
+      value.textContent = item.value;
+      const label = document.createElement("span");
+      label.textContent = item.label;
+      article.append(value, label);
+      return article;
+    }
+
+    function openExperienceModal(id, trigger) {
+      const detail = experienceDetails[id];
+      if (!detail) return;
+      lastExperienceTrigger = trigger || null;
+      experienceDetailKicker.textContent = detail.kicker;
+      experienceDetailTitle.textContent = detail.title;
+      experienceDetailMeta.textContent = detail.meta;
+      experienceDutyList.replaceChildren(...detail.duties.map(createExperienceDuty));
+      experienceResultList.replaceChildren(...detail.results.map(createExperienceResult));
+      experienceModal.hidden = false;
+      document.body.classList.add("has-modal");
+      experienceClose.focus();
+    }
+
+    function closeExperienceModal() {
+      experienceModal.hidden = true;
+      if (matchModal.hidden) document.body.classList.remove("has-modal");
+      lastExperienceTrigger?.focus();
+    }
+
+    document.querySelectorAll("[data-experience-id]").forEach((card) => {
+      card.addEventListener("click", () => openExperienceModal(card.dataset.experienceId, card));
+    });
+
+    experienceModal.addEventListener("click", (event) => {
+      if (event.target.closest("[data-experience-close]")) closeExperienceModal();
+    });
+
     matchModal.addEventListener("click", (event) => {
       if (event.target.closest("[data-modal-close]")) closeMatchModal();
     });
 
+    modalClose.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeMatchModal();
+    });
+
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !matchModal.hidden) closeMatchModal();
+      if (event.key !== "Escape") return;
+      if (!experienceModal.hidden) closeExperienceModal();
+      else if (!matchModal.hidden) closeMatchModal();
     });
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -1982,16 +7118,7 @@
 
     document.querySelectorAll(".reveal").forEach((item) => revealObserver.observe(item));
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        document.querySelectorAll(".site-nav a").forEach((link) => {
-          link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
-        });
-      });
-    }, { rootMargin: "-30% 0px -60% 0px" });
-
-    document.querySelectorAll("main section[id], footer[id]").forEach((section) => sectionObserver.observe(section));
+    activateView(window.location.hash.slice(1) || "home", false);
 
     function clampScore(value) {
       return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
@@ -2056,11 +7183,8 @@
       totalScore.style.setProperty("--score", String(score));
       scoreNumber.textContent = String(score);
       resultTitle.textContent = data.overallLevel || data.title || scoreLabel(score);
+      highlightSectionTitle.textContent = score < 40 ? "匹配依据" : "匹配亮点";
       resultSummary.textContent = data.summary || "匹配结果已根据岗位要求与简历中的可核对事实生成。";
-      resultSource.textContent = isPreview
-        ? "当前为本地预览评分；正式部署后将由 AI 大模型生成。"
-        : "基于简历与当前 JD 由 AI 生成，结果仅供招聘沟通参考。";
-
       dimensionList.replaceChildren();
       dimensions.forEach((item, index) => {
         const scoreValue = clampScore(item.score);
@@ -2087,10 +7211,16 @@
         if (highlight && typeof highlight === "object") {
           const requirement = document.createElement("strong");
           requirement.className = "highlight-requirement";
-          requirement.textContent = highlight.jdRequirement || "岗位要求";
+          const requirementLabel = document.createElement("span");
+          requirementLabel.className = "highlight-label";
+          requirementLabel.textContent = "JD：";
+          requirement.append(requirementLabel, document.createTextNode(highlight.jdRequirement || "岗位要求"));
           const evidence = document.createElement("span");
           evidence.className = "highlight-evidence";
-          evidence.textContent = highlight.resumeEvidence || "";
+          const evidenceLabel = document.createElement("span");
+          evidenceLabel.className = "highlight-label";
+          evidenceLabel.textContent = "简历：";
+          evidence.append(evidenceLabel, document.createTextNode(highlight.resumeEvidence || ""));
           item.append(requirement, evidence);
         } else {
           item.textContent = String(highlight);
@@ -2107,33 +7237,111 @@
 
     function createLocalPreview(jd) {
       const text = jd.toLowerCase();
-      const skillHits = countMatches(text, ["aigc", "midjourney", "stable diffusion", "comfyui", "ai", "动效", "视频", "插画", "视觉"]);
-      const projectHits = countMatches(text, ["电商", "h5", "品牌", "活动", "文旅", "服装", "社交", "banner", "运营"]);
+      const skillHits = countMatches(text, ["aigc", "midjourney", "stable diffusion", "comfyui", "ai", "动效", "视频", "插画", "视觉", "vibe coding", "codex", "网页", "前端", "移动端"]);
+      const projectHits = countMatches(text, ["互联网", "电商", "h5", "品牌", "活动", "文旅", "服装", "社交", "跨境", "banner", "运营"]);
       const roleHits = countMatches(text, ["设计师", "创意", "沟通", "执行", "独立", "项目", "审美", "协作"]);
+      const designPatterns = [
+        /视觉设计/gi,
+        /创意设计/gi,
+        /平面设计/gi,
+        /品牌设计/gi,
+        /交互设计/gi,
+        /用户体验设计/gi,
+        /网页设计/gi,
+        /动效设计/gi,
+        /视频设计/gi,
+        /插画设计/gi,
+        /设计师/gi,
+        /aigc/gi,
+        /\bui\b/gi,
+        /\bux\b/gi
+      ];
+      const designHits = designPatterns.reduce((total, pattern) => total + (text.match(pattern) || []).length, 0);
+      const unrelatedFamilies = [
+        { label: "客服", title: /客服|客户服务|售后专员/i, terms: ["客服", "客户服务", "售前咨询", "售后服务", "在线咨询", "电话接听", "工单", "客诉", "投诉处理", "呼叫中心", "服务满意度", "问题受理"] },
+        { label: "销售", title: /销售|商务拓展|客户经理|渠道经理/i, terms: ["销售", "客户开发", "商务拓展", "业绩指标", "销售目标", "回款", "陌拜", "客户拜访", "大客户", "渠道拓展", "crm", "签单"] },
+        { label: "产品/运营", title: /产品经理|产品运营|用户运营|活动运营|社群运营|店铺运营|直播运营|数据运营|增长运营/i, terms: ["产品经理", "需求分析", "产品规划", "产品迭代", "原型", "用户运营", "活动运营", "社群运营", "店铺运营", "直播运营", "增长运营", "运营策略"] },
+        { label: "数据分析", title: /数据分析师|商业分析师|数据运营/i, terms: ["数据分析", "sql", "tableau", "power bi", "数据建模", "统计分析", "商业分析", "指标体系"] },
+        { label: "研发", title: /开发工程师|算法工程师|测试工程师|运维工程师|后端|前端工程师/i, terms: ["软件开发", "后端开发", "算法工程师", "java", "python开发", "数据库开发", "运维", "测试开发", "接口开发", "系统架构"] },
+        { label: "财务", title: /财务|会计|审计|税务/i, terms: ["财务", "会计", "审计", "税务", "成本核算", "财务报表", "凭证", "预算管理"] },
+        { label: "人力资源", title: /招聘|人力资源|hrbp|薪酬绩效/i, terms: ["招聘", "人力资源", "薪酬", "绩效管理", "员工关系", "人才盘点", "培训"] },
+        { label: "行政", title: /行政|文员|秘书|前台/i, terms: ["行政", "文员", "秘书", "前台", "会议安排", "办公用品", "档案管理"] },
+        { label: "项目管理", title: /项目经理|交付经理|项目管理/i, terms: ["项目经理", "项目管理", "项目计划", "风险管理", "里程碑", "交付管理", "资源协调"] },
+        { label: "法务/采购", title: /法务|律师|采购|供应链/i, terms: ["法务", "合同审核", "法律风险", "采购", "供应商管理", "供应链", "招投标"] }
+      ];
+      const strongestMismatch = unrelatedFamilies
+        .map((family) => ({
+          ...family,
+          hits: family.terms.reduce((total, term) => total + Math.min(text.split(term).length - 1, 3), 0) + (family.title.test(text.slice(0, 180)) ? 3 : 0)
+        }))
+        .sort((a, b) => b.hits - a.hits)[0];
+      const roleMismatch = strongestMismatch && strongestMismatch.hits >= 2 && designHits < 2 && !(designHits === 1 && strongestMismatch.hits < 5)
+        ? strongestMismatch
+        : null;
       const dimensions = [
         { id: "education", label: "教育背景", score: 95, reason: "武汉工程大学艺术设计本科，GPA 3.72/4且专业前5%，具备系统视觉设计教育基础。" },
-        { id: "experience", label: "工作经验", score: Math.min(98, 68 + projectHits * 4), reason: "项目覆盖海外社交、文旅电商与服装电商场景，包含活动H5、运营视觉和动态物料实践。" },
-        { id: "skills", label: "专业技能", score: Math.min(95, 66 + skillHits * 4), reason: "简历明确列出Midjourney、Stable Diffusion、ComfyUI及动态视觉交付经验。" },
-        { id: "softSkills", label: "软技能", score: Math.min(95, 81 + roleHits * 3), reason: "多项目经历体现从调研、创意发散到视觉精修和动态物料交付的完整执行能力。" }
+        { id: "experience", label: "工作经验", score: Math.min(98, 68 + projectHits * 4), reason: "具备1年视觉设计经验，项目覆盖海外社交、互联网平台文旅业务与服装品牌，包含活动H5、运营视觉和动态物料实践。" },
+        { id: "skills", label: "专业技能", score: Math.min(95, 66 + skillHits * 4), reason: "简历明确列出AIGC图像视频工具、动态视觉交付及Vibe Coding网页落地能力。" },
+        { id: "softSkills", label: "软技能", score: Math.min(95, 81 + roleHits * 3), reason: "项目经历体现从创意策划、视觉生成到精修包装和网页落地的完整执行能力。" }
       ];
-      const total = Math.round(
+
+      if (roleMismatch) {
+        dimensions[1].score = 20;
+        dimensions[1].reason = `简历主要为视觉设计与AIGC项目，未提供${roleMismatch.label}岗位类型及对应业务场景的经历证据。`;
+        dimensions[2].score = 20;
+        dimensions[2].reason = `可核对技能集中于视觉、AIGC与网页落地，未体现${roleMismatch.label}岗位要求的核心专业方法与工具。`;
+        dimensions[3].score = 65;
+        dimensions[3].reason = `项目体现协作与执行能力，但缺少${roleMismatch.label}岗位目标推进和关键工作方式的直接事实证据。`;
+      }
+
+      let total = Math.round(
         dimensions[0].score * 0.1 +
         dimensions[1].score * 0.35 +
         dimensions[2].score * 0.3 +
         dimensions[3].score * 0.25
       );
+      if (roleMismatch) total = Math.min(total, 39);
       const highlights = [];
 
+      if (roleMismatch) {
+        const jdRequirement = String(jd)
+          .split(/[\n。；;]/)
+          .map((segment) => segment.trim())
+          .filter(Boolean)
+          .map((segment) => ({
+            segment,
+            hits: roleMismatch.terms.reduce((total, term) => total + (segment.toLowerCase().includes(term) ? 1 : 0), 0)
+          }))
+          .sort((a, b) => b.hits - a.hits)
+          .find((item) => item.hits > 0)?.segment || `${roleMismatch.label}岗位核心职责与专业要求`;
+        return {
+          overallScore: total,
+          overallLevel: "不匹配",
+          matrix: dimensions,
+          highlights: [{
+            jdRequirement: jdRequirement.slice(0, 150),
+            resumeEvidence: `简历事实集中于视觉设计、AIGC、动态内容和网页视觉落地，未提供${roleMismatch.label}岗位职责、业务流程或专业工具的直接经历，因此不构成该要求的匹配证据。`
+          }],
+          summary: `候选人的可核对经历集中在视觉设计、AIGC内容、动态交付与网页落地，虽具备平台活动的结果意识和协作执行经验，但与${roleMismatch.label}岗位的核心职能及专业证据不一致，整体不匹配。`
+        };
+      }
+
+      if (/vibe\s*coding|codex|网页|前端|移动端|网站/i.test(jd)) {
+        highlights.push({
+          jdRequirement: "具备 AI 编程或交互网页落地能力",
+          resumeEvidence: "个人作品集网站使用 Codex 等 AI 编程工具完成信息架构、视觉设计、内容搭建、移动端适配、域名配置与 Vercel 部署。"
+        });
+      }
       if (/aigc|midjourney|stable diffusion|comfyui|ai/i.test(jd)) {
         highlights.push({
           jdRequirement: "具备 AIGC 工具与商业视觉生产能力",
-          resumeEvidence: "赫基项目使用 Midjourney、Stable Diffusion、ComfyUI 等工具，单系列交付30-50张图片及5-8条AI短视频。"
+          resumeEvidence: "赫基实习使用 Midjourney、Stable Diffusion、ComfyUI 等工具，单系列交付20-50张图片及3-5条AI短视频。"
         });
       }
       if (/电商|h5|活动|转化|运营/i.test(jd)) {
         highlights.push({
-          jdRequirement: "具备活动 H5 与转化导向的运营设计经验",
-          resumeEvidence: "飞猪环游季项目覆盖活动H5与运营视觉，支付转化率提升45%，实际成交金额提升48%。"
+          jdRequirement: "具备互联网平台活动与运营视觉经验",
+          resumeEvidence: "飞猪旅行科技实习参与环游季H5、平台IP与用户路径设计，支付转化率提升45%，实际成交金额提升48%。"
         });
       }
       if (/品牌|服装|视频|动态|社交/i.test(jd)) {
@@ -2154,7 +7362,7 @@
         overallLevel: scoreLabel(total),
         matrix: dimensions,
         highlights: highlights.slice(0, 3),
-        summary: "候选人的活动H5、运营视觉与AIGC内容生产经历能够覆盖多类商业设计场景，并以转化率、点击率和交付效率等结果体现业务意识；完整的创意到交付流程也与岗位常见的执行和协作方式相符。"
+        summary: "候选人具备1年视觉设计经验，活动H5、运营视觉、AIGC图像视频与Vibe Coding网页落地能力能够覆盖多类互联网和品牌商业场景，并以转化率、点击率和交付效率等结果体现业务意识。"
       };
     }
 
@@ -2206,8 +7414,266 @@
       }
     });
 
+    const cursorLeaf = document.querySelector(".jp-cursor-leaf");
+    const cursorGuide = document.querySelector(".jp-cursor-guide");
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    if (finePointer.matches && cursorLeaf && cursorGuide) {
+      let pointerX = -80;
+      let pointerY = -80;
+      let guideX = -80;
+      let guideY = -80;
+
+      const animateCursor = () => {
+        guideX += (pointerX - guideX) * 0.18;
+        guideY += (pointerY - guideY) * 0.18;
+        cursorLeaf.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%) rotate(-12deg)`;
+        cursorGuide.style.transform = `translate3d(${guideX}px, ${guideY}px, 0) translate(-50%, -50%)`;
+        window.requestAnimationFrame(animateCursor);
+      };
+
+      window.addEventListener("pointermove", (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        cursorLeaf.classList.add("is-visible");
+        cursorGuide.classList.add("is-visible");
+        cursorGuide.classList.toggle("is-interactive", Boolean(event.target.closest("a, button, textarea")));
+      });
+
+      document.documentElement.addEventListener("mouseleave", () => {
+        cursorLeaf.classList.remove("is-visible");
+        cursorGuide.classList.remove("is-visible");
+      });
+
+      window.addEventListener("blur", () => {
+        cursorLeaf.classList.remove("is-visible");
+        cursorGuide.classList.remove("is-visible");
+      });
+
+      animateCursor();
+    }
+
     updateCount();
     setState("idle");
   </script>
+
+
+    <script>
+    (() => {
+      const heroSelectors = [
+        ".brand",
+        ".site-nav a",
+        ".hero h1",
+        ".hero .hero-role",
+        ".hero .hero-description",
+        ".hero .hero-actions .button",
+        ".hero .quick-match",
+        ".hero .portrait-stage"
+      ];
+
+      const tagGroupSelectors = [
+        ".course-tags",
+        ".skill-tags",
+        ".experience-tags",
+        ".experience-card-metrics",
+        ".advantage-line"
+      ];
+
+      const portraitTags = Array.from(
+        document.querySelectorAll(".portrait-tags span")
+      );
+
+      let heroStarted = false;
+
+      const prepareHeroItems = () => {
+        const items = [];
+        heroSelectors.forEach((selector) => {
+          document.querySelectorAll(selector).forEach((item) => {
+            if (!items.includes(item)) items.push(item);
+          });
+        });
+
+        items.forEach((item, index) => {
+          item.classList.add("portfolio-stagger-item");
+          item.style.setProperty("--stagger-delay", `${120 + index * 145}ms`);
+        });
+
+        return items;
+      };
+
+      const heroItems = prepareHeroItems();
+
+      portraitTags.forEach((tag, index) => {
+        tag.style.setProperty("--tag-delay", `${index * 180}ms`);
+      });
+
+      window.startPortfolioStaggerReveal = () => {
+        if (heroStarted) return;
+        heroStarted = true;
+
+        requestAnimationFrame(() => {
+          heroItems.forEach((item) => {
+            item.classList.add("is-stagger-visible");
+          });
+
+          // 人物周围标签最后出现
+          window.setTimeout(() => {
+            portraitTags.forEach((tag) => {
+              tag.classList.add("is-portrait-tag-visible");
+            });
+          }, 1650);
+        });
+      };
+
+      const prepareTagGroups = () => {
+        const groups = [];
+
+        tagGroupSelectors.forEach((selector) => {
+          document.querySelectorAll(selector).forEach((group) => {
+            const tags = Array.from(group.children).filter(
+              (child) => child.matches("span")
+            );
+
+            if (!tags.length) return;
+
+            tags.forEach((tag, index) => {
+              tag.classList.add("portfolio-stagger-tag");
+              tag.style.setProperty("--stagger-delay", `${index * 135}ms`);
+            });
+
+            groups.push({ group, tags });
+          });
+        });
+
+        return groups;
+      };
+
+      const tagGroups = prepareTagGroups();
+
+      if ("IntersectionObserver" in window) {
+        const tagObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const current = tagGroups.find(
+              (item) => item.group === entry.target
+            );
+
+            current?.tags.forEach((tag) => {
+              tag.classList.add("is-stagger-visible");
+            });
+
+            tagObserver.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.2,
+          rootMargin: "0px 0px -8% 0px"
+        });
+
+        tagGroups.forEach(({ group }) => tagObserver.observe(group));
+      } else {
+        tagGroups.forEach(({ tags }) => {
+          tags.forEach((tag) => tag.classList.add("is-stagger-visible"));
+        });
+      }
+
+      // 没有开场动画时，也保证首页内容正常逐个出现。
+      if (!document.querySelector("#intro-screen")) {
+        window.setTimeout(window.startPortfolioStaggerReveal, 180);
+      }
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const introScreen = document.querySelector("#intro-screen");
+      const introVideo = document.querySelector("#intro-video");
+      const soundButton = document.querySelector("#intro-sound");
+      const skipButton = document.querySelector("#intro-skip");
+      const backgroundMusic = document.querySelector("#background-music");
+
+      if (!introScreen || !introVideo) return;
+
+      let hasFinished = false;
+      let userEnabledSound = false;
+
+      if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+      }
+
+      const startBackgroundMusic = async () => {
+        if (!backgroundMusic || !userEnabledSound) return;
+        try {
+          backgroundMusic.muted = false;
+          backgroundMusic.volume = 0.56;
+          await backgroundMusic.play();
+        } catch (error) {
+          console.warn("Background music could not start after intro", error);
+        }
+      };
+
+      const finishIntro = async () => {
+        if (hasFinished) return;
+        hasFinished = true;
+
+        introScreen.classList.add("is-leaving");
+        document.body.classList.remove("intro-active");
+        document.body.classList.add("intro-reveal");
+
+        window.setTimeout(() => {
+          window.startPortfolioStaggerReveal?.();
+        }, 160);
+
+        await startBackgroundMusic();
+
+        window.setTimeout(() => {
+          introVideo.pause();
+          introScreen.remove();
+        }, 950);
+      };
+
+      const tryPlayIntro = async () => {
+        try {
+          introVideo.muted = true;
+          await introVideo.play();
+        } catch (error) {
+          console.warn("Intro autoplay was blocked", error);
+          window.setTimeout(finishIntro, 500);
+        }
+      };
+
+      soundButton?.addEventListener("click", async () => {
+        userEnabledSound = true;
+        try {
+          introVideo.muted = false;
+          introVideo.volume = 0.9;
+          await introVideo.play();
+          soundButton.textContent = "声音已开启";
+          soundButton.disabled = true;
+        } catch (error) {
+          console.warn("Intro sound could not be enabled", error);
+        }
+      });
+
+      skipButton?.addEventListener("click", () => {
+        userEnabledSound = true;
+        finishIntro();
+      });
+
+      introVideo.addEventListener("ended", finishIntro, { once: true });
+      introVideo.addEventListener("error", finishIntro, { once: true });
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", tryPlayIntro, { once: true });
+      } else {
+        tryPlayIntro();
+      }
+
+      // 视频约 5 秒，若浏览器没有触发 ended，8 秒后自动进入网站。
+      window.setTimeout(finishIntro, 8000);
+    })();
+  </script>
+
 </body>
 </html>
