@@ -1,12 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f3f8f7">
-  <meta name="description" content="程志雯的视觉设计、AIGC 项目作品与 AI 岗位匹配器">
-  <title>程志雯 · AI Visual Designer</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#f3f8f7" name="theme-color"/>
+<meta content="程志雯的视觉设计、AIGC 项目作品与 AI 岗位匹配器" name="description"/>
+<title>程志雯 · AI Visual Designer</title>
+<style>
     :root {
       color-scheme: light;
       --page: #f6f7f9;
@@ -6359,470 +6360,449 @@
       }
     }
 
-  </style>
-</head>
+  
+    /* First-load smoothness optimization */
+    .intro-screen {
+      background:
+        #05070b url("intro-poster.jpg") center / cover no-repeat !important;
+      transition:
+        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 520ms ease !important;
+    }
+
+    .intro-video {
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .intro-screen.is-video-ready .intro-video {
+      opacity: 1;
+    }
+
+    body.intro-reveal .site-header {
+      animation-duration: 520ms !important;
+      animation-delay: 0ms !important;
+    }
+
+    body.intro-reveal main {
+      animation-duration: 620ms !important;
+    }
+
+</style>
+<link as="image" fetchpriority="high" href="intro-poster.jpg" rel="preload"/><link as="image" fetchpriority="high" href="profile-photo-hand-complete.png" rel="preload"/></head>
 <body class="intro-active">
-
-  <div class="intro-screen" id="intro-screen" aria-label="网站开场动画">
-    <video
-      class="intro-video"
-      id="intro-video"
-      src="intro-video.mp4"
-      autoplay
-      muted
-      playsinline
-      preload="auto"
-    ></video>
-    <div class="intro-shade"></div>
-
-    <div class="intro-brand">
-      <strong class="intro-title">Hi, I&apos;m Mani</strong>
-      <span>AI VISUAL DESIGNER · PORTFOLIO</span>
-    </div>
-
-    <div class="intro-actions">
-      <button class="intro-action" id="intro-sound" type="button">开启声音</button>
-      <button class="intro-action" id="intro-skip" type="button">跳过</button>
-    </div>
-  </div>
-
-  <span class="jp-cursor-guide" aria-hidden="true"></span>
-  <span class="jp-cursor-leaf" aria-hidden="true"></span>
-  <audio id="background-music" src="background-music.mp3" loop preload="auto"></audio>
-  <button class="music-toggle" id="music-toggle" type="button" aria-label="播放背景音乐" aria-pressed="false" title="播放背景音乐">
-    <span class="music-disc" aria-hidden="true"><span class="music-note">♪</span></span>
-    <span class="music-equalizer" aria-hidden="true"><i></i><i></i><i></i></span>
-  </button>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="返回关于我">
-      <img src="avatar-mark.png" alt="程志雯手绘头像">
-    </a>
-    <button class="menu-button" id="menu-button" type="button" aria-label="打开导航" aria-expanded="false">☰</button>
-    <nav class="site-nav" id="site-nav" aria-label="网站导航">
-      <a class="is-active" href="#home">关于我</a>
-      <a href="#education">教育背景</a>
-      <a href="#experience">工作经历</a>
-      <a href="#advantages">我的优势</a>
-      <a href="#works">作品</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero view-panel is-active" id="home">
-      <div class="jp-scenery" aria-hidden="true">
-        <span class="jp-sun"></span>
-        <span class="jp-cloud jp-cloud-one"></span>
-        <span class="jp-cloud jp-cloud-two"></span>
-        <span class="jp-mountain jp-mountain-far"></span>
-        <span class="jp-mountain jp-mountain-near"></span>
-        <img class="jp-bird jp-bird-one" src="jp-yellow-bird-v2.png" alt="">
-        <img class="jp-bird jp-bird-two" src="jp-yellow-bird-v2.png" alt="">
-        <div class="jp-scenery-wave">
-          <svg viewBox="0 0 1440 132" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 38C116 83 232 7 365 40C510 77 625 6 770 42C914 80 1023 5 1164 40C1288 72 1377 58 1440 34V132H0Z"></path>
-          </svg>
-        </div>
-      </div>
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <h1>Hi，我是程志雯</h1>
-          <p class="hero-role">AI Creative Designer</p>
-          <p class="hero-description">
+<div aria-label="网站开场动画" class="intro-screen" id="intro-screen">
+<video autoplay="" class="intro-video" id="intro-video" muted="" playsinline="" poster="intro-poster.jpg" preload="auto" src="intro-video.mp4"></video>
+<div class="intro-shade"></div>
+<div class="intro-brand">
+<strong class="intro-title">Hi, I'm Mani</strong>
+<span>AI VISUAL DESIGNER · PORTFOLIO</span>
+</div>
+<div class="intro-actions">
+<button class="intro-action" id="intro-sound" type="button">开启声音</button>
+<button class="intro-action" id="intro-skip" type="button">跳过</button>
+</div>
+</div>
+<span aria-hidden="true" class="jp-cursor-guide"></span>
+<span aria-hidden="true" class="jp-cursor-leaf"></span>
+<audio id="background-music" loop="" preload="none" src="background-music.mp3"></audio>
+<button aria-label="播放背景音乐" aria-pressed="false" class="music-toggle" id="music-toggle" title="播放背景音乐" type="button">
+<span aria-hidden="true" class="music-disc"><span class="music-note">♪</span></span>
+<span aria-hidden="true" class="music-equalizer"><i></i><i></i><i></i></span>
+</button>
+<header class="site-header">
+<a aria-label="返回关于我" class="brand" href="#home">
+<img alt="程志雯手绘头像" decoding="async" fetchpriority="low" loading="lazy" src="avatar-mark.png"/>
+</a>
+<button aria-expanded="false" aria-label="打开导航" class="menu-button" id="menu-button" type="button">☰</button>
+<nav aria-label="网站导航" class="site-nav" id="site-nav">
+<a class="is-active" href="#home">关于我</a>
+<a href="#education">教育背景</a>
+<a href="#experience">工作经历</a>
+<a href="#advantages">我的优势</a>
+<a href="#works">作品</a>
+</nav>
+</header>
+<main>
+<section class="hero view-panel is-active" id="home">
+<div aria-hidden="true" class="jp-scenery">
+<span class="jp-sun"></span>
+<span class="jp-cloud jp-cloud-one"></span>
+<span class="jp-cloud jp-cloud-two"></span>
+<span class="jp-mountain jp-mountain-far"></span>
+<span class="jp-mountain jp-mountain-near"></span>
+<img alt="" class="jp-bird jp-bird-one" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" class="jp-bird jp-bird-two" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<div class="jp-scenery-wave">
+<svg aria-hidden="true" preserveaspectratio="none" viewbox="0 0 1440 132">
+<path d="M0 38C116 83 232 7 365 40C510 77 625 6 770 42C914 80 1023 5 1164 40C1288 72 1377 58 1440 34V132H0Z"></path>
+</svg>
+</div>
+</div>
+<div class="shell hero-grid">
+<div class="hero-copy">
+<h1>Hi，我是程志雯</h1>
+<p class="hero-role">AI Creative Designer</p>
+<p class="hero-description">
             拥有<strong>视觉设计与互联网项目经验</strong>，熟悉电商、文旅、海外社交与跨境业务场景。
             具备 <strong>Vibe Coding</strong> 能力，擅长用用户体验、视觉设计、AIGC 与智能编程工作流，
             把创意推进为可交付、可验证的商业内容。
           </p>
-          <div class="hero-actions">
-            <a class="button button-resume" href="程志雯的简历-20260718.pdf" download="程志雯的简历.pdf">↓&nbsp;&nbsp;下载简历</a>
-            <a class="button button-contact" href="#contact">✦&nbsp;&nbsp;联系我</a>
-          </div>
-
-          <div class="quick-match" id="ai-match">
-            <form id="match-form">
-              <label class="quick-match-label" for="jd-input">
-                ✦&nbsp; AI 岗位匹配器
+<div class="hero-actions">
+<a class="button button-resume" download="程志雯的简历.pdf" href="程志雯的简历-20260718.pdf">↓  下载简历</a>
+<a class="button button-contact" href="#contact">✦  联系我</a>
+</div>
+<div class="quick-match" id="ai-match">
+<form id="match-form">
+<label class="quick-match-label" for="jd-input">
+                ✦  AI 岗位匹配器
               </label>
-              <div class="quick-match-row">
-                <div class="quick-input-wrap">
-                  <span class="search-mark" aria-hidden="true"></span>
-                  <textarea
-                    class="jd-input"
-                    id="jd-input"
-                    name="jd"
-                    rows="1"
-                    maxlength="8000"
-                    spellcheck="false"
-                    placeholder="粘贴岗位 JD，查看我与岗位之间的匹配度"
-                    required
-                  ></textarea>
-                </div>
-                <button class="match-button" id="match-button" type="submit">✦&nbsp; 开始匹配&nbsp; →</button>
-              </div>
-              <div class="input-meta">
-                <button class="text-action" id="sample-button" type="button">填入示例 JD</button>
-                <span><span id="char-count">0</span> / 8000</span>
-              </div>
-              <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-
-        <aside class="portrait-stage" aria-label="程志雯个人照片">
-          <img class="portrait-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
-          <img class="portrait-photo" src="profile-photo-hand-complete.png" alt="程志雯个人照片">
-          <div class="portrait-decoration" aria-hidden="true">
-            <span class="deco-star deco-star-one">✦</span>
-            <span class="deco-star deco-star-two">✦</span>
-            <span class="deco-burst"></span>
-            <span class="deco-dots"></span>
-          </div>
-          <div class="portrait-tags" aria-label="性格特征">
-            <span>阳光开朗</span>
-            <span>喜欢画画</span>
-            <span>执行力强</span>
-            <span>喜欢探索</span>
-          </div>
-          <div class="portrait-label">
-            <span>视觉设计 / AIGC</span>
-            <span>2026</span>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="stats-band" aria-label="履历概览">
-      <div class="shell stats-grid">
-        <div class="stat"><strong>1 年</strong><span>视觉设计与 AIGC 项目经验</span></div>
-        <div class="stat"><strong>40+</strong><span>单日 AI 图片交付记录</span></div>
-        <div class="stat"><strong>Full-Link</strong><span>创意、生成、精修、动态完整流程</span></div>
-        <div class="stat"><strong>3 类</strong><span>文旅、服装电商、海外社交场景</span></div>
-      </div>
-    </section>
-
-    <section class="section education-section view-panel" id="education">
-      <img class="section-landscape-bg" src="jp-education-landscape.png" alt="" aria-hidden="true">
-      <div class="page-decor page-decor-education" aria-hidden="true">
-        <img src="jp-yellow-bird-v2.png" alt="">
-        <span class="mini-sparkle"></span>
-      </div>
-      <div class="shell reveal">
-        <header class="education-heading">
-          <div>
-            <h2>教育背景</h2>
-          </div>
-          <span>从艺术设计的系统训练出发，持续把审美、方法与新工具带进真实商业项目。</span>
-        </header>
-        <div class="education-showcase">
-          <div class="education-school">
-            <p class="education-kicker">2022 — 2026</p>
-            <h3>武汉工程大学</h3>
-            <p class="education-degree">艺术设计 · 本科</p>
-            <p class="education-summary">以系统的视觉设计与艺术设计训练为基础，将设计理论、表现方法和创新实践延伸到商业视觉、AIGC 内容生产与动态交付。</p>
-          </div>
-          <div class="education-metrics" aria-label="教育成绩">
-            <div class="education-metric"><strong>3.72 / 4</strong><span>GPA</span></div>
-            <div class="education-metric"><strong>Top 5%</strong><span>专业排名</span></div>
-          </div>
-        </div>
-        <div class="education-courses">
-          <h3>主修课程</h3>
-          <div class="course-tags">
-            <span>视觉设计基础</span><span>艺术设计素养</span><span>艺术设计概论</span>
-            <span>设计表现实践</span><span>设计心理学</span><span>设计创新专题实践</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section advantages-section view-panel" id="advantages">
-      <img class="section-landscape-bg" src="jp-advantages-landscape.png" alt="" aria-hidden="true">
-      <div class="page-decor page-decor-advantages" aria-hidden="true">
-        <img src="jp-walker-cow-v2.png" alt="">
-        <span class="mini-sparkle"></span>
-      </div>
-      <img class="advantages-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
-      <div class="shell reveal">
-        <header class="advantages-heading">
-          <div>
-            <p class="advantages-kicker">WHAT I BRING</p>
-            <h2>我的优势</h2>
-          </div>
-        </header>
-
-        <div class="advantages-grid">
-          <article class="advantage-card">
-            <div class="advantage-card-head"><span>01</span><strong>INTERNET & BRAND</strong></div>
-            <div class="advantage-content">
-              <h3>1 年视觉设计经验＋互联网／品牌项目背景</h3>
-              <p>覆盖互联网、文旅出行、海外社交及跨境电商，擅长活动 H5、运营视觉、品牌 IP、详情页、Banner 及社媒物料。参与飞猪环游季 H5 项目，负责 IP 主视觉、权益展示与转化路径优化；在赫基结合 AIGC 完成电商主图、直播间 KV 及短视频，推动点击率与转化率提升。</p>
-            </div>
-            <div class="advantage-proof"><strong>+65%</strong><span>飞猪活动渗透率提升</span></div>
-          </article>
-
-          <article class="advantage-card">
-            <div class="advantage-card-head"><span>02</span><strong>AIGC & MOTION</strong></div>
-            <div class="advantage-content">
-              <h3>艺术设计科班＋AIGC 创意视频全流程能力</h3>
-              <p>具备手绘、插画、排版、IP 设计及动效基础，熟悉 Midjourney、Stable Diffusion、ComfyUI、即梦、可灵、Seedance 等工具。可完成创意策划、分镜拆解、AI 图片与视频生成、视觉精修、剪辑及动效包装。</p>
-            </div>
-            <div class="advantage-proof"><strong>8 条／日</strong><span>AI 视频单日最高交付</span></div>
-          </article>
-
-          <article class="advantage-card">
-            <div class="advantage-card-head"><span>03</span><strong>VIBE CODING</strong></div>
-            <div class="advantage-content">
-              <h3>Vibe Coding＋数字化落地能力</h3>
-              <p>能够借助 Codex 等 AI 编程工具，将设计方案转化为可访问、可交互的网页。已完成个人作品集网站的信息架构、页面视觉、移动端适配、域名配置及 Vercel 部署，并持续迭代优化。</p>
-            </div>
-            <div class="advantage-proof"><strong>FULL-LINK</strong><span>设计、开发、部署持续迭代</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section view-panel" id="experience">
-      <div class="page-decor page-decor-experience" aria-hidden="true">
-        <img src="jp-yellow-bird-v2.png" alt="">
-        <img src="jp-yellow-bird-v2.png" alt="">
-        <span class="mini-sparkle"></span>
-      </div>
-      <img class="experience-meadow" src="jp-meadow-experience.png" alt="" aria-hidden="true">
-      <div class="shell reveal">
-        <header class="experience-heading experience-heading-centered">
-          <h2>工作经历</h2>
-          <p>以公司与项目为线索，呈现视觉职责、互联网业务场景和可核对的交付结果。</p>
-        </header>
-
-        <div class="experience-showcase-list">
-          <article class="experience-showcase" data-experience-id="ramadan" style="--company-cover: url('experience-ramadan.png')">
-            <header class="experience-overview">
-              <h3>海外社交平台</h3>
-              <time datetime="2026-01">2026.01 — 2026.02</time>
-              <p class="experience-overview-role">视觉设计师 · 项目经历</p>
-              <p class="experience-overview-copy">围绕<strong>中东斋月增长活动</strong>，完成从节日视觉体系、<strong>活动 H5</strong>、权益信息层级到<strong>直播礼物动效</strong>的完整设计链路，以视觉交付支持用户分享与裂变转化。</p>
-              <div class="experience-tags"><span>斋月视觉体系</span><span>活动 H5</span><span>用户路径</span><span>直播礼物动效</span></div>
-            </header>
-            <div class="experience-project-divider"><span>项目经历</span></div>
-            <div class="experience-project-grid">
-              <button class="experience-project-card" type="button" data-experience-id="ramadan">
-                <span class="experience-project-image"><img src="experience-ramadan.png" alt="斋月活动 H5 视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>斋月活动 H5 与视觉体系</h4><p>以清真寺、弯月、灯笼和鎏金纹样构建统一节日视觉，设计效率提升 38.6%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="ramadan">
-                <span class="experience-project-image"><img src="experience-ramadan-detail.png" alt="斋月活动视觉元素拆解" loading="lazy"></span>
-                <span class="experience-project-body"><h4>权益信息与邀请路径</h4><p>重组新人券、邀请奖励和排行榜信息层级，支持裂变转化率提升 23.9%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="ramadan">
-                <span class="experience-project-image is-square"><img src="experience-ramadan-poster.png" alt="斋月节日氛围视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>直播礼物动效与节日氛围</h4><p>延展星月、金币和粒子光效，设计礼物入场、爆点与落版反馈。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-            </div>
-          </article>
-
-          <article class="experience-showcase" data-experience-id="fliggy" style="--company-cover: url('experience-fliggy.png')">
-            <header class="experience-overview">
-              <h3>飞猪旅行科技（杭州）有限公司</h3>
-              <time datetime="2025-01">2025.01 — 2025.04</time>
-              <p class="experience-overview-role">视觉设计实习生 · 互联网平台文旅业务</p>
-              <p class="experience-overview-copy">参与飞猪<strong>互联网平台活动视觉</strong>，围绕<strong>平台 IP、用户路径</strong>、权益信息和多端运营内容完成 <strong>H5</strong> 与配套素材交付，让视觉表达直接服务活动理解与转化。</p>
-              <div class="experience-tags"><span>互联网平台活动</span><span>飞猪 IP</span><span>AIGC 主视觉</span><span>运营视觉</span></div>
-            </header>
-            <div class="experience-project-divider"><span>项目经历</span></div>
-            <div class="experience-project-grid">
-              <button class="experience-project-card" type="button" data-experience-id="fliggy">
-                <span class="experience-project-image"><img src="experience-fliggy.png" alt="飞猪平台活动主视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>平台活动主视觉与 IP 表达</h4><p>以 AIGC 支持飞猪 IP 与夏日旅行场景，活动渗透率提升 65%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="fliggy">
-                <span class="experience-project-image is-square"><img src="experience-fliggy-square.png" alt="飞猪环游季运营视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>用户路径与权益信息设计</h4><p>梳理活动流程、目的地推荐与券权益信息，支付转化率提升 45%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="fliggy">
-                <span class="experience-project-image"><img src="experience-fliggy.png" alt="飞猪活动多端运营物料" loading="lazy"></span>
-                <span class="experience-project-body"><h4>H5 与多端运营内容交付</h4><p>统一品牌色、IP 和旅行场景规范，支持实际成交金额提升 48%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-            </div>
-          </article>
-
-          <article class="experience-showcase" data-experience-id="haki" style="--company-cover: url('experience-haki.png')">
-            <header class="experience-overview">
-              <h3>赫基（中国）集团股份有限公司</h3>
-              <time datetime="2025-11">2025.11 — 2026.05</time>
-              <p class="experience-overview-role">AI 视觉设计实习生 · 服装品牌内容</p>
-              <p class="experience-overview-copy">面向服装电商、社媒与市场活动，结合多种 <strong>AIGC 工具</strong>完成<strong>批量图像、视觉精修</strong>、镜头动态化和<strong>短视频交付</strong>，并延展至主图、Banner 与线下灯箱画。</p>
-              <div class="experience-tags"><span>AI 图像生成</span><span>视觉精修</span><span>短视频动态化</span><span>批量商业交付</span></div>
-            </header>
-            <div class="experience-project-divider"><span>项目经历</span></div>
-            <div class="experience-project-grid">
-              <button class="experience-project-card" type="button" data-experience-id="haki">
-                <span class="experience-project-image is-square"><img src="experience-haki.png" alt="服装品牌 AI 视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>服装品牌 AI 内容生产</h4><p>日均输出 40+ 张图片，覆盖主图、社媒、Banner 和营销物料。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="haki">
-                <span class="experience-project-image"><img src="experience-haki-product.png" alt="品牌产品 AI 场景视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>产品场景与商业画面延展</h4><p>结合 AI 生成与精修完成系列化场景，延展至电商与线下传播。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-              <button class="experience-project-card" type="button" data-experience-id="haki">
-                <span class="experience-project-image"><img src="experience-haki-concept.png" alt="AI 创意概念视觉" loading="lazy"></span>
-                <span class="experience-project-body"><h4>AI 创意概念与动态测试</h4><p>完成镜头动态化和视频测试，单系列交付 3–5 条 AI 短视频。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
-              </button>
-            </div>
-          </article>
-        </div>
-        <img class="experience-walker" src="jp-walker-cow-v2.png" alt="" aria-hidden="true">
-      </div>
-    </section>
-
-    <section class="section view-panel" id="works">
-      <div class="page-decor page-decor-works" aria-hidden="true">
-        <img src="jp-yellow-bird-v2.png" alt="">
-        <img src="jp-yellow-bird-v2.png" alt="">
-        <span class="mini-sparkle"></span>
-        <span class="works-dot-cluster"></span>
-      </div>
-      <img class="works-botanical-overlay" src="about-botanical-overlay.png" alt="" aria-hidden="true">
-      <div class="shell reveal">
-        <header class="works-heading">
-          <h2>我的作品</h2>
-          <p>两类内容分别浏览：视觉类作品保留完整项目过程与静态呈现，AI 视频及动效类作品集中展示动态表达与镜头实验。</p>
-        </header>
-
-        <div class="work-entry-grid">
-          <a class="work-entry-card" href="程志雯-视觉作品集.pdf" target="_blank" rel="noopener">
-            <span class="work-entry-media"><img src="frame-70.png" alt="程志雯视觉作品集封面" loading="lazy"></span>
-            <span class="work-entry-body">
-              <span class="work-entry-type">VISUAL DESIGN · PDF / 31 PAGES</span>
-              <h3>视觉类作品</h3>
-              <p>活动 H5、平台运营视觉、品牌内容、AIGC 商业图像与项目过程整理。</p>
-              <span class="work-entry-arrow" aria-hidden="true">↗</span>
-            </span>
-          </a>
-
-          <a class="work-entry-card" href="portfolio.html">
-            <span class="work-entry-media">
-              <img src="ai-motion-cover.gif" alt="AI 视频及动效作品动态封面" loading="lazy">
-              <video id="work-video" hidden muted playsinline preload="none" aria-hidden="true"></video>
-            </span>
-            <span class="work-entry-body">
-              <span class="work-entry-type">AI VIDEO · MOTION / SHOWREEL</span>
-              <h3>AI 视频及动效类作品</h3>
-              <p>AI 短视频、镜头动态化、剪辑包装与直播礼物入场、粒子及节奏动效。</p>
-              <span class="work-entry-arrow" aria-hidden="true">↗</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <div class="match-modal" id="match-modal" hidden>
-    <button class="modal-backdrop" type="button" data-modal-close aria-label="关闭匹配报告"></button>
-    <section class="match-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <header class="modal-head">
-        <h2 class="modal-grade" id="modal-title">综合等级 <span id="result-title">匹配</span></h2>
-      </header>
-
-      <div class="result-loading" id="result-loading" hidden aria-live="polite">
-        <div class="loading-inner">
-          <div class="scanner" aria-hidden="true"></div>
-          <h3 class="loading-title">正在对齐经历与岗位</h3>
-          <p class="loading-copy" id="loading-copy">读取职位关键词与职责边界…</p>
-        </div>
-      </div>
-
-      <article class="result-card" id="result-card" hidden>
-        <section class="report-matrix">
-          <div class="total-score" id="total-score">
-            <div class="score-content">
-              <strong class="score-number" id="score-number">0</strong>
-              <span class="score-unit">综合分 / 100</span>
-            </div>
-          </div>
-          <div>
-            <h3 class="report-matrix-title">匹配矩阵</h3>
-            <div class="dimension-list" id="dimension-list"></div>
-          </div>
-        </section>
-
-        <div class="report-bottom">
-          <section class="report-block">
-            <h3 class="result-section-title" id="highlight-section-title">匹配亮点</h3>
-            <ol class="highlight-list" id="highlight-list"></ol>
-          </section>
-          <section class="report-block">
-            <h3 class="result-section-title">匹配总结</h3>
-            <p class="result-summary" id="result-summary"></p>
-          </section>
-        </div>
-
-        <footer class="result-footer">
-          <button class="result-close" id="modal-close" type="button" data-modal-close>关闭</button>
-        </footer>
-      </article>
-    </section>
-  </div>
-
-  <div class="experience-modal" id="experience-modal" hidden>
-    <button class="experience-backdrop" type="button" data-experience-close aria-label="关闭工作经历详情"></button>
-    <section class="experience-dialog" role="dialog" aria-modal="true" aria-labelledby="experience-detail-title">
-      <header class="experience-dialog-head">
-        <div>
-          <p class="experience-detail-kicker" id="experience-detail-kicker">工作经历</p>
-          <h2 id="experience-detail-title">经历详情</h2>
-          <p class="experience-detail-meta" id="experience-detail-meta"></p>
-        </div>
-      </header>
-
-      <section class="experience-detail-section">
-        <div class="experience-detail-title">
-          <h3>核心职责</h3>
-          <p>Core Responsibilities</p>
-        </div>
-        <div class="experience-duty-grid" id="experience-duty-list"></div>
-      </section>
-
-      <section class="experience-detail-section">
-        <div class="experience-detail-title">
-          <h3>核心成果</h3>
-          <p>Core Results</p>
-        </div>
-        <div class="experience-result-grid" id="experience-result-list"></div>
-      </section>
-
-      <footer class="experience-detail-footer">
-        <button class="experience-close" id="experience-close" type="button" data-experience-close>关闭</button>
-      </footer>
-    </section>
-  </div>
-
-  <footer class="contact-band view-panel" id="contact">
-    <div class="shell contact-layout reveal">
-      <div>
-        <h2 class="contact-title">联系我</h2>
-        <p class="contact-copy">如果你想进一步了解我的项目、作品或岗位匹配情况，可以通过以下方式直接联系我。</p>
-      </div>
-      <div class="contact-methods" aria-label="程志雯的联系方式">
-        <button class="contact-method contact-copy-button" type="button" data-value="13250562590">
-          <span class="contact-method-label">电话</span>
-          <strong>132 5056 2590</strong>
-          <span class="contact-method-action">复制</span>
-        </button>
-        <button class="contact-method contact-copy-button" type="button" data-value="517406858@qq.com">
-          <span class="contact-method-label">邮箱</span>
-          <strong>517406858@qq.com</strong>
-          <span class="contact-method-action">复制</span>
-        </button>
-        <button class="contact-method contact-copy-button" type="button" data-value="Qerbulai">
-          <span class="contact-method-label">微信</span>
-          <strong>Qerbulai</strong>
-          <span class="contact-method-action">复制</span>
-        </button>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<div class="quick-match-row">
+<div class="quick-input-wrap">
+<span aria-hidden="true" class="search-mark"></span>
+<textarea class="jd-input" id="jd-input" maxlength="8000" name="jd" placeholder="粘贴岗位 JD，查看我与岗位之间的匹配度" required="" rows="1" spellcheck="false"></textarea>
+</div>
+<button class="match-button" id="match-button" type="submit">✦  开始匹配  →</button>
+</div>
+<div class="input-meta">
+<button class="text-action" id="sample-button" type="button">填入示例 JD</button>
+<span><span id="char-count">0</span> / 8000</span>
+</div>
+<p aria-live="polite" class="form-error" id="form-error" role="alert"></p>
+</form>
+</div>
+</div>
+<aside aria-label="程志雯个人照片" class="portrait-stage">
+<img alt="" aria-hidden="true" class="portrait-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
+<img alt="程志雯个人照片" class="portrait-photo" decoding="async" fetchpriority="low" loading="lazy" src="profile-photo-hand-complete.png"/>
+<div aria-hidden="true" class="portrait-decoration">
+<span class="deco-star deco-star-one">✦</span>
+<span class="deco-star deco-star-two">✦</span>
+<span class="deco-burst"></span>
+<span class="deco-dots"></span>
+</div>
+<div aria-label="性格特征" class="portrait-tags">
+<span>阳光开朗</span>
+<span>喜欢画画</span>
+<span>执行力强</span>
+<span>喜欢探索</span>
+</div>
+<div class="portrait-label">
+<span>视觉设计 / AIGC</span>
+<span>2026</span>
+</div>
+</aside>
+</div>
+</section>
+<section aria-label="履历概览" class="stats-band">
+<div class="shell stats-grid">
+<div class="stat"><strong>1 年</strong><span>视觉设计与 AIGC 项目经验</span></div>
+<div class="stat"><strong>40+</strong><span>单日 AI 图片交付记录</span></div>
+<div class="stat"><strong>Full-Link</strong><span>创意、生成、精修、动态完整流程</span></div>
+<div class="stat"><strong>3 类</strong><span>文旅、服装电商、海外社交场景</span></div>
+</div>
+</section>
+<section class="section education-section view-panel" id="education">
+<img alt="" aria-hidden="true" class="section-landscape-bg" decoding="async" fetchpriority="low" loading="lazy" src="jp-education-landscape.png"/>
+<div aria-hidden="true" class="page-decor page-decor-education">
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<span class="mini-sparkle"></span>
+</div>
+<div class="shell reveal">
+<header class="education-heading">
+<div>
+<h2>教育背景</h2>
+</div>
+<span>从艺术设计的系统训练出发，持续把审美、方法与新工具带进真实商业项目。</span>
+</header>
+<div class="education-showcase">
+<div class="education-school">
+<p class="education-kicker">2022 — 2026</p>
+<h3>武汉工程大学</h3>
+<p class="education-degree">艺术设计 · 本科</p>
+<p class="education-summary">以系统的视觉设计与艺术设计训练为基础，将设计理论、表现方法和创新实践延伸到商业视觉、AIGC 内容生产与动态交付。</p>
+</div>
+<div aria-label="教育成绩" class="education-metrics">
+<div class="education-metric"><strong>3.72 / 4</strong><span>GPA</span></div>
+<div class="education-metric"><strong>Top 5%</strong><span>专业排名</span></div>
+</div>
+</div>
+<div class="education-courses">
+<h3>主修课程</h3>
+<div class="course-tags">
+<span>视觉设计基础</span><span>艺术设计素养</span><span>艺术设计概论</span>
+<span>设计表现实践</span><span>设计心理学</span><span>设计创新专题实践</span>
+</div>
+</div>
+</div>
+</section>
+<section class="section advantages-section view-panel" id="advantages">
+<img alt="" aria-hidden="true" class="section-landscape-bg" decoding="async" fetchpriority="low" loading="lazy" src="jp-advantages-landscape.png"/>
+<div aria-hidden="true" class="page-decor page-decor-advantages">
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-walker-cow-v2.png"/>
+<span class="mini-sparkle"></span>
+</div>
+<img alt="" aria-hidden="true" class="advantages-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
+<div class="shell reveal">
+<header class="advantages-heading">
+<div>
+<p class="advantages-kicker">WHAT I BRING</p>
+<h2>我的优势</h2>
+</div>
+</header>
+<div class="advantages-grid">
+<article class="advantage-card">
+<div class="advantage-card-head"><span>01</span><strong>INTERNET &amp; BRAND</strong></div>
+<div class="advantage-content">
+<h3>1 年视觉设计经验＋互联网／品牌项目背景</h3>
+<p>覆盖互联网、文旅出行、海外社交及跨境电商，擅长活动 H5、运营视觉、品牌 IP、详情页、Banner 及社媒物料。参与飞猪环游季 H5 项目，负责 IP 主视觉、权益展示与转化路径优化；在赫基结合 AIGC 完成电商主图、直播间 KV 及短视频，推动点击率与转化率提升。</p>
+</div>
+<div class="advantage-proof"><strong>+65%</strong><span>飞猪活动渗透率提升</span></div>
+</article>
+<article class="advantage-card">
+<div class="advantage-card-head"><span>02</span><strong>AIGC &amp; MOTION</strong></div>
+<div class="advantage-content">
+<h3>艺术设计科班＋AIGC 创意视频全流程能力</h3>
+<p>具备手绘、插画、排版、IP 设计及动效基础，熟悉 Midjourney、Stable Diffusion、ComfyUI、即梦、可灵、Seedance 等工具。可完成创意策划、分镜拆解、AI 图片与视频生成、视觉精修、剪辑及动效包装。</p>
+</div>
+<div class="advantage-proof"><strong>8 条／日</strong><span>AI 视频单日最高交付</span></div>
+</article>
+<article class="advantage-card">
+<div class="advantage-card-head"><span>03</span><strong>VIBE CODING</strong></div>
+<div class="advantage-content">
+<h3>Vibe Coding＋数字化落地能力</h3>
+<p>能够借助 Codex 等 AI 编程工具，将设计方案转化为可访问、可交互的网页。已完成个人作品集网站的信息架构、页面视觉、移动端适配、域名配置及 Vercel 部署，并持续迭代优化。</p>
+</div>
+<div class="advantage-proof"><strong>FULL-LINK</strong><span>设计、开发、部署持续迭代</span></div>
+</article>
+</div>
+</div>
+</section>
+<section class="section view-panel" id="experience">
+<div aria-hidden="true" class="page-decor page-decor-experience">
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<span class="mini-sparkle"></span>
+</div>
+<img alt="" aria-hidden="true" class="experience-meadow" decoding="async" fetchpriority="low" loading="lazy" src="jp-meadow-experience.png"/>
+<div class="shell reveal">
+<header class="experience-heading experience-heading-centered">
+<h2>工作经历</h2>
+<p>以公司与项目为线索，呈现视觉职责、互联网业务场景和可核对的交付结果。</p>
+</header>
+<div class="experience-showcase-list">
+<article class="experience-showcase" data-experience-id="ramadan" style="--company-cover: url('experience-ramadan.png')">
+<header class="experience-overview">
+<h3>海外社交平台</h3>
+<time datetime="2026-01">2026.01 — 2026.02</time>
+<p class="experience-overview-role">视觉设计师 · 项目经历</p>
+<p class="experience-overview-copy">围绕<strong>中东斋月增长活动</strong>，完成从节日视觉体系、<strong>活动 H5</strong>、权益信息层级到<strong>直播礼物动效</strong>的完整设计链路，以视觉交付支持用户分享与裂变转化。</p>
+<div class="experience-tags"><span>斋月视觉体系</span><span>活动 H5</span><span>用户路径</span><span>直播礼物动效</span></div>
+</header>
+<div class="experience-project-divider"><span>项目经历</span></div>
+<div class="experience-project-grid">
+<button class="experience-project-card" data-experience-id="ramadan" type="button">
+<span class="experience-project-image"><img alt="斋月活动 H5 视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-ramadan.png"/></span>
+<span class="experience-project-body"><h4>斋月活动 H5 与视觉体系</h4><p>以清真寺、弯月、灯笼和鎏金纹样构建统一节日视觉，设计效率提升 38.6%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="ramadan" type="button">
+<span class="experience-project-image"><img alt="斋月活动视觉元素拆解" decoding="async" fetchpriority="low" loading="lazy" src="experience-ramadan-detail.png"/></span>
+<span class="experience-project-body"><h4>权益信息与邀请路径</h4><p>重组新人券、邀请奖励和排行榜信息层级，支持裂变转化率提升 23.9%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="ramadan" type="button">
+<span class="experience-project-image is-square"><img alt="斋月节日氛围视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-ramadan-poster.png"/></span>
+<span class="experience-project-body"><h4>直播礼物动效与节日氛围</h4><p>延展星月、金币和粒子光效，设计礼物入场、爆点与落版反馈。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+</div>
+</article>
+<article class="experience-showcase" data-experience-id="fliggy" style="--company-cover: url('experience-fliggy.png')">
+<header class="experience-overview">
+<h3>飞猪旅行科技（杭州）有限公司</h3>
+<time datetime="2025-01">2025.01 — 2025.04</time>
+<p class="experience-overview-role">视觉设计实习生 · 互联网平台文旅业务</p>
+<p class="experience-overview-copy">参与飞猪<strong>互联网平台活动视觉</strong>，围绕<strong>平台 IP、用户路径</strong>、权益信息和多端运营内容完成 <strong>H5</strong> 与配套素材交付，让视觉表达直接服务活动理解与转化。</p>
+<div class="experience-tags"><span>互联网平台活动</span><span>飞猪 IP</span><span>AIGC 主视觉</span><span>运营视觉</span></div>
+</header>
+<div class="experience-project-divider"><span>项目经历</span></div>
+<div class="experience-project-grid">
+<button class="experience-project-card" data-experience-id="fliggy" type="button">
+<span class="experience-project-image"><img alt="飞猪平台活动主视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-fliggy.png"/></span>
+<span class="experience-project-body"><h4>平台活动主视觉与 IP 表达</h4><p>以 AIGC 支持飞猪 IP 与夏日旅行场景，活动渗透率提升 65%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="fliggy" type="button">
+<span class="experience-project-image is-square"><img alt="飞猪环游季运营视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-fliggy-square.png"/></span>
+<span class="experience-project-body"><h4>用户路径与权益信息设计</h4><p>梳理活动流程、目的地推荐与券权益信息，支付转化率提升 45%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="fliggy" type="button">
+<span class="experience-project-image"><img alt="飞猪活动多端运营物料" decoding="async" fetchpriority="low" loading="lazy" src="experience-fliggy.png"/></span>
+<span class="experience-project-body"><h4>H5 与多端运营内容交付</h4><p>统一品牌色、IP 和旅行场景规范，支持实际成交金额提升 48%。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+</div>
+</article>
+<article class="experience-showcase" data-experience-id="haki" style="--company-cover: url('experience-haki.png')">
+<header class="experience-overview">
+<h3>赫基（中国）集团股份有限公司</h3>
+<time datetime="2025-11">2025.11 — 2026.05</time>
+<p class="experience-overview-role">AI 视觉设计实习生 · 服装品牌内容</p>
+<p class="experience-overview-copy">面向服装电商、社媒与市场活动，结合多种 <strong>AIGC 工具</strong>完成<strong>批量图像、视觉精修</strong>、镜头动态化和<strong>短视频交付</strong>，并延展至主图、Banner 与线下灯箱画。</p>
+<div class="experience-tags"><span>AI 图像生成</span><span>视觉精修</span><span>短视频动态化</span><span>批量商业交付</span></div>
+</header>
+<div class="experience-project-divider"><span>项目经历</span></div>
+<div class="experience-project-grid">
+<button class="experience-project-card" data-experience-id="haki" type="button">
+<span class="experience-project-image is-square"><img alt="服装品牌 AI 视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-haki.png"/></span>
+<span class="experience-project-body"><h4>服装品牌 AI 内容生产</h4><p>日均输出 40+ 张图片，覆盖主图、社媒、Banner 和营销物料。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="haki" type="button">
+<span class="experience-project-image"><img alt="品牌产品 AI 场景视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-haki-product.png"/></span>
+<span class="experience-project-body"><h4>产品场景与商业画面延展</h4><p>结合 AI 生成与精修完成系列化场景，延展至电商与线下传播。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+<button class="experience-project-card" data-experience-id="haki" type="button">
+<span class="experience-project-image"><img alt="AI 创意概念视觉" decoding="async" fetchpriority="low" loading="lazy" src="experience-haki-concept.png"/></span>
+<span class="experience-project-body"><h4>AI 创意概念与动态测试</h4><p>完成镜头动态化和视频测试，单系列交付 3–5 条 AI 短视频。</p><span class="experience-project-link">查看详情 <span>↗</span></span></span>
+</button>
+</div>
+</article>
+</div>
+<img alt="" aria-hidden="true" class="experience-walker" decoding="async" fetchpriority="low" loading="lazy" src="jp-walker-cow-v2.png"/>
+</div>
+</section>
+<section class="section view-panel" id="works">
+<div aria-hidden="true" class="page-decor page-decor-works">
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<span class="mini-sparkle"></span>
+<span class="works-dot-cluster"></span>
+</div>
+<img alt="" aria-hidden="true" class="works-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
+<div class="shell reveal">
+<header class="works-heading">
+<h2>我的作品</h2>
+<p>两类内容分别浏览：视觉类作品保留完整项目过程与静态呈现，AI 视频及动效类作品集中展示动态表达与镜头实验。</p>
+</header>
+<div class="work-entry-grid">
+<a class="work-entry-card" href="程志雯-视觉作品集.pdf" rel="noopener" target="_blank">
+<span class="work-entry-media"><img alt="程志雯视觉作品集封面" decoding="async" fetchpriority="low" loading="lazy" src="frame-70.png"/></span>
+<span class="work-entry-body">
+<span class="work-entry-type">VISUAL DESIGN · PDF / 31 PAGES</span>
+<h3>视觉类作品</h3>
+<p>活动 H5、平台运营视觉、品牌内容、AIGC 商业图像与项目过程整理。</p>
+<span aria-hidden="true" class="work-entry-arrow">↗</span>
+</span>
+</a>
+<a class="work-entry-card" href="portfolio.html">
+<span class="work-entry-media">
+<img alt="AI 视频及动效作品动态封面" decoding="async" fetchpriority="low" loading="lazy" src="ai-motion-cover.gif"/>
+<video aria-hidden="true" hidden="" id="work-video" muted="" playsinline="" preload="none"></video>
+</span>
+<span class="work-entry-body">
+<span class="work-entry-type">AI VIDEO · MOTION / SHOWREEL</span>
+<h3>AI 视频及动效类作品</h3>
+<p>AI 短视频、镜头动态化、剪辑包装与直播礼物入场、粒子及节奏动效。</p>
+<span aria-hidden="true" class="work-entry-arrow">↗</span>
+</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<div class="match-modal" hidden="" id="match-modal">
+<button aria-label="关闭匹配报告" class="modal-backdrop" data-modal-close="" type="button"></button>
+<section aria-labelledby="modal-title" aria-modal="true" class="match-dialog" role="dialog">
+<header class="modal-head">
+<h2 class="modal-grade" id="modal-title">综合等级 <span id="result-title">匹配</span></h2>
+</header>
+<div aria-live="polite" class="result-loading" hidden="" id="result-loading">
+<div class="loading-inner">
+<div aria-hidden="true" class="scanner"></div>
+<h3 class="loading-title">正在对齐经历与岗位</h3>
+<p class="loading-copy" id="loading-copy">读取职位关键词与职责边界…</p>
+</div>
+</div>
+<article class="result-card" hidden="" id="result-card">
+<section class="report-matrix">
+<div class="total-score" id="total-score">
+<div class="score-content">
+<strong class="score-number" id="score-number">0</strong>
+<span class="score-unit">综合分 / 100</span>
+</div>
+</div>
+<div>
+<h3 class="report-matrix-title">匹配矩阵</h3>
+<div class="dimension-list" id="dimension-list"></div>
+</div>
+</section>
+<div class="report-bottom">
+<section class="report-block">
+<h3 class="result-section-title" id="highlight-section-title">匹配亮点</h3>
+<ol class="highlight-list" id="highlight-list"></ol>
+</section>
+<section class="report-block">
+<h3 class="result-section-title">匹配总结</h3>
+<p class="result-summary" id="result-summary"></p>
+</section>
+</div>
+<footer class="result-footer">
+<button class="result-close" data-modal-close="" id="modal-close" type="button">关闭</button>
+</footer>
+</article>
+</section>
+</div>
+<div class="experience-modal" hidden="" id="experience-modal">
+<button aria-label="关闭工作经历详情" class="experience-backdrop" data-experience-close="" type="button"></button>
+<section aria-labelledby="experience-detail-title" aria-modal="true" class="experience-dialog" role="dialog">
+<header class="experience-dialog-head">
+<div>
+<p class="experience-detail-kicker" id="experience-detail-kicker">工作经历</p>
+<h2 id="experience-detail-title">经历详情</h2>
+<p class="experience-detail-meta" id="experience-detail-meta"></p>
+</div>
+</header>
+<section class="experience-detail-section">
+<div class="experience-detail-title">
+<h3>核心职责</h3>
+<p>Core Responsibilities</p>
+</div>
+<div class="experience-duty-grid" id="experience-duty-list"></div>
+</section>
+<section class="experience-detail-section">
+<div class="experience-detail-title">
+<h3>核心成果</h3>
+<p>Core Results</p>
+</div>
+<div class="experience-result-grid" id="experience-result-list"></div>
+</section>
+<footer class="experience-detail-footer">
+<button class="experience-close" data-experience-close="" id="experience-close" type="button">关闭</button>
+</footer>
+</section>
+</div>
+<footer class="contact-band view-panel" id="contact">
+<div class="shell contact-layout reveal">
+<div>
+<h2 class="contact-title">联系我</h2>
+<p class="contact-copy">如果你想进一步了解我的项目、作品或岗位匹配情况，可以通过以下方式直接联系我。</p>
+</div>
+<div aria-label="程志雯的联系方式" class="contact-methods">
+<button class="contact-method contact-copy-button" data-value="13250562590" type="button">
+<span class="contact-method-label">电话</span>
+<strong>132 5056 2590</strong>
+<span class="contact-method-action">复制</span>
+</button>
+<button class="contact-method contact-copy-button" data-value="517406858@qq.com" type="button">
+<span class="contact-method-label">邮箱</span>
+<strong>517406858@qq.com</strong>
+<span class="contact-method-action">复制</span>
+</button>
+<button class="contact-method contact-copy-button" data-value="Qerbulai" type="button">
+<span class="contact-method-label">微信</span>
+<strong>Qerbulai</strong>
+<span class="contact-method-action">复制</span>
+</button>
+</div>
+</div>
+</footer>
+<script>
     const menuButton = document.querySelector("#menu-button");
     const siteNav = document.querySelector("#site-nav");
     const workVideo = document.querySelector("#work-video");
@@ -7456,9 +7436,7 @@
     updateCount();
     setState("idle");
   </script>
-
-
-    <script>
+<script>
     (() => {
       const heroSelectors = [
         ".brand",
@@ -7583,8 +7561,7 @@
       }
     })();
   </script>
-
-  <script>
+<script>
     (() => {
       const introScreen = document.querySelector("#intro-screen");
       const introVideo = document.querySelector("#intro-video");
@@ -7593,6 +7570,13 @@
       const backgroundMusic = document.querySelector("#background-music");
 
       if (!introScreen || !introVideo) return;
+
+      const markVideoReady = () => {
+        introScreen.classList.add("is-video-ready");
+      };
+
+      introVideo.addEventListener("loadeddata", markVideoReady, { once: true });
+      introVideo.addEventListener("playing", markVideoReady, { once: true });
 
       let hasFinished = false;
       let userEnabledSound = false;
@@ -7621,16 +7605,14 @@
         document.body.classList.remove("intro-active");
         document.body.classList.add("intro-reveal");
 
-        window.setTimeout(() => {
-          window.startPortfolioStaggerReveal?.();
-        }, 160);
+        window.startPortfolioStaggerReveal?.();
 
         await startBackgroundMusic();
 
         window.setTimeout(() => {
           introVideo.pause();
           introScreen.remove();
-        }, 950);
+        }, 560);
       };
 
       const tryPlayIntro = async () => {
@@ -7670,10 +7652,9 @@
         tryPlayIntro();
       }
 
-      // 视频约 5 秒，若浏览器没有触发 ended，8 秒后自动进入网站。
-      window.setTimeout(finishIntro, 8000);
+      // 网络或解码异常时，避免长时间停留在开场页面。
+      window.setTimeout(finishIntro, 6800);
     })();
   </script>
-
 </body>
 </html>
