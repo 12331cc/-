@@ -6356,7 +6356,6 @@
     </style>
 <link as="image" fetchpriority="high" href="profile-photo-hand-complete.png" rel="preload"/></head>
 <body>
-
 <span aria-hidden="true" class="jp-cursor-guide"></span>
 <span aria-hidden="true" class="jp-cursor-leaf"></span>
 <audio id="background-music" loop="" preload="none" src="background-music.mp3"></audio>
@@ -6385,8 +6384,8 @@
 <span class="jp-cloud jp-cloud-two"></span>
 <span class="jp-mountain jp-mountain-far"></span>
 <span class="jp-mountain jp-mountain-near"></span>
-<img alt="" class="jp-bird jp-bird-one" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
-<img alt="" class="jp-bird jp-bird-two" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" class="jp-bird jp-bird-one" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
+<img alt="" class="jp-bird jp-bird-two" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
 <div class="jp-scenery-wave">
 <svg aria-hidden="true" preserveaspectratio="none" viewbox="0 0 1440 132">
 <path d="M0 38C116 83 232 7 365 40C510 77 625 6 770 42C914 80 1023 5 1164 40C1288 72 1377 58 1440 34V132H0Z"></path>
@@ -6459,7 +6458,7 @@
 <section class="section education-section view-panel" id="education">
 <img alt="" aria-hidden="true" class="section-landscape-bg" decoding="async" fetchpriority="low" loading="lazy" src="jp-education-landscape.png"/>
 <div aria-hidden="true" class="page-decor page-decor-education">
-<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
 <span class="mini-sparkle"></span>
 </div>
 <div class="shell reveal">
@@ -6534,8 +6533,8 @@
 </section>
 <section class="section view-panel" id="experience">
 <div aria-hidden="true" class="page-decor page-decor-experience">
-<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
-<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
 <span class="mini-sparkle"></span>
 </div>
 <img alt="" aria-hidden="true" class="experience-meadow" decoding="async" fetchpriority="low" loading="lazy" src="jp-meadow-experience.png"/>
@@ -6623,8 +6622,8 @@
 </section>
 <section class="section view-panel" id="works">
 <div aria-hidden="true" class="page-decor page-decor-works">
-<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
-<img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
+<img alt="" decoding="async" fetchpriority="low" loading="eager" src="jp-yellow-bird-v2.png"/>
 <span class="mini-sparkle"></span>
 <span class="works-dot-cluster"></span>
 </div>
@@ -7519,6 +7518,78 @@
       }
     })();
   </script>
+<script>
+(() => {
+  const backgroundAssets = ["jp-education-landscape.png", "jp-advantages-landscape.png", "jp-walker-cow-v2.png", "jp-meadow-experience.png", "experience-ramadan.png", "experience-ramadan-detail.png", "experience-ramadan-poster.png", "experience-fliggy.png", "experience-fliggy-square.png", "experience-haki.png", "experience-haki-product.png", "experience-haki-concept.png", "frame-70.png", "ai-motion-cover.gif", "jp-mountain-hero.png"];
+  const sectionAssets = {"education": ["jp-education-landscape.png"], "advantages": ["jp-advantages-landscape.png", "jp-walker-cow-v2.png"], "experience": ["jp-meadow-experience.png", "experience-ramadan.png", "experience-ramadan-detail.png", "experience-ramadan-poster.png", "experience-fliggy.png", "experience-fliggy-square.png", "experience-haki.png", "experience-haki-product.png", "experience-haki-concept.png", "jp-walker-cow-v2.png"], "works": ["frame-70.png", "ai-motion-cover.gif"], "__other__": ["jp-mountain-hero.png"]};
 
-</body>
+  const loaded = new Set();
+  const queue = [];
+
+  const preloadOne = (src) => new Promise((resolve) => {
+    if (!src || loaded.has(src)) return resolve();
+    loaded.add(src);
+
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = resolve;
+    image.onerror = resolve;
+    image.src = src;
+
+    if (typeof image.decode === "function") {
+      image.decode().then(resolve).catch(() => {});
+    }
+  });
+
+  const pushUnique = (assets, front = false) => {
+    const fresh = assets.filter((src) => src && !loaded.has(src) && !queue.includes(src));
+    if (front) queue.unshift(...fresh);
+    else queue.push(...fresh);
+  };
+
+  let running = false;
+  const runBatch = async () => {
+    if (running || !queue.length) return;
+    running = true;
+
+    const batch = queue.splice(0, 2);
+    await Promise.all(batch.map(preloadOne));
+
+    running = false;
+    if (queue.length) {
+      window.setTimeout(scheduleBatch, 180);
+    }
+  };
+
+  const scheduleBatch = () => {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(runBatch, { timeout: 1200 });
+    } else {
+      window.setTimeout(runBatch, 80);
+    }
+  };
+
+  const prioritizeSection = (hash) => {
+    const id = String(hash || "").replace(/^#/, "");
+    const assets = sectionAssets[id];
+    if (!assets?.length) return;
+    pushUnique(assets, true);
+    scheduleBatch();
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    const trigger = () => prioritizeSection(link.getAttribute("href"));
+    link.addEventListener("pointerenter", trigger, { passive: true });
+    link.addEventListener("focus", trigger, { passive: true });
+    link.addEventListener("touchstart", trigger, { passive: true, once: true });
+  });
+
+  window.addEventListener("load", () => {
+    window.setTimeout(() => {
+      pushUnique(backgroundAssets);
+      scheduleBatch();
+    }, 450);
+  }, { once: true });
+})();
+</script></body>
 </html>
