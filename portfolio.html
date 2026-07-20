@@ -2999,12 +2999,12 @@
     </div>
     <video
       class="hero-video"
-      data-local-src="hero-video.mp4"
-      data-remote-src="https://github.com/12331cc/-/releases/download/v1/hero-video.mp4"
       loop
       playsinline
       preload="metadata"
-    ></video>
+    >
+      <source src="./hero-video.mp4" type="video/mp4">
+    </video>
     <div class="video-status" hidden></div>
     <button class="mobile-play bunny-mark" type="button" aria-label="播放视频">
       <img class="sprite-img sprite-open" src="sprite-base.png" alt="">
@@ -3187,10 +3187,11 @@
     }, 3600);
 
     function setVideoSource() {
-      const isLocalPreview = window.location.protocol === "file:" ||
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1";
-      video.src = isLocalPreview ? video.dataset.localSrc : video.dataset.remoteSrc;
+      const source = video.querySelector("source");
+      if (!source) {
+        video.src = "./hero-video.mp4";
+      }
+      video.load();
     }
 
     function formatTime(value) {
