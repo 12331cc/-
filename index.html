@@ -101,7 +101,7 @@
       border-radius: 0;
       background: rgba(255, 255, 255, 0.92);
       box-shadow: none;
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(8px);
     }
 
     .brand {
@@ -205,7 +205,7 @@
       z-index: -2;
       inset: 0;
       background: rgba(248, 249, 251, 0.64);
-      backdrop-filter: blur(2px);
+      backdrop-filter: none;
     }
 
     .hero-wash::before {
@@ -4315,7 +4315,7 @@
       border-color: rgba(255, 255, 255, 0.76);
       background: rgba(255, 253, 248, 0.88);
       box-shadow: 0 16px 38px rgba(55, 91, 90, 0.1);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(8px);
     }
 
     .brand {
@@ -6268,14 +6268,13 @@
     .portfolio-stagger-item,
     .portfolio-stagger-tag {
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(18px) scale(0.985);
-      will-change: opacity, transform, filter;
+      transform: translateY(14px) scale(0.99);
+      will-change: opacity, transform;
     }
 
     .portfolio-stagger-item.is-stagger-visible,
     .portfolio-stagger-tag.is-stagger-visible {
-      animation: portfolioStaggerReveal 1050ms
+      animation: portfolioStaggerReveal 560ms
         cubic-bezier(0.22, 1, 0.36, 1)
         var(--stagger-delay, 0ms)
         both;
@@ -6295,13 +6294,12 @@
 
     .portrait-tags span {
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(14px) scale(0.98);
-      will-change: opacity, transform, filter;
+      transform: translateY(10px) scale(0.99);
+      will-change: opacity, transform;
     }
 
     .portrait-tags span.is-portrait-tag-visible {
-      animation: portraitTagReveal 980ms
+      animation: portraitTagReveal 520ms
         cubic-bezier(0.22, 1, 0.36, 1)
         var(--tag-delay, 0ms)
         both;
@@ -6310,16 +6308,13 @@
     @keyframes portraitTagReveal {
       0% {
         opacity: 0;
-        filter: blur(5px);
         transform: translateY(14px) scale(0.98);
       }
       55% {
         opacity: 0.78;
-        filter: blur(1.4px);
       }
       100% {
         opacity: 1;
-        filter: blur(0);
         transform: translateY(0) scale(1);
       }
     }
@@ -6327,15 +6322,12 @@
     @keyframes portfolioStaggerReveal {
       0% {
         opacity: 0;
-        filter: blur(5px);
       }
       55% {
         opacity: 0.78;
-        filter: blur(1.5px);
       }
       100% {
         opacity: 1;
-        filter: blur(0);
         transform: translate(0, 0) scale(1);
       }
     }
@@ -6388,6 +6380,32 @@
       animation-duration: 620ms !important;
     }
 
+
+    /* Lightweight home motion: retain the visual style while reducing continuous GPU work. */
+    #home .jp-sun,
+    #home .jp-mountain,
+    #home .portrait-stage::before,
+    #home .portrait-stage::after,
+    #home .portrait-botanical-overlay,
+    #home .deco-star,
+    #home .deco-burst,
+    #home .deco-dots {
+      animation: none !important;
+    }
+
+    .portfolio-stagger-item.is-stagger-visible,
+    .portfolio-stagger-tag.is-stagger-visible,
+    .portrait-tags span.is-portrait-tag-visible {
+      will-change: auto;
+    }
+
+    @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+      .jp-cursor-leaf,
+      .jp-cursor-guide {
+        display: none !important;
+      }
+    }
+
 </style>
 <link as="image" fetchpriority="high" href="intro-poster.jpg" rel="preload"/><link as="image" fetchpriority="high" href="profile-photo-hand-complete.png" rel="preload"/></head>
 <body class="intro-active">
@@ -6412,7 +6430,7 @@
 </button>
 <header class="site-header">
 <a aria-label="返回关于我" class="brand" href="#home">
-<img alt="程志雯手绘头像" decoding="async" fetchpriority="low" loading="lazy" src="avatar-mark.png"/>
+<img alt="程志雯手绘头像" decoding="async" fetchpriority="auto" loading="eager" src="avatar-mark.png"/>
 </a>
 <button aria-expanded="false" aria-label="打开导航" class="menu-button" id="menu-button" type="button">☰</button>
 <nav aria-label="网站导航" class="site-nav" id="site-nav">
@@ -6473,8 +6491,8 @@
 </div>
 </div>
 <aside aria-label="程志雯个人照片" class="portrait-stage">
-<img alt="" aria-hidden="true" class="portrait-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
-<img alt="程志雯个人照片" class="portrait-photo" decoding="async" fetchpriority="low" loading="lazy" src="profile-photo-hand-complete.png"/>
+<img alt="" aria-hidden="true" class="portrait-botanical-overlay" decoding="async" fetchpriority="high" loading="eager" src="about-botanical-overlay.png"/>
+<img alt="程志雯个人照片" class="portrait-photo" decoding="async" fetchpriority="high" loading="eager" src="profile-photo-hand-complete.png"/>
 <div aria-hidden="true" class="portrait-decoration">
 <span class="deco-star deco-star-one">✦</span>
 <span class="deco-star deco-star-two">✦</span>
@@ -6542,7 +6560,7 @@
 <img alt="" decoding="async" fetchpriority="low" loading="lazy" src="jp-walker-cow-v2.png"/>
 <span class="mini-sparkle"></span>
 </div>
-<img alt="" aria-hidden="true" class="advantages-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
+<img alt="" aria-hidden="true" class="advantages-botanical-overlay" decoding="async" fetchpriority="high" loading="eager" src="about-botanical-overlay.png"/>
 <div class="shell reveal">
 <header class="advantages-heading">
 <div>
@@ -6674,7 +6692,7 @@
 <span class="mini-sparkle"></span>
 <span class="works-dot-cluster"></span>
 </div>
-<img alt="" aria-hidden="true" class="works-botanical-overlay" decoding="async" fetchpriority="low" loading="lazy" src="about-botanical-overlay.png"/>
+<img alt="" aria-hidden="true" class="works-botanical-overlay" decoding="async" fetchpriority="high" loading="eager" src="about-botanical-overlay.png"/>
 <div class="shell reveal">
 <header class="works-heading">
 <h2>我的作品</h2>
@@ -7404,21 +7422,26 @@
       let guideX = -80;
       let guideY = -80;
 
+      let cursorFrame = 0;
+
       const animateCursor = () => {
-        guideX += (pointerX - guideX) * 0.18;
-        guideY += (pointerY - guideY) * 0.18;
-        cursorLeaf.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%) rotate(-12deg)`;
+        guideX += (pointerX - guideX) * 0.32;
+        guideY += (pointerY - guideY) * 0.32;
         cursorGuide.style.transform = `translate3d(${guideX}px, ${guideY}px, 0) translate(-50%, -50%)`;
-        window.requestAnimationFrame(animateCursor);
+
+        const stillMoving = Math.abs(pointerX - guideX) > 0.35 || Math.abs(pointerY - guideY) > 0.35;
+        cursorFrame = stillMoving ? window.requestAnimationFrame(animateCursor) : 0;
       };
 
       window.addEventListener("pointermove", (event) => {
         pointerX = event.clientX;
         pointerY = event.clientY;
+        cursorLeaf.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%) rotate(-12deg)`;
         cursorLeaf.classList.add("is-visible");
         cursorGuide.classList.add("is-visible");
         cursorGuide.classList.toggle("is-interactive", Boolean(event.target.closest("a, button, textarea")));
-      });
+        if (!cursorFrame) cursorFrame = window.requestAnimationFrame(animateCursor);
+      }, { passive: true });
 
       document.documentElement.addEventListener("mouseleave", () => {
         cursorLeaf.classList.remove("is-visible");
@@ -7430,7 +7453,6 @@
         cursorGuide.classList.remove("is-visible");
       });
 
-      animateCursor();
     }
 
     updateCount();
@@ -7473,7 +7495,7 @@
 
         items.forEach((item, index) => {
           item.classList.add("portfolio-stagger-item");
-          item.style.setProperty("--stagger-delay", `${120 + index * 145}ms`);
+          item.style.setProperty("--stagger-delay", `${40 + index * 72}ms`);
         });
 
         return items;
@@ -7482,7 +7504,7 @@
       const heroItems = prepareHeroItems();
 
       portraitTags.forEach((tag, index) => {
-        tag.style.setProperty("--tag-delay", `${index * 180}ms`);
+        tag.style.setProperty("--tag-delay", `${index * 105}ms`);
       });
 
       window.startPortfolioStaggerReveal = () => {
@@ -7499,7 +7521,7 @@
             portraitTags.forEach((tag) => {
               tag.classList.add("is-portrait-tag-visible");
             });
-          }, 1650);
+          }, 880);
         });
       };
 
@@ -7516,7 +7538,7 @@
 
             tags.forEach((tag, index) => {
               tag.classList.add("portfolio-stagger-tag");
-              tag.style.setProperty("--stagger-delay", `${index * 135}ms`);
+              tag.style.setProperty("--stagger-delay", `${index * 75}ms`);
             });
 
             groups.push({ group, tags });
