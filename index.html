@@ -6353,74 +6353,10 @@
     }
 
   
-    /* First-load smoothness optimization */
-    .intro-screen {
-      background:
-        #05070b url("intro-poster.jpg") center / cover no-repeat !important;
-      transition:
-        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-        visibility 520ms ease !important;
-    }
+    </style>
+<link as="image" fetchpriority="high" href="profile-photo-hand-complete.png" rel="preload"/></head>
+<body>
 
-    .intro-video {
-      opacity: 0;
-      transition: opacity 220ms ease;
-    }
-
-    .intro-screen.is-video-ready .intro-video {
-      opacity: 1;
-    }
-
-    body.intro-reveal .site-header {
-      animation-duration: 520ms !important;
-      animation-delay: 0ms !important;
-    }
-
-    body.intro-reveal main {
-      animation-duration: 620ms !important;
-    }
-
-
-    /* Lightweight home motion: retain the visual style while reducing continuous GPU work. */
-    #home .jp-sun,
-    #home .jp-mountain,
-    #home .portrait-stage::before,
-    #home .portrait-stage::after,
-    #home .portrait-botanical-overlay,
-    #home .deco-star,
-    #home .deco-burst,
-    #home .deco-dots {
-      animation: none !important;
-    }
-
-    .portfolio-stagger-item.is-stagger-visible,
-    .portfolio-stagger-tag.is-stagger-visible,
-    .portrait-tags span.is-portrait-tag-visible {
-      will-change: auto;
-    }
-
-    @media (max-width: 900px), (prefers-reduced-motion: reduce) {
-      .jp-cursor-leaf,
-      .jp-cursor-guide {
-        display: none !important;
-      }
-    }
-
-</style>
-<link as="image" fetchpriority="high" href="intro-poster.jpg" rel="preload"/><link as="image" fetchpriority="high" href="profile-photo-hand-complete.png" rel="preload"/></head>
-<body class="intro-active">
-<div aria-label="网站开场动画" class="intro-screen" id="intro-screen">
-<video autoplay="" class="intro-video" id="intro-video" muted="" playsinline="" poster="intro-poster.jpg" preload="auto" src="intro-video.mp4"></video>
-<div class="intro-shade"></div>
-<div class="intro-brand">
-<strong class="intro-title">Hi, I'm Mani</strong>
-<span>AI VISUAL DESIGNER · PORTFOLIO</span>
-</div>
-<div class="intro-actions">
-<button class="intro-action" id="intro-sound" type="button">开启声音</button>
-<button class="intro-action" id="intro-skip" type="button">跳过</button>
-</div>
-</div>
 <span aria-hidden="true" class="jp-cursor-guide"></span>
 <span aria-hidden="true" class="jp-cursor-leaf"></span>
 <audio id="background-music" loop="" preload="none" src="background-music.mp3"></audio>
@@ -7579,104 +7515,10 @@
 
       // 没有开场动画时，也保证首页内容正常逐个出现。
       if (!document.querySelector("#intro-screen")) {
-        window.setTimeout(window.startPortfolioStaggerReveal, 180);
+        window.setTimeout(window.startPortfolioStaggerReveal, 40);
       }
     })();
   </script>
-<script>
-    (() => {
-      const introScreen = document.querySelector("#intro-screen");
-      const introVideo = document.querySelector("#intro-video");
-      const soundButton = document.querySelector("#intro-sound");
-      const skipButton = document.querySelector("#intro-skip");
-      const backgroundMusic = document.querySelector("#background-music");
 
-      if (!introScreen || !introVideo) return;
-
-      const markVideoReady = () => {
-        introScreen.classList.add("is-video-ready");
-      };
-
-      introVideo.addEventListener("loadeddata", markVideoReady, { once: true });
-      introVideo.addEventListener("playing", markVideoReady, { once: true });
-
-      let hasFinished = false;
-      let userEnabledSound = false;
-
-      if (backgroundMusic) {
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
-      }
-
-      const startBackgroundMusic = async () => {
-        if (!backgroundMusic || !userEnabledSound) return;
-        try {
-          backgroundMusic.muted = false;
-          backgroundMusic.volume = 0.56;
-          await backgroundMusic.play();
-        } catch (error) {
-          console.warn("Background music could not start after intro", error);
-        }
-      };
-
-      const finishIntro = async () => {
-        if (hasFinished) return;
-        hasFinished = true;
-
-        introScreen.classList.add("is-leaving");
-        document.body.classList.remove("intro-active");
-        document.body.classList.add("intro-reveal");
-
-        window.startPortfolioStaggerReveal?.();
-
-        await startBackgroundMusic();
-
-        window.setTimeout(() => {
-          introVideo.pause();
-          introScreen.remove();
-        }, 560);
-      };
-
-      const tryPlayIntro = async () => {
-        try {
-          introVideo.muted = true;
-          await introVideo.play();
-        } catch (error) {
-          console.warn("Intro autoplay was blocked", error);
-          window.setTimeout(finishIntro, 500);
-        }
-      };
-
-      soundButton?.addEventListener("click", async () => {
-        userEnabledSound = true;
-        try {
-          introVideo.muted = false;
-          introVideo.volume = 0.9;
-          await introVideo.play();
-          soundButton.textContent = "声音已开启";
-          soundButton.disabled = true;
-        } catch (error) {
-          console.warn("Intro sound could not be enabled", error);
-        }
-      });
-
-      skipButton?.addEventListener("click", () => {
-        userEnabledSound = true;
-        finishIntro();
-      });
-
-      introVideo.addEventListener("ended", finishIntro, { once: true });
-      introVideo.addEventListener("error", finishIntro, { once: true });
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", tryPlayIntro, { once: true });
-      } else {
-        tryPlayIntro();
-      }
-
-      // 网络或解码异常时，避免长时间停留在开场页面。
-      window.setTimeout(finishIntro, 6800);
-    })();
-  </script>
 </body>
 </html>
