@@ -6353,7 +6353,14 @@
     }
 
   
-    </style>
+    
+    /* Ensure the animated cover never intercepts the portfolio-card click. */
+    .video-portfolio-card .work-entry-media,
+    .video-portfolio-card video {
+      pointer-events: none !important;
+    }
+
+</style>
 <link as="image" fetchpriority="high" href="profile-photo-hand-complete.webp" rel="preload"/><link as="image" fetchpriority="high" href="jp-mountain-hero.webp" rel="preload"/></head>
 <body>
 <span aria-hidden="true" class="jp-cursor-guide"></span>
@@ -6643,7 +6650,7 @@
 <span aria-hidden="true" class="work-entry-arrow">↗</span>
 </span>
 </a>
-<a class="work-entry-card" href="portfolio.html">
+<a aria-label="打开 AI 视频及动效类作品集" class="work-entry-card video-portfolio-card" href="./portfolio.html">
 <span class="work-entry-media">
 <video aria-label="AI 视频及动效作品动态封面" height="240" id="work-video" loop="" muted="" playsinline="" poster="ai-motion-cover-poster.webp" preload="metadata" width="426"><source src="ai-motion-cover.mp4" type="video/mp4"/></video>
 </span>
@@ -7590,5 +7597,19 @@
     }, 450);
   }, { once: true });
 })();
-</script></body>
+</script>
+<script>
+  (() => {
+    const videoPortfolioCard = document.querySelector('.video-portfolio-card');
+    if (!videoPortfolioCard) return;
+
+    videoPortfolioCard.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      window.location.assign(new URL('./portfolio.html', window.location.href).href);
+    });
+  })();
+</script>
+
+</body>
 </html>
