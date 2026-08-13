@@ -4,17 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#251039" />
+    <meta name="description" content="Alice 的个人作品集与 Wonderland 视觉体验。" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preload" as="image" href="./assets/wonderland-portal.webp" type="image/webp" fetchpriority="high" />
-    <link rel="preload" as="image" href="./assets/tea-garden-left.webp" type="image/webp" />
-    <link rel="preload" as="image" href="./assets/tea-garden-right.webp" type="image/webp" />
-    <link rel="preload" as="image" href="./assets/resume-cover.webp" type="image/webp" />
-    <link rel="preload" as="image" href="./assets/portfolio-card.webp" type="image/webp" />
-    <link rel="preload" as="image" href="./assets/motion-card.webp" type="image/webp" />
+    <style>
+      :root { color-scheme: dark; }
+      html, body { min-width: 320px; min-height: 100%; margin: 0; background: #170b27; }
+      #root { min-height: 100svh; }
+      .boot-screen {
+        min-height: 100svh;
+        box-sizing: border-box;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        color: rgba(255, 245, 251, .86);
+        background: radial-gradient(circle at 50% 36%, #3b1b55 0, #251039 42%, #170b27 100%);
+        font: 12px/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: .08em;
+        text-align: center;
+      }
+      .boot-screen__inner { display: grid; justify-items: center; gap: 12px; }
+      .boot-screen__mark {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 225, 249, .6);
+        border-radius: 50%;
+        color: #ffe1f5;
+        box-shadow: 0 0 24px rgba(216, 154, 255, .32);
+        animation: boot-pulse 1.8s ease-in-out infinite;
+      }
+      .boot-screen__retry { color: rgba(255, 225, 249, .72); }
+      @keyframes boot-pulse { 50% { transform: scale(1.08); opacity: .62; } }
+      @media (prefers-reduced-motion: reduce) { .boot-screen__mark { animation: none; } }
+    </style>
     <title>Alice · Step Into Wonder</title>
-    <script type="module" crossorigin src="./assets/index-D8REz4gO.js"></script>
+    <script type="module" crossorigin src="./assets/index-C7ZtvoS_.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-B7KqHlFk.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-screen" role="status" aria-live="polite">
+        <div class="boot-screen__inner">
+          <div class="boot-screen__mark" aria-hidden="true">✦</div>
+          <div>正在进入 Wonderland…</div>
+          <a class="boot-screen__retry" href="./">加载较慢？重新加载</a>
+        </div>
+      </div>
+    </div>
+    <noscript>请启用 JavaScript 后再访问此页面。</noscript>
   </body>
 </html>
